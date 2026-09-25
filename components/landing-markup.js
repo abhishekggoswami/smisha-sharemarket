@@ -29,6 +29,7 @@ export const landingMarkup = String.raw`
         <nav class="desktop-nav" id="primary-navigation" aria-label="Primary navigation">
           <a href="#top">Homepage</a>
           <a href="#about">About Us</a>
+          <a href="/courses">Courses</a>
           <a href="#services">Programs <span class="chevron">⌄</span></a>
           <a href="#stories">Mentorship <span class="chevron">⌄</span></a>
           <a href="#pages">Resources <span class="chevron">⌄</span></a>
