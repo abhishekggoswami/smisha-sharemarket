@@ -16,8 +16,12 @@ assert.equal((await post({ ...base, consent: '' })).status, 400);
 assert.equal((await post({ ...base, email: 'invalid' })).status, 400);
 assert.equal((await post(base, 'https://other.example')).status, 403);
 assert.equal((await post(base)).status, 201);
-const host = { ...base, kind: 'host', company: 'Test Company', organization: 'Company / corporate', participants: '25', date: '2099-10-01', budget: 'Let’s discuss', format: 'At your venue', message: 'Test enquiry' };
+const host = { ...base, kind: 'host', company: 'Test Company', organization: 'Local learning club', participants: '25', date: '2099-10-01', budget: 'Around ₹35,000', format: 'Hybrid sessions', message: 'Test enquiry' };
 assert.equal((await post(host)).status, 201);
+for (const field of ['organization', 'budget', 'format']) {
+  assert.equal((await post({ ...host, [field]: '   ' })).status, 400);
+  assert.equal((await post({ ...host, [field]: 'x'.repeat(201) })).status, 400);
+}
 assert.equal((await post({ ...host, participants: '0' })).status, 400);
 assert.equal((await post({ ...host, date: '2020-01-01' })).status, 400);
 assert.equal((await post({ ...base, kind: 'register', workshopId: 'missing' })).status, 400);

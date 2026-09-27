@@ -39,7 +39,7 @@ export async function POST(request) {
   if (Object.entries(data).some(([key, value]) => value.length > (key === 'message' ? 3000 : 200))) return fail('One or more fields are too long.');
   data.email = data.email.toLowerCase();
   if (data.kind === 'host') {
-    if (!data.company || !['Company / corporate', 'College / university', 'Community / association', 'Other'].includes(data.organization) || !['Under ₹25,000', '₹25,000 – ₹50,000', '₹50,000 – ₹1,00,000', '₹1,00,000+', 'Let’s discuss'].includes(data.budget) || !['At your venue', 'Online', 'Let’s decide together'].includes(data.format)) return fail('Please complete your organisation and workshop preferences.');
+    if (!data.company || !data.organization || !data.budget || !data.format) return fail('Please complete your organisation and workshop preferences.');
     if (!/^\d+$/.test(data.participants) || Number(data.participants) < 1 || Number(data.participants) > 100000) return fail('Enter a valid number of participants.');
     const date = new Date(`${data.date}T23:59:59+05:30`);
     if (!/^\d{4}-\d{2}-\d{2}$/.test(data.date) || !Number.isFinite(date.getTime()) || date.getTime() < Date.now()) return fail('Choose a preferred date today or in the future.');
