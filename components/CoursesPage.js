@@ -1,4 +1,5 @@
 'use client';
+import SiteHeader from './SiteHeader';
 
 import { useEffect, useState } from 'react';
 import { SiteFAQ, SiteFooter } from './SharedSiteSections';
@@ -16,7 +17,7 @@ const courses = [
 const courseSlug = (title) => title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
 
 export default function CoursesPage() {
-  const [menuOpen, setMenuOpen] = useState(false);
+
   const [selectedCourse, setSelectedCourse] = useState(null);
   useEffect(() => {
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return undefined;
@@ -92,8 +93,7 @@ export default function CoursesPage() {
   }, []);
 
   return <main className="course-shell">
-    <div className="site-topbar course-topbar"><div className="topbar-inner"><div className="topbar-contact"><a href="mailto:support@smishasharemarket.com"><i className="fa-regular fa-envelope" />support@smishasharemarket.com</a><a href="tel:+917420001687"><i className="fa-solid fa-phone" />+91 7420001687</a></div><div className="topbar-socials" aria-label="Social media links"><a href="#contact" aria-label="Instagram"><i className="fa-brands fa-instagram" /></a><a href="#contact" aria-label="YouTube"><i className="fa-brands fa-youtube" /></a><a href="#contact" aria-label="WhatsApp"><i className="fa-brands fa-whatsapp" /></a></div></div></div>
-    <header className="site-header course-header"><a className="brand" href="/" aria-label="Smisha home"><img className="brand-logo" src="/assets/smisha-logo.png" alt="Smisha Share Market Classes" /><span className="brand-name">SMISHA <small>SHARE MARKET</small></span></a><nav className={`desktop-nav course-nav ${menuOpen ? 'is-open' : ''}`} aria-label="Primary navigation"><a href="/">Homepage</a><a href="/#about">About Us</a><a className="active" href="/courses">Courses</a><a href="/#services">Programs</a><a href="/#contact">Contact Us</a></nav><div className="header-actions"><a className="appointment" href="#contact">Book a<br />demo</a><button className="menu-button" type="button" onClick={() => setMenuOpen(!menuOpen)} aria-label="Open menu" aria-expanded={menuOpen}><span /><span /></button></div></header>
+    <SiteHeader active="Courses" demoHref="#contact" />
     <section className="course-hero" aria-labelledby="courses-title"><div className="course-hero-ring ring-one" /><div className="course-hero-ring ring-two" /><div className="course-hero-grid" /><div className="course-hero-content"><p className="course-kicker"><i className="fa-solid fa-sparkles" /> Curated learning paths</p><h1 id="courses-title"><span>Find the market path</span><br /><strong>built for your ambition.</strong></h1><p className="course-hero-copy">Practical market education designed around real decisions—not theory alone. Start with confidence, then grow your edge.</p><div className="course-hero-actions"><a className="course-primary-button" href="#course-list">Explore courses <i className="fa-solid fa-arrow-down" /></a><a className="course-text-link" href="#how-it-works">How learning works <i className="fa-solid fa-arrow-right" /></a></div></div><aside className="course-hero-proof"><div className="proof-top"><span>SMISHA ACADEMY</span><i className="fa-solid fa-arrow-trend-up" /></div><strong>7</strong><p>practical paths for investors, traders &amp; aspiring analysts</p><div className="proof-pills"><span>Live practice</span><span>Career-ready</span></div></aside></section>
     <section className="course-intro" id="course-list" aria-labelledby="course-list-heading"><div><p className="section-label">OUR COURSE LIBRARY</p><h2 id="course-list-heading"><span>Learn the skills that make </span><strong>every decision clearer.</strong></h2></div><p>Choose a focused starting point or build your capability across investing, trading, research and certification.</p></section>
     <section className="course-grid" aria-label="Courses">{courses.map((course, index) => <article className="course-card" key={course.title}><div className="course-media"><video src={`/assets/courses/${course.video}`} muted loop autoPlay playsInline preload="metadata" /><span className="course-number">0{index + 1}</span><span className="course-level">{course.level}</span></div><div className="course-card-content"><p className="course-subtitle">{course.subtitle}</p><h3>{course.title}</h3><p className="course-description">{course.description}</p><div className="course-meta"><span><i className="fa-regular fa-clock" /> {course.duration}</span><span><i className="fa-solid fa-layer-group" /> {course.modules.length} modules</span></div><a className="course-details-button" href={`/courses/${courseSlug(course.title)}`}>View curriculum <i className="fa-solid fa-arrow-up-right-from-square" /></a></div></article>)}</section>
