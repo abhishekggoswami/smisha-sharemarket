@@ -1,9 +1,5 @@
 export const landingMarkup = String.raw`
 <main class="page-shell">
-      <video class="background-video" autoplay muted loop playsinline poster="">
-        <source src="/assets/hero-background.mp4" type="video/mp4" />
-      </video>
-      <div class="video-wash" aria-hidden="true"></div>
       <div class="site-topbar">
         <div class="topbar-inner">
           <div class="topbar-contact">
@@ -33,7 +29,7 @@ export const landingMarkup = String.raw`
           <a href="#services">Programs <span class="chevron">⌄</span></a>
           <a href="#stories">Mentorship <span class="chevron">⌄</span></a>
           <a href="#pages">Resources <span class="chevron">⌄</span></a>
-          <a href="#contact">Contact Us</a>
+          <a href="#contact">Contact</a>
         </nav>
         <div class="header-actions">
           <a class="appointment" href="#contact">Book a<br />demo</a>
@@ -42,6 +38,10 @@ export const landingMarkup = String.raw`
       </header>
 
       <section class="hero" id="top" aria-labelledby="hero-title">
+        <video class="background-video" autoplay muted loop playsinline preload="auto">
+          <source src="/assets/home-hero-background.mp4" type="video/mp4" />
+        </video>
+        <div class="video-overlay" aria-hidden="true"></div>
         <div class="orbit orbit-left" aria-hidden="true"></div>
         <div class="orbit orbit-right" aria-hidden="true"></div>
         <div class="hero-inner">
@@ -62,7 +62,7 @@ export const landingMarkup = String.raw`
 
             <div class="person-stage">
               <div class="person-glow" aria-hidden="true"></div>
-              <img src="/assets/smisha-coach.png" alt="Smisha Share Market coach" />
+              <img src="/assets/smisha-coach-hero-cutout.png" alt="Smisha Share Market instructor" />
             </div>
 
             <div class="progress-card" aria-label="Consulting performance metrics">
@@ -114,14 +114,13 @@ export const landingMarkup = String.raw`
 
         <section class="services-section" id="services" aria-labelledby="services-title">
           <div class="services-heading">
-            <div><p class="section-kicker">What We Offer</p><h2 id="services-title"><strong>Expert Solutions To Move Your</strong><span>Business Forward</span></h2></div>
-            <a class="services-button" href="#contact">See All Our Services <b>➜</b></a>
+            <div><p class="section-kicker">Featured Learning Paths</p><h2 id="services-title"><strong>Start With The Course That</strong><span>Fits Your Market Goals</span></h2></div>
+            <a class="services-button" href="/courses">See All Our Services <b>➜</b></a>
           </div>
           <div class="services-grid">
-            <article class="service-card"><div class="service-card-top"><div><h3>Business Strategy<br />Development</h3><p>Crafting clear roadmaps to achieve your business</p></div><span class="card-arrow" aria-hidden="true">›</span></div><div class="service-image strategy-image"><span class="service-badge badge-strategy" aria-hidden="true"></span></div></article>
-            <article class="service-card"><div class="service-card-top"><div><h3>Market Research &amp;<br />Insights</h3><p>Deep analysis to help you stay ahead</p></div><span class="card-arrow" aria-hidden="true">›</span></div><div class="service-image research-image"><span class="service-badge badge-research" aria-hidden="true"></span></div></article>
-            <article class="service-card"><div class="service-card-top"><div><h3>Financial Planning<br />&amp; Forecasting</h3><p>Data-driven planning to support smarter decisions</p></div><span class="card-arrow" aria-hidden="true">›</span></div><div class="service-image finance-image"><span class="service-badge badge-finance" aria-hidden="true"></span></div></article>
-            <article class="service-card"><div class="service-card-top"><div><h3>Operational<br />Efficiency</h3><p>Streamlining processes to maximize performance</p></div><span class="card-arrow" aria-hidden="true">›</span></div><div class="service-image efficiency-image"><span class="service-badge badge-efficiency" aria-hidden="true"></span></div></article>
+            <article class="service-card"><div class="service-card-top"><div><h3>Smart Investing<br />Fundamentals</h3><p>Build a confident foundation in markets, portfolios, risk, and long-term investing.</p></div><span class="card-arrow" aria-hidden="true">›</span></div><div class="service-image service-course-media"><video src="/assets/courses/course-investing.mp4" muted loop autoplay playsinline preload="metadata" aria-label="Smart Investing Fundamentals course preview"></video></div></article>
+            <article class="service-card"><div class="service-card-top"><div><h3>Technical Analysis<br />Blueprint</h3><p>Learn to read charts, identify trends, and build clearer trading decisions.</p></div><span class="card-arrow" aria-hidden="true">›</span></div><div class="service-image service-course-media"><video src="/assets/courses/course-technical-analysis.mp4" muted loop autoplay playsinline preload="metadata" aria-label="Technical Analysis Blueprint course preview"></video></div></article>
+            <article class="service-card"><div class="service-card-top"><div><h3>Professional Options<br />Trading</h3><p>Understand options, strategies, risk management, and disciplined execution.</p></div><span class="card-arrow" aria-hidden="true">›</span></div><div class="service-image service-course-media"><video src="/assets/courses/course-options.mp4" muted loop autoplay playsinline preload="metadata" aria-label="Professional Options Trading course preview"></video></div></article>
           </div>
         </section>
 
@@ -234,8 +233,11 @@ export const landingMarkup = String.raw`
             <section class="footer-brand" aria-label="Smisha Share Market">
               <a class="footer-logo" href="#top"><img src="/assets/smisha-logo.png" alt="Smisha Share Market Classes" /><span>SMISHA <small>SHARE MARKET</small></span></a>
               <p>Practical stock market education built around knowledge, discipline, and real trading confidence.</p>
-              <div class="footer-socials" aria-label="Social media links">
-                <a href="https://www.facebook.com/SmishaShareMarketClasses" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a><a href="https://www.instagram.com/smisha_share_market" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a><a href="https://t.me/smishasharemarket" aria-label="Telegram"><i class="fa-brands fa-telegram"></i></a><a href="https://www.youtube.com/@smishasharemarket" aria-label="YouTube"><i class="fa-brands fa-youtube"></i></a>
+              <div class="footer-socials social-login-icons" aria-label="Social media links">
+                <a class="socialcontainer social-instagram" href="https://www.instagram.com/smisha_share_market?stkn=c2ltZjM4NHI0NWtl" target="_blank" rel="noreferrer" aria-label="Instagram"><span class="social-icon social-icon-primary"><i class="fa-brands fa-instagram" aria-hidden="true"></i></span><span class="social-icon social-icon-reveal"><i class="fa-brands fa-instagram" aria-hidden="true"></i></span></a>
+                <a class="socialcontainer social-linkedin" href="https://www.linkedin.com/company/smishasharemarket/" target="_blank" rel="noreferrer" aria-label="LinkedIn"><span class="social-icon social-icon-primary"><i class="fa-brands fa-linkedin-in" aria-hidden="true"></i></span><span class="social-icon social-icon-reveal"><i class="fa-brands fa-linkedin-in" aria-hidden="true"></i></span></a>
+                <a class="socialcontainer social-youtube" href="https://youtube.com/@smishasharemarket?si=qjirOFVlyB8LjEW_" target="_blank" rel="noreferrer" aria-label="YouTube"><span class="social-icon social-icon-primary"><i class="fa-brands fa-youtube" aria-hidden="true"></i></span><span class="social-icon social-icon-reveal"><i class="fa-brands fa-youtube" aria-hidden="true"></i></span></a>
+                <a class="socialcontainer social-whatsapp" href="https://wa.link/gi2b8d" target="_blank" rel="noreferrer" aria-label="WhatsApp"><span class="social-icon social-icon-primary"><i class="fa-brands fa-whatsapp" aria-hidden="true"></i></span><span class="social-icon social-icon-reveal"><i class="fa-brands fa-whatsapp" aria-hidden="true"></i></span></a>
               </div>
             </section>
             <section class="footer-links"><h2>Academy</h2><a href="#about">About Us</a><a href="#services">Our Programs</a><a href="#stories">Student Stories</a><a href="#process">How It Works</a><a href="#book-demo">Book a Demo</a></section>

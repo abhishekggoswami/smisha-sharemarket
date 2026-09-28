@@ -2,6 +2,7 @@
 
 import { useEffect, useRef } from 'react';
 import { landingMarkup } from './landing-markup';
+import SiteHeader from './SiteHeader';
 
 const ABOUT_CONTENT = {
   vision: { title: 'Our Vision', text: 'Practical learning, disciplined habits, and the confidence to make informed decisions.', image: "url('/assets/about-vision-event.png')", label: 'Smisha Share Market classroom event' },
@@ -82,60 +83,73 @@ export default function LandingPage() {
       cleanups.push(() => summary?.removeEventListener('click', toggleFaq));
     });
 
-    const typewriterTargets = selectAll('.partner-copy h2 > strong, .partner-copy h2 > span, .services-heading h2 > strong, .services-heading h2 > span, .stories-header h2 > strong, .stories-header h2 > span, .testimonials-heading h2 > strong, .testimonials-heading h2 > span, .process-heading h2 > strong, .process-heading h2 > span, .video-cta-content h2 > strong, .video-cta-content h2 > span, .faq-heading h2 > strong, .faq-heading h2 > span');
-    if (typewriterTargets.length && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    const typewriterHeadings = selectAll('.partner-copy h2, .stories-header h2, .testimonials-heading h2, .process-heading h2, .video-cta-content h2, .faq-heading h2');
+    if (typewriterHeadings.length && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
       const sections = new Map();
       const timers = new Map();
-      typewriterTargets.forEach((target) => {
-        const section = target.closest('section');
+      typewriterHeadings.forEach((heading) => {
+        const lines = Array.from(heading.children).filter((child) => child.matches('strong, span'));
+        const section = heading.closest('section');
+        if (!lines.length) return;
         if (!section) return;
-        target.dataset.typewriterText = target.textContent.trim();
-        target.setAttribute('aria-label', target.dataset.typewriterText);
-        if (!sections.has(section)) sections.set(section, { targets: [], visible: false });
-        sections.get(section).targets.push(target);
+        lines.forEach((line) => { line.dataset.typewriterText = line.textContent.trim(); });
+        heading.setAttribute('aria-label', lines.map((line) => line.dataset.typewriterText).join(' '));
+        if (!sections.has(section)) sections.set(section, { headings: [], visible: false });
+        sections.get(section).headings.push({ heading, lines });
       });
-      const schedule = (target, callback, delay) => {
+      const schedule = (entry, callback, delay) => {
         const timer = window.setTimeout(callback, delay);
-        timers.set(target, [...(timers.get(target) ?? []), timer]);
+        timers.set(entry, [...(timers.get(entry) ?? []), timer]);
       };
-      const resetTarget = (target) => {
-        (timers.get(target) ?? []).forEach(window.clearTimeout);
-        timers.set(target, []);
-        target.classList.remove('is-typewriting');
-        target.textContent = target.dataset.typewriterText;
+      const resetHeading = (entry) => {
+        (timers.get(entry) ?? []).forEach(window.clearTimeout);
+        timers.set(entry, []);
+        entry.lines.forEach((line) => {
+          line.classList.remove('is-typewriting');
+          line.textContent = line.dataset.typewriterText;
+        });
       };
-      const runTypewriter = (target, speed = 34) => {
-        const value = target.dataset.typewriterText;
-        let index = 0;
-        target.textContent = '';
-        target.classList.add('is-typewriting');
+      const runTypewriter = (entry, speed = 52) => {
+        const { lines } = entry;
+        let lineIndex = 0;
+        let characterIndex = 0;
+        lines.forEach((line) => { line.textContent = ''; line.classList.remove('is-typewriting'); });
+        const setActiveLine = () => {
+          lines.forEach((line, index) => line.classList.toggle('is-typewriting', index === lineIndex));
+        };
         const typeNext = () => {
-          if (!target.dataset.typewriterActive) return;
-          target.textContent = value.slice(0, (index += 1));
-          if (index < value.length) schedule(target, typeNext, speed);
-          else schedule(target, reverseNext, 3300);
+          if (!entry.heading.dataset.typewriterActive) return;
+          const line = lines[lineIndex];
+          const value = line.dataset.typewriterText;
+          line.textContent = value.slice(0, (characterIndex += 1));
+          if (characterIndex < value.length) schedule(entry, typeNext, speed);
+          else if (lineIndex < lines.length - 1) schedule(entry, () => { line.classList.remove('is-typewriting'); lineIndex += 1; characterIndex = 0; setActiveLine(); typeNext(); }, 110);
+          else schedule(entry, reverseNext, 3300);
         };
         const reverseNext = () => {
-          if (!target.dataset.typewriterActive) return;
-          index -= 1;
-          target.textContent = value.slice(0, Math.max(0, index));
-          if (index > 0) schedule(target, reverseNext, 13);
-          else schedule(target, () => runTypewriter(target, speed), 180);
+          if (!entry.heading.dataset.typewriterActive) return;
+          const line = lines[lineIndex];
+          characterIndex -= 1;
+          line.textContent = line.dataset.typewriterText.slice(0, Math.max(0, characterIndex));
+          if (characterIndex > 0) schedule(entry, reverseNext, 20);
+          else if (lineIndex > 0) schedule(entry, () => { line.classList.remove('is-typewriting'); lineIndex -= 1; characterIndex = lines[lineIndex].dataset.typewriterText.length; setActiveLine(); reverseNext(); }, 80);
+          else schedule(entry, () => runTypewriter(entry, speed), 180);
         };
-        schedule(target, typeNext, 80);
+        setActiveLine();
+        schedule(entry, typeNext, 80);
       };
       const refreshTypewriters = () => {
         sections.forEach((state, section) => {
           const bounds = section.getBoundingClientRect();
           const visible = bounds.top < window.innerHeight * 0.82 && bounds.bottom > window.innerHeight * 0.12;
-          if (visible && !state.visible) state.targets.forEach((target, index) => {
-            resetTarget(target);
-            target.dataset.typewriterActive = 'true';
-            schedule(target, () => runTypewriter(target), index * 190);
+          if (visible && !state.visible) state.headings.forEach((entry, index) => {
+            resetHeading(entry);
+            entry.heading.dataset.typewriterActive = 'true';
+            schedule(entry, () => runTypewriter(entry), index * 190);
           });
-          if (!visible && state.visible) state.targets.forEach((target) => {
-            delete target.dataset.typewriterActive;
-            resetTarget(target);
+          if (!visible && state.visible) state.headings.forEach((entry) => {
+            delete entry.heading.dataset.typewriterActive;
+            resetHeading(entry);
           });
           state.visible = visible;
         });
@@ -146,7 +160,7 @@ export default function LandingPage() {
       cleanups.push(() => {
         window.removeEventListener('scroll', refreshTypewriters);
         window.removeEventListener('resize', refreshTypewriters);
-        typewriterTargets.forEach((target) => resetTarget(target));
+        sections.forEach((state) => state.headings.forEach((entry) => resetHeading(entry)));
       });
     }
 
@@ -228,5 +242,5 @@ export default function LandingPage() {
     return () => cleanups.forEach((cleanup) => cleanup());
   }, []);
 
-  return <div ref={rootRef} dangerouslySetInnerHTML={{ __html: landingMarkup }} />;
+  return <><SiteHeader active="Homepage" demoHref="#contact" /><div ref={rootRef} dangerouslySetInnerHTML={{ __html: landingMarkup }} /></>;
 }

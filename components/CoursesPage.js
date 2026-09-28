@@ -22,59 +22,70 @@ export default function CoursesPage() {
   useEffect(() => {
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return undefined;
 
-    const targets = [...document.querySelectorAll('.course-shell h1 > strong, .course-shell h1 > span, .course-shell h2 > strong, .course-shell h2 > span')];
+    const typewriterHeadings = [...document.querySelectorAll('.course-hero h1, .course-intro h2, .course-method h2, .course-cta h2')];
     const sections = new Map();
     const timers = new Map();
-    targets.forEach((target) => {
-      const section = target.closest('section');
+    typewriterHeadings.forEach((heading) => {
+      const lines = Array.from(heading.children).filter((child) => child.matches('strong, span'));
+      const section = heading.closest('section');
+      if (!lines.length) return;
       if (!section) return;
-      target.dataset.typewriterText = target.textContent.trim();
-      target.setAttribute('aria-label', target.dataset.typewriterText);
-      if (!sections.has(section)) sections.set(section, { targets: [], visible: false });
-      sections.get(section).targets.push(target);
+      lines.forEach((line) => { line.dataset.typewriterText = line.textContent.trim(); });
+      heading.setAttribute('aria-label', lines.map((line) => line.dataset.typewriterText).join(' '));
+      if (!sections.has(section)) sections.set(section, { headings: [], visible: false });
+      sections.get(section).headings.push({ heading, lines });
     });
-    const schedule = (target, callback, delay) => {
+    const schedule = (entry, callback, delay) => {
       const timer = window.setTimeout(callback, delay);
-      timers.set(target, [...(timers.get(target) ?? []), timer]);
+      timers.set(entry, [...(timers.get(entry) ?? []), timer]);
     };
-    const resetTarget = (target) => {
-      (timers.get(target) ?? []).forEach(window.clearTimeout);
-      timers.set(target, []);
-      target.classList.remove('is-typewriting');
-      target.textContent = target.dataset.typewriterText;
+    const resetHeading = (entry) => {
+      (timers.get(entry) ?? []).forEach(window.clearTimeout);
+      timers.set(entry, []);
+      entry.lines.forEach((line) => {
+        line.classList.remove('is-typewriting');
+        line.textContent = line.dataset.typewriterText;
+      });
     };
-    const runTypewriter = (target, speed = 34) => {
-      const value = target.dataset.typewriterText;
-      let index = 0;
-      target.textContent = '';
-      target.classList.add('is-typewriting');
+    const runTypewriter = (entry, speed = 52) => {
+      const { lines } = entry;
+      let lineIndex = 0;
+      let characterIndex = 0;
+      lines.forEach((line) => { line.textContent = ''; line.classList.remove('is-typewriting'); });
+      const setActiveLine = () => lines.forEach((line, index) => line.classList.toggle('is-typewriting', index === lineIndex));
       const typeNext = () => {
-        if (!target.dataset.typewriterActive) return;
-        target.textContent = value.slice(0, (index += 1));
-        if (index < value.length) schedule(target, typeNext, speed);
-        else schedule(target, reverseNext, 3300);
+        if (!entry.heading.dataset.typewriterActive) return;
+        const line = lines[lineIndex];
+        const value = line.dataset.typewriterText;
+        line.textContent = value.slice(0, (characterIndex += 1));
+        if (characterIndex < value.length) schedule(entry, typeNext, speed);
+        else if (lineIndex < lines.length - 1) schedule(entry, () => { line.classList.remove('is-typewriting'); lineIndex += 1; characterIndex = 0; setActiveLine(); typeNext(); }, 110);
+        else schedule(entry, reverseNext, 3300);
       };
       const reverseNext = () => {
-        if (!target.dataset.typewriterActive) return;
-        index -= 1;
-        target.textContent = value.slice(0, Math.max(0, index));
-        if (index > 0) schedule(target, reverseNext, 13);
-        else schedule(target, () => runTypewriter(target, speed), 180);
+        if (!entry.heading.dataset.typewriterActive) return;
+        const line = lines[lineIndex];
+        characterIndex -= 1;
+        line.textContent = line.dataset.typewriterText.slice(0, Math.max(0, characterIndex));
+        if (characterIndex > 0) schedule(entry, reverseNext, 20);
+        else if (lineIndex > 0) schedule(entry, () => { line.classList.remove('is-typewriting'); lineIndex -= 1; characterIndex = lines[lineIndex].dataset.typewriterText.length; setActiveLine(); reverseNext(); }, 80);
+        else schedule(entry, () => runTypewriter(entry, speed), 180);
       };
-      schedule(target, typeNext, 80);
+      setActiveLine();
+      schedule(entry, typeNext, 80);
     };
     const refreshTypewriters = () => {
       sections.forEach((state, section) => {
         const bounds = section.getBoundingClientRect();
         const visible = bounds.top < window.innerHeight * 0.82 && bounds.bottom > window.innerHeight * 0.12;
-        if (visible && !state.visible) state.targets.forEach((target, index) => {
-          resetTarget(target);
-          target.dataset.typewriterActive = 'true';
-          schedule(target, () => runTypewriter(target), index * 190);
+      if (visible && !state.visible) state.headings.forEach((entry, index) => {
+        resetHeading(entry);
+        entry.heading.dataset.typewriterActive = 'true';
+        schedule(entry, () => runTypewriter(entry), index * 190);
         });
-        if (!visible && state.visible) state.targets.forEach((target) => {
-          delete target.dataset.typewriterActive;
-          resetTarget(target);
+      if (!visible && state.visible) state.headings.forEach((entry) => {
+        delete entry.heading.dataset.typewriterActive;
+        resetHeading(entry);
         });
         state.visible = visible;
       });
@@ -85,10 +96,10 @@ export default function CoursesPage() {
     return () => {
       window.removeEventListener('scroll', refreshTypewriters);
       window.removeEventListener('resize', refreshTypewriters);
-      targets.forEach((target) => {
-        delete target.dataset.typewriterActive;
-        resetTarget(target);
-      });
+      sections.forEach((state) => state.headings.forEach((entry) => {
+        delete entry.heading.dataset.typewriterActive;
+        resetHeading(entry);
+      }));
     };
   }, []);
 
@@ -96,7 +107,7 @@ export default function CoursesPage() {
     <SiteHeader active="Courses" demoHref="#contact" />
     <section className="course-hero" aria-labelledby="courses-title"><div className="course-hero-ring ring-one" /><div className="course-hero-ring ring-two" /><div className="course-hero-grid" /><div className="course-hero-content"><p className="course-kicker"><i className="fa-solid fa-sparkles" /> Curated learning paths</p><h1 id="courses-title"><span>Find the market path</span><br /><strong>built for your ambition.</strong></h1><p className="course-hero-copy">Practical market education designed around real decisions—not theory alone. Start with confidence, then grow your edge.</p><div className="course-hero-actions"><a className="course-primary-button" href="#course-list">Explore courses <i className="fa-solid fa-arrow-down" /></a><a className="course-text-link" href="#how-it-works">How learning works <i className="fa-solid fa-arrow-right" /></a></div></div><aside className="course-hero-proof"><div className="proof-top"><span>SMISHA ACADEMY</span><i className="fa-solid fa-arrow-trend-up" /></div><strong>7</strong><p>practical paths for investors, traders &amp; aspiring analysts</p><div className="proof-pills"><span>Live practice</span><span>Career-ready</span></div></aside></section>
     <section className="course-intro" id="course-list" aria-labelledby="course-list-heading"><div><p className="section-label">OUR COURSE LIBRARY</p><h2 id="course-list-heading"><span>Learn the skills that make </span><strong>every decision clearer.</strong></h2></div><p>Choose a focused starting point or build your capability across investing, trading, research and certification.</p></section>
-    <section className="course-grid" aria-label="Courses">{courses.map((course, index) => <article className="course-card" key={course.title}><div className="course-media"><video src={`/assets/courses/${course.video}`} muted loop autoPlay playsInline preload="metadata" /><span className="course-number">0{index + 1}</span><span className="course-level">{course.level}</span></div><div className="course-card-content"><p className="course-subtitle">{course.subtitle}</p><h3>{course.title}</h3><p className="course-description">{course.description}</p><div className="course-meta"><span><i className="fa-regular fa-clock" /> {course.duration}</span><span><i className="fa-solid fa-layer-group" /> {course.modules.length} modules</span></div><a className="course-details-button" href={`/courses/${courseSlug(course.title)}`}>View curriculum <i className="fa-solid fa-arrow-up-right-from-square" /></a></div></article>)}</section>
+    <section className="course-grid" aria-label="Courses">{courses.map((course) => <article className="course-card" key={course.title}><div className="course-card-top"><div><p className="course-subtitle">{course.subtitle}</p><h3>{course.title}</h3><p className="course-description">{course.description}</p></div><span className="course-card-arrow" aria-hidden="true">›</span></div><div className="course-media"><video src={`/assets/courses/${course.video}`} muted loop autoPlay playsInline preload="metadata" aria-label={`${course.title} course preview`} /></div><div className="course-card-footer"><div className="course-meta"><span><i className="fa-regular fa-clock" /> {course.duration}</span><span><i className="fa-solid fa-layer-group" /> {course.modules.length} modules</span></div><a className="course-details-button" href={`/courses/${courseSlug(course.title)}`}>View curriculum <i className="fa-solid fa-arrow-up-right-from-square" /></a></div></article>)}</section>
     <section className="course-method" id="how-it-works"><div><p className="section-label">THE SMISHA DIFFERENCE</p><h2><span>Study it. </span><strong>See it live.</strong><span> Put it to work.</span></h2></div><div className="method-points"><p><b>01</b> Structured concepts, explained in clear language.</p><p><b>02</b> Practical examples that connect learning to the market.</p><p><b>03</b> A guided path to build calm, repeatable decision-making.</p></div></section>
     <SiteCTA><span>Let’s find the right</span><br /><strong>learning path for you.</strong></SiteCTA>
     <SiteFAQ />
