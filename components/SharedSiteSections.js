@@ -18,6 +18,10 @@ export function SiteFAQ() {
   </section>;
 }
 
+export function SiteCTA({ label = 'NOT SURE WHERE TO START?', children, href = 'mailto:support@smishasharemarket.com', action = 'Talk to our team' }) {
+  return <section className="course-cta"><p>{label}</p><h2>{children}</h2><a href={href}>{action} <i className="fa-solid fa-arrow-right" /></a></section>;
+}
+
 export function SiteFooter() {
   return <footer className="site-footer" id="contact">
     <div className="footer-contact-strip"><span className="footer-ring ring-a" aria-hidden="true" /><span className="footer-ring ring-b" aria-hidden="true" /><span className="footer-ring ring-c" aria-hidden="true" /><p>Ready to start your trading journey?</p><a href="mailto:support@smishasharemarket.com"><span className="footer-mail-icon"><i className="fa-regular fa-envelope" aria-hidden="true" /></span><span><small>Send us an email</small>support@smishasharemarket.com</span></a></div>
