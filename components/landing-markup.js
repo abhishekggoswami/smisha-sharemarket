@@ -227,7 +227,7 @@ export const landingMarkup = String.raw`
           <div class="footer-contact-strip">
             <span class="footer-ring ring-a" aria-hidden="true"></span><span class="footer-ring ring-b" aria-hidden="true"></span><span class="footer-ring ring-c" aria-hidden="true"></span>
             <p>Ready to start your trading journey?</p>
-            <a href="mailto:support@smishasharemarket.com"><span class="footer-mail-icon"><i class="fa-regular fa-envelope" aria-hidden="true"></i></span><span><small>Send us an email</small>support@smishasharemarket.com</span></a>
+            <a href="mailto:support@smishasharemarket.com"><span class="footer-mail-icon"><i class="fa-regular fa-envelope" aria-hidden="true"></i></span><span><small>Send us an email</small><span class="footer-email-address">support@<wbr />smishasharemarket.com</span></span></a>
           </div>
           <div class="footer-main">
             <section class="footer-brand" aria-label="Smisha Share Market">

@@ -1112,3 +1112,26 @@ h1 strong, h1 span { display: block; } h1 strong { font-weight: 700; } h1 span {
   .module-guidance-cta h3 { font-size: 27px; }
   .module-guidance-cta span { font-size: 14px; }
 }
+
+/* Give the contact address the full banner width on phones. */
+@media (max-width: 640px) {
+  .footer-contact-strip a { display: grid; grid-template-columns: 44px minmax(0, 1fr); align-items: center; gap: 10px 12px; width: 100%; }
+  .footer-contact-strip a > span:last-child { display: contents; }
+  .footer-contact-strip .footer-mail-icon { grid-column: 1; grid-row: 1; width: 44px; height: 44px; font-size: 21px; }
+  .footer-contact-strip a small { grid-column: 2; grid-row: 1; margin: 0; font-size: 14px; line-height: 1.4; }
+  .footer-contact-strip .footer-email-address { grid-column: 1 / -1; min-width: 0; max-width: 100%; font-size: clamp(13px, 3.5vw, 16px); line-height: 1.5; overflow-wrap: anywhere; }
+}
+
+/* Keep the stacked hero metrics clear of the following section. */
+@media (max-width: 1024px) {
+  .page-shell .below-hero::before { display: none; }
+  .page-shell .feature-cards { margin-top: 32px; }
+}
+@media (max-width: 640px) {
+  .page-shell .progress-card { margin: 24px auto 28px; padding-top: 0; min-width: 0; }
+  .page-shell .metric { max-width: none; margin-bottom: 22px; }
+  .page-shell .metric:last-child { margin-bottom: 0; }
+  .page-shell .metric > div { gap: 12px; align-items: baseline; }
+  .page-shell .metric span { min-width: 0; font-size: 17px; line-height: 1.4; }
+  .page-shell .metric b { flex-shrink: 0; }
+}
