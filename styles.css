@@ -1135,3 +1135,10 @@ h1 strong, h1 span { display: block; } h1 strong { font-weight: 700; } h1 span {
   .page-shell .metric span { min-width: 0; font-size: 17px; line-height: 1.4; }
   .page-shell .metric b { flex-shrink: 0; }
 }
+
+/* Keep calculator content inset when the viewport is narrower than its desktop maximum. */
+@media (min-width: 1041px) {
+  .calculator-directory, .calculator-workspace, .calculator-bundle {
+    width: calc(100% - 92px);
+  }
+}

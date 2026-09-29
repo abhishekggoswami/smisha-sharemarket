@@ -1,7 +1,7 @@
 'use client';
 
 import { useMemo, useState } from 'react';
-import { jsPDF } from 'jspdf';
+import { createCalculationReport } from '../lib/calculation-report';
 import SiteHeader from './SiteHeader';
 import { SiteCTA, SiteFAQ, SiteFooter } from './SharedSiteSections';
 
@@ -111,30 +111,7 @@ export default function CalculatorsPage() {
       const blob = await response.blob();
       logo = await new Promise((resolve) => { const reader = new FileReader(); reader.onload = () => resolve(reader.result); reader.readAsDataURL(blob); });
     } catch { logo = null; }
-    const doc = new jsPDF({ unit: 'pt', format: 'a4' });
-    let y = 58;
-    const addHeader = (first) => {
-      if (!first) doc.addPage();
-      doc.setFillColor(18, 73, 63); doc.rect(0, 0, 595, 92, 'F');
-      if (logo) doc.addImage(logo, 'PNG', 40, 22, 48, 48);
-      doc.setTextColor(255, 255, 255); doc.setFont('helvetica', 'bold'); doc.setFontSize(18); doc.text('SMISHA SHARE MARKET', 101, 47);
-      doc.setFont('helvetica', 'normal'); doc.setFontSize(9); doc.text('Personal Calculation Bundle', 101, 64);
-      doc.setTextColor(18, 73, 63); doc.setFontSize(10); doc.text(`Generated: ${new Date().toLocaleDateString('en-IN')}`, 415, 112); y = 139;
-    };
-    addHeader(true);
-    bundle.forEach((item, index) => {
-      const needed = 128 + item.inputs.length * 15 + item.result.details.length * 15;
-      if (y + needed > 760) addHeader(false);
-      doc.setFillColor(246, 248, 239); doc.roundedRect(40, y, 515, needed - 14, 10, 10, 'F');
-      doc.setTextColor(111, 157, 53); doc.setFont('helvetica', 'bold'); doc.setFontSize(9); doc.text(`${String(index + 1).padStart(2, '0')}  ${item.date.toUpperCase()}`, 58, y + 23);
-      doc.setTextColor(20, 63, 55); doc.setFontSize(17); doc.text(item.title, 58, y + 47);
-      doc.setFontSize(10); doc.setFont('helvetica', 'normal'); doc.text(item.result.label, 58, y + 68);
-      doc.setFont('helvetica', 'bold'); doc.setFontSize(20); doc.text(item.result.valueType === 'percent' ? percent(item.result.value) : item.result.valueType === 'years' ? `${item.result.value.toFixed(1)} years` : inr(item.result.value), 58, y + 91);
-      doc.setFont('helvetica', 'normal'); doc.setFontSize(9); let detailY = y + 112;
-      [...item.inputs, ...item.result.details].forEach(([label, value]) => { doc.setTextColor(77, 109, 101); doc.text(`${label}: ${value}`, 58, detailY); detailY += 15; });
-      y += needed;
-    });
-    doc.setTextColor(77, 109, 101); doc.setFontSize(8); doc.text('For educational illustration only. These estimates do not represent assured returns or financial advice.', 40, 810);
+    const doc = createCalculationReport(bundle, logo);
     doc.save(`smisha-calculation-bundle-${new Date().toISOString().slice(0, 10)}.pdf`);
   }
 
