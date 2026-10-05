@@ -24,12 +24,12 @@ export const landingMarkup = String.raw`
         </a>
         <nav class="desktop-nav" id="primary-navigation" aria-label="Primary navigation">
           <a href="#top">Homepage</a>
-          <a href="#about">About Us</a>
+          <a href="/about">About Us</a>
           <a href="/courses">Courses</a><a href="/workshops">Workshops</a>
           <a href="#services">Programs <span class="chevron">⌄</span></a>
           <a href="#stories">Mentorship <span class="chevron">⌄</span></a>
           <a href="#pages">Resources <span class="chevron">⌄</span></a>
-          <a href="#contact">Contact</a>
+          <a href="/contact">Contact</a>
         </nav>
         <div class="header-actions">
           <a class="appointment" href="#contact">Book a<br />demo</a>
@@ -62,7 +62,7 @@ export const landingMarkup = String.raw`
 
             <div class="person-stage">
               <div class="person-glow" aria-hidden="true"></div>
-              <img src="/assets/smisha-coach-hero-cutout.png" alt="Smisha Share Market instructor" />
+              <img src="/assets/smisha-coach-hero-pointing.png" alt="Smisha Share Market instructor pointing upward" />
             </div>
 
             <div class="progress-card" aria-label="Consulting performance metrics">
@@ -129,24 +129,16 @@ export const landingMarkup = String.raw`
           <div class="stories-viewport" aria-live="polite">
             <div class="stories-track" data-carousel-track>
               <article class="story-slide" data-story="1">
-                <div class="story-thumbnail client-one"><button type="button" aria-label="Play client story">▶</button></div>
-                <div class="story-testimonial"><p class="story-label">CLIENT EXPERIENCE</p><blockquote>“Clear planning turned our business goals into practical next steps—and gave us confidence to keep moving forward.”</blockquote><a href="#contact" class="story-link">Explore Stories <span>➜</span></a><div class="story-person"><div><strong>Arjun Mehta</strong><span>Growth Strategy</span></div><em>Arjun</em></div></div>
+                <div class="story-thumbnail feedback-video"><div class="student-feedback-frame"><iframe src="https://www.youtube-nocookie.com/embed/R-BCmUC2Xn4?rel=0&amp;modestbranding=1" title="Yashi's feedback for Smisha Share Market" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe></div></div>
+                <div class="story-testimonial"><p class="story-label">STUDENT FEEDBACK</p><blockquote>Watch Yashi share her learning experience with Smisha Share Market.</blockquote><a href="https://youtube.com/shorts/R-BCmUC2Xn4?si=bsDnNTGyRAn4IEH5" class="story-link" target="_blank" rel="noreferrer">Watch on YouTube <span>➜</span></a><div class="story-person"><div><strong>Yashi</strong><span>Smisha Student</span></div><em>Yashi</em></div></div>
               </article>
               <article class="story-slide" data-story="2">
-                <div class="story-thumbnail client-two"><button type="button" aria-label="Play client story">▶</button></div>
-                <div class="story-testimonial"><p class="story-label">CLIENT EXPERIENCE</p><blockquote>“The team made the complex feel manageable, helping us prioritize opportunities that created real results.”</blockquote><a href="#contact" class="story-link">Explore Stories <span>➜</span></a><div class="story-person"><div><strong>Priya Shah</strong><span>Operations Advisory</span></div><em>Priya</em></div></div>
-              </article>
-              <article class="story-slide" data-story="3">
-                <div class="story-thumbnail client-three"><button type="button" aria-label="Play client story">▶</button></div>
-                <div class="story-testimonial"><p class="story-label">CLIENT EXPERIENCE</p><blockquote>“Our new roadmap brought the whole leadership team together around one ambitious, achievable vision.”</blockquote><a href="#contact" class="story-link">Explore Stories <span>➜</span></a><div class="story-person"><div><strong>Rohan Kapoor</strong><span>Financial Planning</span></div><em>Rohan</em></div></div>
-              </article>
-              <article class="story-slide" data-story="4">
-                <div class="story-thumbnail client-four"><button type="button" aria-label="Play client story">▶</button></div>
-                <div class="story-testimonial"><p class="story-label">CLIENT EXPERIENCE</p><blockquote>“We now have a focused way to measure progress and make every customer decision count.”</blockquote><a href="#contact" class="story-link">Explore Stories <span>➜</span></a><div class="story-person"><div><strong>Neha Iyer</strong><span>Market Expansion</span></div><em>Neha</em></div></div>
+                <div class="story-thumbnail feedback-video"><div class="student-feedback-frame"><iframe src="https://www.youtube-nocookie.com/embed/TjuVVc2im7Q?rel=0&amp;modestbranding=1" title="Anadi's feedback for Smisha Share Market" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe></div></div>
+                <div class="story-testimonial"><p class="story-label">STUDENT FEEDBACK</p><blockquote>Watch Anadi share his learning experience with Smisha Share Market.</blockquote><a href="https://youtube.com/shorts/TjuVVc2im7Q?si=ZienboG0uouFBPBf" class="story-link" target="_blank" rel="noreferrer">Watch on YouTube <span>➜</span></a><div class="story-person"><div><strong>Anadi</strong><span>Smisha Student</span></div><em>Anadi</em></div></div>
               </article>
             </div>
           </div>
-          <div class="story-progress" aria-hidden="true"><span class="active"></span><span></span><span></span><span></span></div>
+          <div class="story-progress" aria-hidden="true"><span class="active"></span><span></span></div>
         </section>
 
         <section class="testimonials-section" id="testimonials" aria-labelledby="testimonials-title">
@@ -223,6 +215,11 @@ export const landingMarkup = String.raw`
           </div>
         </section>
 
+        <section class="home-location-section" aria-labelledby="home-location-title">
+          <div class="home-location-copy"><p class="section-kicker">Visit Smisha</p><h2 id="home-location-title"><strong>Find your way to</strong><span>Smisha Share Market Institute.</span></h2><p>Visit the academy to explore practical stock market learning with our team.</p><a href="/contact">Get in touch <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></a></div>
+          <div class="home-map-frame"><iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3782.389784249118!2d73.955024!3d18.5564578!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x5a37ca71a18dde9%3A0xc556b3a904271aa5!2sSmisha%20Share%20Market%20Institute!5e0!3m2!1sen!2sin!4v1791182655647!5m2!1sen!2sin" title="Smisha Share Market Institute location" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe></div>
+        </section>
+
         <footer class="site-footer" id="contact">
           <div class="footer-contact-strip">
             <span class="footer-ring ring-a" aria-hidden="true"></span><span class="footer-ring ring-b" aria-hidden="true"></span><span class="footer-ring ring-c" aria-hidden="true"></span>
@@ -240,7 +237,7 @@ export const landingMarkup = String.raw`
                 <a class="socialcontainer social-whatsapp" href="https://wa.link/gi2b8d" target="_blank" rel="noreferrer" aria-label="WhatsApp"><span class="social-icon social-icon-primary"><i class="fa-brands fa-whatsapp" aria-hidden="true"></i></span><span class="social-icon social-icon-reveal"><i class="fa-brands fa-whatsapp" aria-hidden="true"></i></span></a>
               </div>
             </section>
-            <section class="footer-links"><h2>Academy</h2><a href="#about">About Us</a><a href="#services">Our Programs</a><a href="#stories">Student Stories</a><a href="#process">How It Works</a><a href="#book-demo">Book a Demo</a></section>
+            <section class="footer-links"><h2>Academy</h2><a href="/about">About Us</a><a href="#services">Our Programs</a><a href="#stories">Student Stories</a><a href="#process">How It Works</a><a href="#book-demo">Book a Demo</a></section>
             <section class="footer-links"><h2>Learning Paths</h2><a href="#services">Equity Trading</a><a href="#services">Technical Analysis</a><a href="#services">Risk Management</a><a href="#services">Trading Psychology</a><a href="#faq">FAQs</a></section>
             <section class="footer-newsletter"><h2>Newsletter</h2><p>Get market-learning tips and academy updates.</p><div class="newsletter-input"><input type="email" aria-label="Email address" placeholder="Enter your email" /><button type="button" aria-label="Subscribe"><i class="fa-solid fa-arrow-right"></i></button></div><small><i class="fa-regular fa-bell" aria-hidden="true"></i> No spam—just useful trading insights.</small></section>
           </div>
