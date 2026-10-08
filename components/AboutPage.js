@@ -32,7 +32,7 @@ export default function AboutPage() {
     <section className="about-story" aria-labelledby="about-story-title">
       <div className="about-story-media">
         <img src="/assets/about-mission-event.png" alt="A Smisha Share Market learning event" />
-        <span>SMISHA SHARE MARKET</span>
+        <span>SMISHA SHARE MARKET · LIVE LEARNING</span>
       </div>
       <div className="about-story-copy">
         <p className="section-label">OUR STORY</p>
