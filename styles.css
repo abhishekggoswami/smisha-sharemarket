@@ -2253,8 +2253,8 @@ body { background: var(--theme-deep); color: var(--theme-ink); }
 /* Hero composition: authored line breaks keep the opening message balanced at
    every desktop width, while the brand line is emphasised without reflow. */
 .page-shell .keynote-hero-inner { column-gap: clamp(40px, 5vw, 88px); grid-template-columns: minmax(0, 690px) minmax(390px, 1fr); max-width: 1320px; }
-.page-shell .keynote-copy { align-self: center; max-width: 690px; padding-bottom: 0; }
-.page-shell .keynote-title { font-size: clamp(3.45rem, 4.7vw, 4.45rem); letter-spacing: -.075em; line-height: .94; max-width: 690px; }
+.page-shell .keynote-copy { align-self: center; max-width: 690px; padding-bottom: 0; text-align: left; }
+.page-shell .keynote-title { font-size: clamp(3.45rem, 4.7vw, 4.45rem); letter-spacing: -.075em; line-height: .94; max-width: 690px; text-align: left; }
 .page-shell .keynote-title > span { display: block; }
 .page-shell .keynote-title em { display: block; isolation: isolate; margin: .05em 0 .08em; padding: 0 .03em; position: relative; width: fit-content; }
 .page-shell .keynote-title em::before { background: linear-gradient(90deg, rgba(75, 200, 255, .04), rgba(75, 200, 255, .5), rgba(75, 200, 255, .04)); border-radius: 999px; bottom: .02em; content: ''; height: .11em; left: -.02em; position: absolute; transform: scaleX(.1); transform-origin: left center; width: calc(100% + .04em); z-index: -1; }
