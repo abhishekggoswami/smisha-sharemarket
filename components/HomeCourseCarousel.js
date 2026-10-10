@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from 'react';
 import CourseThumbnail from './CourseThumbnail';
+import TextPressure from './TextPressure';
 
 const courses = [
   { slug: 'smart-investing-fundamentals', title: <>Smart Investing<br />Fundamentals</>, label: 'Smart Investing Fundamentals', description: 'Build a confident foundation in markets, portfolios, risk, and long-term investing.' },
@@ -46,7 +47,7 @@ export default function HomeCourseCarousel() {
 
   return <div className="home-courses-carousel">
     <div className="services-heading">
-      <div><p className="section-kicker">Learn With Smisha</p><h2 id="services-title"><strong>Explore our courses.</strong><span>Build your market edge.</span></h2></div>
+      <div><p className="section-kicker">Learn With Smisha</p><h2 id="services-title"><strong><TextPressure text="Explore our courses." minWeight={700} /></strong><span><TextPressure text="Build your market edge." /></span></h2></div>
       <div className="services-actions"><div className="services-carousel-controls" aria-label="Featured course navigation"><button type="button" onClick={previous} aria-label="Show previous courses"><i className="fa-solid fa-arrow-trend-down" aria-hidden="true" /></button><button type="button" onClick={next} aria-label="Show next courses"><i className="fa-solid fa-arrow-trend-up" aria-hidden="true" /></button></div><a className="services-button" href="/courses">Explore courses <b><i className="fa-solid fa-chart-line" aria-hidden="true" /></b></a></div>
     </div>
     <div className="services-carousel-viewport" ref={viewportRef} aria-live="polite">

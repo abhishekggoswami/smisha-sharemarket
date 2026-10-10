@@ -10,7 +10,6 @@ import HomeCourseCarousel from './HomeCourseCarousel';
 import AcademyAccordionGallery from './AcademyAccordionGallery';
 import EventGallery from './EventGallery';
 import IndiaMapTestimonials from './IndiaMapTestimonials';
-import TradingViewTickerTape from './TradingViewTickerTape';
 
 const GHOST_FIBERS_PROPS = {
   lineColor: '#3b82e8', glowColor: '#61c8ff', backdropColor: '#dcefff', speed: 0.2, scale: 2, rotation: 0,
@@ -179,5 +178,5 @@ export default function LandingPage() {
     return () => cleanups.forEach((cleanup) => cleanup());
   }, []);
 
-  return <><TradingViewTickerTape /><SiteHeader active="Homepage" demoHref="#contact" /><div ref={rootRef} dangerouslySetInnerHTML={{ __html: landingMarkup }} /></>;
+  return <><SiteHeader active="Homepage" demoHref="#contact" /><div ref={rootRef} dangerouslySetInnerHTML={{ __html: landingMarkup }} /></>;
 }

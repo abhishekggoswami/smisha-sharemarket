@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="280" height="56" viewBox="0 0 280 56" fill="none" role="img" aria-label="Premium navy fine-line pen, nib anchored at 8,28">
+ <defs>
+  <linearGradient id="barrel" x1="0" y1="12" x2="0" y2="44" gradientUnits="userSpaceOnUse"><stop stop-color="#374961"/><stop offset=".17" stop-color="#15263D"/><stop offset=".58" stop-color="#0A1527"/><stop offset=".82" stop-color="#14273B"/><stop offset="1" stop-color="#07101E"/></linearGradient>
+  <linearGradient id="metal" x1="0" y1="16" x2="0" y2="40" gradientUnits="userSpaceOnUse"><stop stop-color="#E6EDF1"/><stop offset=".22" stop-color="#8A9AA6"/><stop offset=".52" stop-color="#F8FAFC"/><stop offset=".76" stop-color="#7A8B98"/><stop offset="1" stop-color="#C4CDD4"/></linearGradient>
+  <linearGradient id="point" x1="0" y1="24" x2="0" y2="32"><stop stop-color="#67747F"/><stop offset=".5" stop-color="#141F2A"/><stop offset="1" stop-color="#5E6974"/></linearGradient>
+ </defs>
+ <!-- Pen tip geometric anchor: (8,28). Rendered horizontally pointing left. Rotate around anchor in browser. -->
+ <path d="M8 28L23 25.7L23 30.3Z" fill="#161E2A"/>
+ <path d="M8 28L17 26.6" stroke="#9DA8B1" stroke-width=".65" stroke-linecap="round"/>
+ <path d="M21 24.9L37 20.2L44 19.6V36.4L37 35.8L21 31.1Z" fill="url(#metal)" stroke="#667581" stroke-width=".8"/>
+ <path d="M30 23.1L44 21.1" stroke="#FAFCFF" stroke-opacity=".55" stroke-width="1"/>
+ <rect x="41" y="16.5" width="201" height="23" rx="8" fill="url(#barrel)" stroke="#0A111D" stroke-width="1"/>
+ <path d="M50 20.8H235" stroke="#94A7BD" stroke-opacity=".3" stroke-width="1.5" stroke-linecap="round"/>
+ <path d="M49 36H232" stroke="#00040C" stroke-opacity=".54" stroke-width="1.3" stroke-linecap="round"/>
+ <rect x="44" y="16.7" width="5" height="22.6" rx="1.3" fill="url(#metal)"/>
+ <rect x="53" y="18.2" width="2" height="19.6" rx="1" fill="#B3C1C9" fill-opacity=".68"/>
+ <text x="146" y="30.8" text-anchor="middle" fill="#D7DDE4" font-family="Arial,Helvetica,sans-serif" font-size="8.5" font-weight="500" letter-spacing="2.2">FINE LINE</text>
+ <path d="M241 16.5H257C261 16.5 264 19.5 264 23.5V32.5C264 36.5 261 39.5 257 39.5H241Z" fill="#101C2B" stroke="#26364B"/>
+ <rect x="260" y="19" width="6" height="18" rx="2.4" fill="url(#metal)"/>
+ <path d="M267 21.5C270 22 271 24 271 26V34" stroke="#ACBAC4" stroke-width="2.6" stroke-linecap="round"/>
+</svg>

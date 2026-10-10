@@ -15,7 +15,7 @@ export default function TradingViewTickerTape() {
     return undefined;
   }, []);
 
-  return <div className="home-market-ticker" aria-label="Live market ticker">
+  return <div className="site-market-ticker" aria-label="Live market ticker">
     <tv-ticker-tape symbols="FOREXCOM:DJI,CMCMARKETS:GOLD,NYSE:DELL,NASDAQ:INTC,NASDAQ:TSLA,NASDAQ:AMZN" item-size="compact" show-hover=""></tv-ticker-tape>
   </div>;
 }

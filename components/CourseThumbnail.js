@@ -24,6 +24,8 @@ const marketBackgrounds = {
   'technical-analysis-blueprint': '/assets/course-backgrounds/technical-market-web.mp4',
   'professional-options-trading': '/assets/course-backgrounds/options-market-web.mp4',
   'value-investing-blueprint': '/assets/course-backgrounds/value-market-web.mp4',
+  'professional-equity-research-analyst-program': '/assets/course-backgrounds/value-market-web.mp4',
+  'nism-xv-research-analyst-exam-prep': '/assets/course-backgrounds/foundation-market-web.mp4',
 };
 
 export default function CourseThumbnail({ slug, className = '' }) {
@@ -31,7 +33,7 @@ export default function CourseThumbnail({ slug, className = '' }) {
   const titleLines = item.boardTitle.split('\n');
   const marketVideo = marketBackgrounds[slug];
   return <div className={`course-art course-art--${item.theme} course-instructor-art ${className}`} role="group" aria-label={`${titleLines.join(' ')} course with an instructor`}>
-    {marketVideo && <><video className="course-art-market-video" src={marketVideo} autoPlay muted loop playsInline preload="none" aria-hidden="true" /><span className="course-art-market-wash" aria-hidden="true" /></>}
+    {marketVideo && <video className="course-art-market-video" src={marketVideo} autoPlay muted loop playsInline preload="metadata" aria-hidden="true" />}
     <div className="course-whiteboard" aria-hidden="true">
       <span className="course-board-label">SMISHA ACADEMY</span>
       <strong>{titleLines.map((line) => <span key={line}>{line}</span>)}</strong>

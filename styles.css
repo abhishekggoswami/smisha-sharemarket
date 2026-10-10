@@ -1622,7 +1622,7 @@ h1 strong, h1 span { display: block; } h1 strong { font-weight: 700; } h1 span {
   column-gap: clamp(32px, 5vw, 78px);
   display: grid;
   grid-template-columns: minmax(0, 1.05fr) minmax(410px, .95fr);
-  min-height: 598px;
+  min-height: 60vh;
   padding: 0 var(--course-hero-gutter);
 }
 
@@ -1717,7 +1717,7 @@ h1 strong, h1 span { display: block; } h1 strong { font-weight: 700; } h1 span {
   .course-detail-hero {
     column-gap: 28px;
     grid-template-columns: minmax(0, 1fr) minmax(350px, .82fr);
-    min-height: 560px;
+    min-height: 60vh;
   }
 
   .course-detail-hero-content > h1,
@@ -2395,6 +2395,279 @@ body { background: var(--theme-deep); color: var(--theme-ink); }
 .course-grid .course-art .course-card-benefits span { background: rgba(5,30,92,.76); }
 .course-card-instructor--sushil-value, .course-hero-instructor--sushil-value { right: -3%; width: 57%; }
 
+/* Course-library thumbnails use the actual course footage edge-to-edge.
+   The video is the complete backdrop; no colour wash or gradient is added. */
+.course-grid .course-art {
+  background: #071a3f;
+}
+
+.course-grid .course-art-market-video {
+  display: block;
+  height: 100%;
+  inset: 0;
+  object-fit: cover;
+  object-position: center;
+  position: absolute;
+  width: 100%;
+  z-index: 0;
+}
+
+.course-grid .course-instructor-art::before,
+.course-grid .course-instructor-art::after {
+  animation: none;
+  background: none;
+}
+
+/* Let the two course conversion strips reach both viewport edges while their
+   content keeps the same comfortable, centred reading width as before. */
+@media (min-width: 1041px) {
+  .course-method,
+  .course-cta {
+    margin-left: 0;
+    margin-right: 0;
+    max-width: none;
+    padding-left: max(74px, calc((100vw - 1210px) / 2 + 74px));
+    padding-right: max(74px, calc((100vw - 1210px) / 2 + 74px));
+  }
+}
+
+/* Final courses-hero composition: equal portrait tiles keep the teaching team
+   recognisable without competing with the heading. The mobile version follows
+   the same order as the DOM: copy, actions, proof, then the image strip. */
+.course-hero--mentors {
+  background: linear-gradient(115deg, var(--theme-deep), #165ed0 57%, #574bba);
+  min-height: 85vh;
+  padding-bottom: 82px;
+}
+
+/* Atmospheric footage sits behind the brand veil and the mentor montage.
+   Each layer has an explicit stack level so motion never compromises legibility. */
+.course-hero-atmosphere {
+  height: 100%;
+  inset: 0;
+  object-fit: cover;
+  object-position: center;
+  opacity: .46;
+  position: absolute;
+  width: 100%;
+  z-index: 0;
+}
+
+.course-hero-atmosphere-shade {
+  background: linear-gradient(90deg, rgba(5, 25, 70, .96) 0%, rgba(8, 43, 115, .87) 37%, rgba(21, 84, 181, .56) 65%, rgba(52, 60, 167, .34) 100%), linear-gradient(180deg, rgba(4, 21, 62, .1), rgba(4, 21, 62, .38));
+  inset: 0;
+  pointer-events: none;
+  position: absolute;
+  z-index: 1;
+}
+
+.course-hero--mentors .course-hero-ring,
+.course-hero--mentors .course-hero-grid { z-index: 1; }
+
+.course-hero--mentors .course-hero-content {
+  max-width: min(49vw, 650px);
+  position: relative;
+  z-index: 3;
+}
+
+.course-hero-instructors {
+  bottom: 0;
+  display: block;
+  height: 100%;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  position: absolute;
+  width: 100%;
+  z-index: 2;
+}
+
+.course-hero-instructors::before {
+  content: none;
+}
+
+.course-mentor-face {
+  background: transparent;
+  border: 0;
+  border-radius: 0;
+  bottom: 0;
+  box-shadow: none;
+  filter: grayscale(.1) saturate(.82) contrast(1.1);
+  height: 76%;
+  opacity: .22;
+  overflow: hidden;
+  position: relative;
+  position: absolute;
+  right: auto;
+  width: 20vw;
+}
+
+.course-mentor-face:first-child { bottom: -2%; left: 44%; }
+.course-mentor-face--sushil { bottom: -2%; left: 60%; opacity: .74; }
+.course-mentor-face:last-child { bottom: -2%; left: 78%; }
+
+.course-mentor-face::after {
+  background: linear-gradient(180deg, rgba(8, 35, 92, .02) 34%, rgba(8, 35, 92, .62) 100%);
+  content: '';
+  inset: 0;
+  pointer-events: none;
+  position: absolute;
+}
+
+.course-mentor-face img {
+  display: block;
+  height: 100%;
+  object-fit: contain;
+  object-position: 50% 100%;
+  transform: none;
+  width: 100%;
+}
+
+.course-mentor-face--sushil img {
+  object-position: 50% 100%;
+}
+
+.course-mentor-identity {
+  bottom: clamp(15px, 3.1vh, 30px);
+  color: #fff;
+  left: 50%;
+  min-width: max-content;
+  position: absolute;
+  text-align: center;
+  text-shadow: 0 2px 12px rgba(2, 15, 45, .85);
+  transform: translateX(-50%);
+  z-index: 4;
+}
+
+.course-mentor-identity strong {
+  display: block;
+  font-size: clamp(.7rem, .95vw, .9rem);
+  font-weight: 800;
+  letter-spacing: -.02em;
+  line-height: 1.1;
+}
+
+.course-mentor-identity span {
+  color: #aeeaff;
+  display: block;
+  font-size: clamp(.53rem, .63vw, .64rem);
+  font-weight: 800;
+  letter-spacing: .11em;
+  margin-top: 4px;
+  text-transform: uppercase;
+}
+
+/* Each mentor moves smoothly through the centre, while the side portraits
+   remain deliberately quieter. */
+@media (min-width: 761px) {
+  .course-mentor-face { animation: mentor-presence-1 18s cubic-bezier(.55, 0, .2, 1) infinite; transform-origin: bottom center; }
+  .course-mentor-face--sushil { animation-name: mentor-presence-2; }
+  .course-mentor-face:last-child { animation-name: mentor-presence-3; }
+}
+
+@keyframes mentor-presence-1 {
+  0%, 28% { left: 44%; opacity: .24; transform: scale(.88); z-index: 1; }
+  33%, 61% { left: 60%; opacity: .82; transform: scale(1.16); z-index: 3; }
+  66%, 94% { left: 78%; opacity: .24; transform: scale(.88); z-index: 1; }
+  100% { left: 44%; opacity: .24; transform: scale(.88); z-index: 1; }
+}
+
+@keyframes mentor-presence-2 {
+  0%, 28% { left: 60%; opacity: .82; transform: scale(1.16); z-index: 3; }
+  33%, 61% { left: 78%; opacity: .24; transform: scale(.88); z-index: 1; }
+  66%, 94% { left: 44%; opacity: .24; transform: scale(.88); z-index: 1; }
+  100% { left: 60%; opacity: .82; transform: scale(1.16); z-index: 3; }
+}
+
+@keyframes mentor-presence-3 {
+  0%, 28% { left: 78%; opacity: .24; transform: scale(.88); z-index: 1; }
+  33%, 61% { left: 44%; opacity: .24; transform: scale(.88); z-index: 1; }
+  66%, 94% { left: 60%; opacity: .82; transform: scale(1.16); z-index: 3; }
+  100% { left: 78%; opacity: .24; transform: scale(.88); z-index: 1; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .course-mentor-face,
+  .course-mentor-face--sushil,
+  .course-mentor-face:last-child { animation: none; }
+}
+
+/* The Value Investing theme previously carried a dark text override from the
+   light-card version of this component. Course-grid chips sit on dark video,
+   so both labels must stay high-contrast. */
+.course-grid .course-card-benefits,
+.course-grid .course-art--value .course-card-benefits {
+  color: #fff;
+}
+
+.course-mentor-stats {
+  align-items: center;
+  color: #cce9ff;
+  display: flex;
+  font-size: .77rem;
+  font-weight: 700;
+  gap: 18px;
+  letter-spacing: .02em;
+  margin-top: 26px;
+}
+
+.course-mentor-stats span + span {
+  border-left: 1px solid rgba(172, 223, 255, .32);
+  padding-left: 18px;
+}
+
+.course-mentor-stats b {
+  color: var(--theme-accent);
+  font-size: 1.1rem;
+  margin-right: 5px;
+}
+
+.course-hero-mentor-proof {
+  display: none;
+}
+
+@media (min-width: 761px) and (max-width: 1120px) {
+  .course-hero--mentors { padding-right: max(42px, 46vw); }
+  .course-hero--mentors .course-hero-content { max-width: 100%; }
+}
+
+@media (max-width: 760px) {
+  .course-hero--mentors {
+    min-height: 85svh;
+    padding: 58px 22px 0;
+  }
+
+  .course-hero--mentors .course-hero-content { max-width: none; }
+  .course-hero-atmosphere { object-position: 58% center; opacity: .3; }
+  .course-hero--mentors .course-hero-copy { margin: 22px 0 26px; }
+  .course-hero--mentors .course-hero-actions { align-items: center; flex-direction: row; flex-wrap: wrap; gap: 15px 20px; }
+  .course-hero--mentors .course-primary-button { min-height: 48px; padding-inline: 20px; }
+  .course-hero--mentors .course-text-link { font-size: 14px; }
+  .course-mentor-stats { margin-top: 22px; }
+
+  .course-hero-instructors {
+    bottom: 0;
+    height: 42%;
+    inset: auto 0 0;
+    margin: 0;
+    position: absolute;
+    right: auto;
+    width: 100%;
+  }
+
+  .course-mentor-face { bottom: -3%; height: 65%; opacity: .18; width: 38vw; }
+  .course-mentor-face:first-child { left: -5%; }
+  .course-mentor-face--sushil { bottom: -2%; height: 105%; left: 25%; opacity: .32; width: 50vw; }
+  .course-mentor-face:last-child { right: -5%; }
+}
+
+@media (max-width: 390px) {
+  .course-hero--mentors h1 { font-size: clamp(2.35rem, 12.5vw, 3rem); letter-spacing: -.075em; }
+  .course-mentor-stats { font-size: .7rem; gap: 12px; }
+  .course-mentor-stats span + span { padding-left: 12px; }
+  .course-hero-instructors { height: 39%; }
+}
+
 @media (max-width: 900px) {
   .keynote-portrait-backdrop { height: 350px; width: 78%; }
   .keynote-stage::before { height: 175px; width: 70%; }
@@ -2661,18 +2934,18 @@ body { background: var(--theme-deep); color: var(--theme-ink); }
   }
 }
 
-/* A crisp financial-services type system: Sora gives marketing headlines a
-   confident structure, while Manrope keeps longer educational copy calm and
-   exceptionally readable. */
+/* Urbanist trial: one variable family across the site so its geometry can be
+   assessed consistently. Handwritten board lettering remains intentional. */
 body {
-  font-family: "Manrope", "Segoe UI", Arial, sans-serif;
+  font-family: "Urbanist", "Segoe UI", Arial, sans-serif;
   font-size: 16px;
+  font-optical-sizing: auto;
   letter-spacing: -.012em;
 }
 h1, h2, h3, h4, h5, h6,
 .brand, .footer-logo,
 .keynote-title {
-  font-family: "Sora", "Manrope", "Segoe UI", Arial, sans-serif;
+  font-family: "Urbanist", "Segoe UI", Arial, sans-serif;
 }
 h1, h2, h3, h4, h5, h6 { font-weight: 600; }
 .brand, .footer-logo { font-weight: 800; letter-spacing: -.055em; }
@@ -2961,7 +3234,7 @@ h1, h2, h3, h4, h5, h6 { font-weight: 600; }
 
 /* The market tape is deliberately the first home-page element, immediately
    before the white contact strip, so the financial context is unmistakable. */
-.home-market-ticker {
+.site-market-ticker {
   background: #eef7ff;
   border-bottom: 1px solid rgba(11, 65, 143, .14);
   color: #0a2d65;
@@ -2970,7 +3243,1056 @@ h1, h2, h3, h4, h5, h6 { font-weight: 600; }
   position: relative;
   z-index: 12;
 }
-.home-market-ticker tv-ticker-tape { display: block; min-height: 32px; }
+.site-market-ticker tv-ticker-tape { display: block; min-height: 32px; }
 @media (max-width: 640px) {
-  .home-market-ticker, .home-market-ticker tv-ticker-tape { min-height: 30px; }
+  .site-market-ticker, .site-market-ticker tv-ticker-tape { min-height: 30px; }
+}
+
+/* Course detail hero: the board is the visual anchor; the hero itself now
+   earns its space by showing the opening curriculum rather than a portrait. */
+.course-detail-hero-content > .detail-hero-description {
+  color: rgba(238, 247, 255, .9);
+  font-size: 16px;
+  font-weight: 400;
+  letter-spacing: 0;
+  line-height: 1.58;
+  margin: 20px 0 0;
+  max-width: 590px;
+  text-transform: none;
+}
+
+.course-hero-visual {
+  align-items: center;
+  display: grid;
+  gap: clamp(16px, 2vw, 30px);
+  grid-template-columns: minmax(0, 1.05fr) minmax(190px, .95fr);
+  padding: 38px 0;
+}
+
+.course-hero-visual::before { opacity: .46; }
+
+.course-hero-board {
+  left: auto;
+  min-height: 310px;
+  position: relative;
+  top: auto;
+  transform: none;
+  width: auto;
+}
+
+@media (max-width: 900px) {
+  .course-hero-visual {
+    aspect-ratio: auto;
+    grid-template-columns: minmax(0, 1.05fr) minmax(210px, .95fr);
+    min-height: 350px;
+    padding: 26px 0;
+  }
+}
+
+@media (max-width: 620px) {
+  .course-detail-hero-content > .detail-hero-description { font-size: 15px; margin-top: 17px; }
+  .course-hero-visual { display: block; min-height: 0; padding: 18px 0 0; }
+  .course-hero-board { min-height: 250px; }
+}
+
+/* Related learning paths are the same course cards as the course library.
+   Keep their canvas and card constraints identical so they never look like a
+   reduced secondary version of the same product. */
+.related-courses,
+.enquiry-section { max-width: 1340px; }
+
+.related-courses .related-course-grid {
+  gap: 26px;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.related-course-grid .course-card {
+  min-height: 640px;
+  padding: 34px;
+}
+
+.related-course-grid .course-card-top { min-height: 218px; }
+.related-course-grid .course-media { aspect-ratio: 16 / 10; margin-top: 27px; }
+.related-course-grid .course-card-footer { margin-top: auto; padding-top: 24px; }
+
+/* Mutual Fund has a three-line board title. Giving only this artwork a taller
+   board and smaller handwriting removes the collision with the two labels. */
+.course-grid .course-art--funds .course-whiteboard {
+  min-height: 68%;
+  top: 8%;
+  width: 63%;
+}
+
+.course-grid .course-art--funds .course-whiteboard strong {
+  font-size: clamp(15px, 1.7vw, 24px);
+  line-height: .91;
+}
+
+.course-grid .course-art--funds .course-card-benefits { bottom: 5%; }
+
+@media (min-width: 761px) and (max-width: 1040px) {
+  .related-course-grid .course-card { min-height: 610px; padding: 30px; }
+  .related-course-grid .course-card-top { min-height: 205px; }
+}
+
+@media (max-width: 860px) {
+  .related-courses .related-course-grid { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 760px) {
+  .related-course-grid .course-card { min-height: 0; padding: 25px; }
+  .related-course-grid .course-card-top { gap: 15px; min-height: auto; }
+  .related-course-grid .course-media { margin-top: 23px; }
+  .related-course-grid .course-card-footer { margin-top: 0; padding-top: 22px; }
+}
+
+@media (max-width: 640px) {
+  .course-grid .course-art--funds .course-whiteboard { min-height: 66%; top: 8%; width: 64%; }
+  .course-grid .course-art--funds .course-whiteboard strong { font-size: clamp(15px, 6vw, 22px); }
+}
+
+/* Individual course landing: concise course information at left, one clear
+   board at right. It intentionally reuses the brighter Courses-page gradient
+   and its subtle market-footage layer instead of another dark hero variant. */
+.course-detail-hero {
+  background: linear-gradient(115deg, var(--theme-deep), #165ed0 57%, #574bba) !important;
+  grid-template-columns: minmax(0, 1.12fr) minmax(340px, .88fr);
+  height: 45vh;
+  min-height: 455px;
+  overflow: hidden;
+}
+
+.course-detail-atmosphere {
+  height: 100%;
+  inset: 0;
+  object-fit: cover;
+  object-position: center;
+  opacity: .24;
+  position: absolute;
+  width: 100%;
+  z-index: 0;
+}
+
+.course-detail-atmosphere-shade {
+  background: linear-gradient(105deg, rgba(5, 28, 80, .78) 0%, rgba(10, 68, 164, .6) 55%, rgba(69, 67, 173, .45) 100%);
+  inset: 0;
+  pointer-events: none;
+  position: absolute;
+  z-index: 1;
+}
+
+.course-detail-hero::before,
+.course-detail-hero::after { opacity: .62; z-index: 1; }
+
+.course-detail-hero-content {
+  align-self: center;
+  padding: 38px 0;
+  z-index: 3;
+}
+
+.course-detail-hero-content > p:not(.detail-hero-description) {
+  margin: 24px 0 9px;
+}
+
+.course-detail-hero h1 {
+  font-size: clamp(42px, 4.45vw, 66px);
+  letter-spacing: -3px;
+  line-height: .96;
+}
+
+.course-detail-hero-content > .detail-hero-description {
+  font-size: 15px;
+  line-height: 1.48;
+  margin-top: 13px;
+  max-width: 575px;
+}
+
+.detail-hero-meta { gap: 8px; margin-top: 17px; }
+.detail-hero-meta span { font-size: 13px; padding: 8px 11px; }
+.detail-primary { margin-top: 18px; min-height: 46px; padding: 0 21px; }
+
+.course-hero-visual {
+  align-items: center;
+  display: flex;
+  height: 100%;
+  justify-content: flex-end;
+  padding: 0;
+  z-index: 3;
+}
+
+.course-hero-visual::before { opacity: .38; }
+
+.course-hero-board {
+  flex: 0 1 470px;
+  left: auto;
+  min-height: 315px;
+  padding: clamp(26px, 3vw, 38px);
+  position: relative;
+  top: auto;
+  transform: rotate(-3deg);
+  width: min(100%, 470px);
+}
+
+.course-hero-board strong { font-size: clamp(36px, 3.35vw, 53px); }
+
+@media (min-width: 901px) and (max-width: 1120px) {
+  .course-detail-hero { grid-template-columns: minmax(0, 1fr) minmax(310px, .8fr); min-height: 470px; }
+  .course-hero-board { min-height: 285px; }
+  .course-hero-board strong { font-size: clamp(31px, 3.5vw, 42px); }
+}
+
+@media (max-width: 900px) {
+  .course-detail-hero { display: block; height: auto; min-height: 0; padding: 0 42px 46px; }
+  .course-detail-hero-content { max-width: 680px; padding: 46px 0 26px; }
+  .course-detail-hero-content > p:not(.detail-hero-description) { margin-top: 42px; }
+  .course-hero-visual { height: 350px; justify-content: center; max-width: 680px; }
+  .course-hero-board { flex-basis: min(92%, 480px); min-height: 286px; }
+}
+
+@media (max-width: 560px) {
+  .course-detail-hero { padding: 0 22px 36px; }
+  .course-detail-hero-content { padding: 38px 0 23px; }
+  .course-detail-hero h1 { font-size: clamp(40px, 12vw, 54px); letter-spacing: -2.2px; }
+  .course-detail-hero-content > p:not(.detail-hero-description) { margin-top: 35px; }
+  .course-hero-visual { height: 290px; }
+  .course-hero-board { min-height: 245px; padding: 22px; transform: rotate(-2deg); }
+  .course-hero-board strong { font-size: clamp(31px, 10vw, 44px); }
+}
+
+/* Curriculum map: keep the whole syllabus available without making learners
+   scroll through a repeated stack of expanded accordions. */
+.module-experience > header { max-width: 720px; }
+.curriculum-map { background: #fff; box-shadow: 0 18px 46px rgba(15, 49, 109, .1); display: grid; grid-template-columns: minmax(360px, .82fr) minmax(0, 1.18fr); min-width: 0; }
+.curriculum-navigator { background: linear-gradient(155deg, #09285f, #174eaa 72%, #276dc6); color: #fff; padding: 28px; }
+.curriculum-navigator-heading { align-items: center; display: flex; justify-content: space-between; margin-bottom: 20px; }
+.curriculum-navigator-heading span { color: #79dfff; font-size: 11px; font-weight: 800; letter-spacing: .13em; }
+.curriculum-navigator-heading b { background: rgba(255,255,255,.13); border: 1px solid rgba(198,235,255,.22); border-radius: 999px; color: #effaff; font-size: 11px; padding: 7px 10px; }
+.curriculum-module-grid { display: grid; gap: 8px; grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.curriculum-module-grid button { align-items: flex-start; background: rgba(2, 22, 71, .2); border: 1px solid rgba(202, 234, 255, .16); color: #eaf7ff; cursor: pointer; display: grid; gap: 4px 8px; grid-template-columns: auto minmax(0, 1fr) auto; min-height: 58px; padding: 10px; text-align: left; transition: background .2s ease, border-color .2s ease, box-shadow .2s ease, transform .2s ease; }
+.curriculum-module-grid button:hover, .curriculum-module-grid button:focus-visible { background: rgba(255,255,255,.14); border-color: rgba(139, 222, 255, .65); outline: none; transform: translateY(-1px); }
+.curriculum-module-grid button.is-active { background: #eef9ff; border-color: #fff; box-shadow: 0 10px 22px rgba(0, 21, 71, .2); color: #0a347a; }
+.curriculum-module-grid button b { color: #86e5ff; font-size: 10px; letter-spacing: .06em; line-height: 1.4; }
+.curriculum-module-grid button.is-active b { color: #1876d1; }
+.curriculum-module-grid button span { font-size: 12px; font-weight: 700; line-height: 1.27; overflow-wrap: anywhere; }
+.curriculum-module-grid button i { color: #8bdeff; font-size: 9px; opacity: 0; padding-top: 2px; transition: opacity .2s ease; }
+.curriculum-module-grid button:hover i, .curriculum-module-grid button:focus-visible i, .curriculum-module-grid button.is-active i { opacity: 1; }
+.curriculum-module-grid button.is-active i { color: #126bc5; }
+.curriculum-focus { animation: curriculum-focus-in .25s ease both; min-width: 0; padding: 38px 42px; }
+@keyframes curriculum-focus-in { from { opacity: .35; transform: translateY(7px); } to { opacity: 1; transform: none; } }
+.curriculum-focus-top { align-items: center; display: flex; gap: 14px; justify-content: space-between; }
+.curriculum-focus-top > span { color: #2176d0; font-size: 11px; font-weight: 800; letter-spacing: .12em; }
+.curriculum-focus-top > span b { color: #6f90ba; }
+.curriculum-focus-top small { color: #59779e; font-size: 12px; font-weight: 700; white-space: nowrap; }
+.curriculum-focus-top small i { color: #2874ff; margin-right: 5px; }
+.curriculum-focus-top small b { color: #8ea5c0; margin: 0 5px; }
+.curriculum-focus h3 { color: #102f6c; font-size: clamp(30px, 3vw, 43px); letter-spacing: -2px; line-height: 1.05; margin: 22px 0 17px; }
+.curriculum-focus-intro { border-bottom: 1px solid #e1ecf8; color: #52719a; font-size: 15px; line-height: 1.62; margin: 0; padding-bottom: 20px; }
+.curriculum-focus-outcome { align-items: flex-start; background: #edf6ff; border-left: 3px solid #48bde9; color: #3d5d85; display: flex; font-size: 14px; gap: 11px; line-height: 1.48; margin: 20px 0; padding: 15px 16px; }
+.curriculum-focus-outcome > i { color: #1974d3; margin-top: 3px; }
+.curriculum-focus-outcome b { color: #0d3c82; display: block; font-size: 10px; letter-spacing: .09em; margin-bottom: 4px; text-transform: uppercase; }
+.curriculum-focus-topics > p { color: #2372c7; font-size: 10px; font-weight: 800; letter-spacing: .13em; margin: 0 0 12px; }
+.curriculum-focus-topics ul { display: grid; gap: 9px 20px; grid-template-columns: repeat(2, minmax(0, 1fr)); list-style: none; margin: 0; padding: 0; }
+.curriculum-focus-topics li { color: #526f96; font-size: 13px; line-height: 1.38; }
+.curriculum-focus-topics li i { color: #2181dc; font-size: 10px; margin-right: 7px; }
+
+@media (max-width: 900px) {
+  .curriculum-map { grid-template-columns: 1fr; }
+  .curriculum-module-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .curriculum-focus { padding: 34px; }
+}
+
+@media (max-width: 640px) {
+  .module-experience { padding: 74px 0; }
+  .module-experience > header { margin-bottom: 32px; }
+  .curriculum-navigator { padding: 20px; }
+  .curriculum-module-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .curriculum-module-grid button { min-height: 56px; }
+  .curriculum-focus { padding: 27px 20px; }
+  .curriculum-focus-top { align-items: flex-start; flex-direction: column; gap: 7px; }
+  .curriculum-focus h3 { font-size: 31px; letter-spacing: -1.5px; }
+  .curriculum-focus-topics ul { grid-template-columns: 1fr; }
+}
+
+/* A larger editorial scale keeps the map readable at a glance, while the
+   active lesson feels like a focused blueprint rather than a plain document. */
+.curriculum-map { grid-template-columns: minmax(410px, .9fr) minmax(0, 1.1fr); }
+.curriculum-navigator { padding: 32px 28px; }
+.curriculum-navigator-heading { margin-bottom: 24px; }
+.curriculum-navigator-heading span { font-size: 12px; }
+.curriculum-navigator-heading b { font-size: 12px; padding: 8px 12px; }
+.curriculum-module-grid { gap: 10px; }
+.curriculum-module-grid button { min-height: 68px; padding: 12px 11px; }
+.curriculum-module-grid button b { font-size: 11px; }
+.curriculum-module-grid button span { font-size: 13.5px; line-height: 1.3; }
+.curriculum-module-grid button i { font-size: 10px; }
+
+.curriculum-focus { overflow: hidden; padding: 42px 44px 40px; position: relative; }
+.curriculum-focus::before { color: rgba(29, 117, 214, .06); content: attr(data-module); font-size: clamp(160px, 18vw, 255px); font-weight: 800; letter-spacing: -.12em; line-height: .7; position: absolute; right: 18px; top: 25px; }
+.curriculum-focus > * { position: relative; z-index: 1; }
+.curriculum-focus-top > span { font-size: 12px; }
+.curriculum-focus-top small { font-size: 13px; }
+.curriculum-focus h3 { font-size: clamp(38px, 3.25vw, 51px); letter-spacing: -2.8px; margin: 26px 0 18px; max-width: 690px; }
+.curriculum-focus-intro { color: #496c99; font-size: 17px; line-height: 1.62; padding-bottom: 23px; }
+.curriculum-focus-outcome { background: linear-gradient(120deg, #e8f5ff, #f7fbff); border-left-width: 4px; box-shadow: inset 0 1px 0 rgba(255,255,255,.86); font-size: 16px; gap: 13px; line-height: 1.52; margin: 23px 0 25px; padding: 19px 20px; }
+.curriculum-focus-outcome > i { font-size: 17px; }
+.curriculum-focus-outcome b { font-size: 11px; margin-bottom: 6px; }
+.curriculum-focus-topics > p { font-size: 11px; margin-bottom: 15px; }
+.curriculum-focus-topics ul { gap: 10px 12px; }
+.curriculum-focus-topics li { align-items: flex-start; background: rgba(240, 248, 255, .82); border: 1px solid #dfebf8; display: flex; font-size: 14.5px; line-height: 1.36; min-height: 48px; padding: 12px; }
+.curriculum-focus-topics li i { flex: 0 0 auto; font-size: 11px; margin-top: 4px; }
+
+@media (max-width: 900px) {
+  .curriculum-map { grid-template-columns: 1fr; }
+  .curriculum-module-grid button { min-height: 64px; }
+}
+
+@media (max-width: 640px) {
+  .curriculum-navigator { padding: 23px 20px; }
+  .curriculum-module-grid button span { font-size: 12.5px; }
+  .curriculum-focus { padding: 31px 20px; }
+  .curriculum-focus::before { font-size: 140px; right: 12px; top: 22px; }
+  .curriculum-focus h3 { font-size: 34px; letter-spacing: -1.8px; }
+  .curriculum-focus-intro { font-size: 16px; }
+  .curriculum-focus-outcome { font-size: 15px; padding: 17px; }
+  .curriculum-focus-topics li { font-size: 14px; }
+}
+
+/* The enquiry treatment is a full-width conversion band.  Its background
+   reaches both viewport edges while the form itself remains on the same
+   reading grid as the course content. */
+.enquiry-section {
+  box-sizing: border-box;
+  margin-left: calc(50% - 50vw) !important;
+  margin-right: calc(50% - 50vw) !important;
+  max-width: none;
+  padding-left: max(42px, calc((100vw - 1210px) / 2));
+  padding-right: max(42px, calc((100vw - 1210px) / 2));
+  width: 100vw;
+}
+
+@media (max-width: 560px) {
+  .enquiry-section { padding-left: 22px; padding-right: 22px; }
+}
+
+/* The board owns the course name.  The complementary hero column carries
+   decision-making detail and the two conversion actions only. */
+.course-detail-accessible-title {
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  padding: 0;
+  position: absolute;
+  width: 1px;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+}
+
+.detail-hero-proof { display: flex; flex-wrap: wrap; gap: 9px; margin-top: 15px; }
+.detail-hero-proof span { align-items: center; background: rgba(3, 28, 82, .26); border: 1px solid rgba(211, 240, 255, .28); color: #eff9ff; display: inline-flex; font-size: 12px; gap: 6px; padding: 8px 11px; }
+.detail-hero-proof b { color: #77e2ff; font-size: 16px; line-height: 1; }
+.detail-hero-proof b i { color: #ffe18d; font-size: 12px; }
+.detail-hero-actions { align-items: center; display: flex; flex-wrap: wrap; gap: 13px; margin-top: 18px; }
+.detail-hero-actions .detail-primary { margin-top: 0; }
+.detail-secondary { align-items: center; border: 1px solid rgba(230, 248, 255, .55); color: #fff; display: inline-flex; font-size: 14px; font-weight: 800; gap: 9px; justify-content: center; min-height: 46px; padding: 0 17px; text-decoration: none; transition: background .2s ease, transform .2s ease; }
+.detail-secondary:hover { background: rgba(255,255,255,.12); transform: translateY(-2px); }
+
+/* Smart Investing board-writing animation. The native Segoe Print title is
+   the only visible ink from first contact through completion. */
+.board-title-writing { align-self: flex-start; display: inline-grid; max-width: 100%; position: relative; }
+.board-title-writing-live { box-sizing: content-box; grid-area: 1 / 1; min-width: 0; padding-bottom: .24em; -webkit-mask-image: linear-gradient(transparent, transparent); mask-image: linear-gradient(transparent, transparent); -webkit-mask-mode: alpha; mask-mode: alpha; }
+.board-title-trajectory-source { height: 0; overflow: hidden; pointer-events: none; position: absolute; visibility: hidden; width: 0; }
+.board-title-pen-layer { grid-area: 1 / 1; height: 100%; left: 0; overflow: visible; pointer-events: none; position: absolute; top: 0; width: 100%; }
+.board-title-pen { pointer-events: none; }
+
+@media (prefers-reduced-motion: reduce) {
+  .board-title-writing-live { -webkit-mask-image: none; mask-image: none; }
+  .board-title-pen-layer { display: none; }
+}
+
+@media (max-width: 900px) {
+  .course-detail-hero-content { padding-bottom: 30px; }
+}
+
+@media (max-width: 560px) {
+  .detail-hero-actions { align-items: stretch; flex-direction: column; }
+  .detail-hero-actions .detail-primary, .detail-secondary { width: 100%; }
+  .detail-hero-proof span { font-size: 11px; }
+}
+
+/* Urbanist has a more compact x-height than the previous families. These
+   values keep the site comfortably readable rather than merely increasing
+   decorative display text. */
+body { font-size: 17px; letter-spacing: -.006em; }
+
+.course-kicker,
+.section-label { font-size: 13px; }
+
+.back-courses { font-size: 16px; }
+.course-detail-hero-content > p:not(.detail-hero-description) { font-size: 14px; }
+.course-detail-hero-content > .detail-hero-description { font-size: 17px; line-height: 1.55; max-width: 610px; }
+.detail-hero-meta { gap: 10px; margin-top: 20px; }
+.detail-hero-meta span { font-size: 15px; padding: 9px 13px; }
+.detail-hero-proof { gap: 10px; margin-top: 17px; }
+.detail-hero-proof span { font-size: 14px; padding: 9px 12px; }
+.detail-hero-proof b { font-size: 18px; }
+.detail-hero-proof b i { font-size: 14px; }
+.detail-hero-actions { gap: 14px; margin-top: 20px; }
+.detail-primary,
+.detail-secondary { font-size: 16px; min-height: 50px; }
+.detail-secondary { padding: 0 20px; }
+
+@media (max-width: 560px) {
+  body { font-size: 16px; }
+  .course-kicker,
+  .section-label,
+  .course-detail-hero-content > p:not(.detail-hero-description) { font-size: 12px; }
+  .course-detail-hero-content > .detail-hero-description { font-size: 16px; }
+  .detail-hero-meta span { font-size: 14px; }
+  .detail-hero-proof span { font-size: 13px; }
+  .detail-primary,
+  .detail-secondary { font-size: 15px; }
+}
+
+/* Curriculum: a learning map, not a wall of small rectangles. */
+.curriculum-map {
+  border: 1px solid #d7e5f5;
+  border-radius: 22px;
+  box-shadow: 0 22px 54px rgba(16, 56, 119, .12);
+  overflow: hidden;
+}
+
+.curriculum-navigator {
+  background:
+    radial-gradient(circle at 88% 0%, rgba(105, 221, 255, .18), transparent 29%),
+    linear-gradient(160deg, #08285f, #164b9e 68%, #216ccc);
+  padding: 31px 28px 28px;
+}
+
+.curriculum-navigator-heading { margin-bottom: 18px; }
+.curriculum-navigator-heading span { font-size: 13px; letter-spacing: .12em; }
+.curriculum-navigator-heading b { font-size: 13px; padding: 8px 13px; }
+
+.curriculum-module-grid { column-gap: 22px; row-gap: 0; }
+.curriculum-module-grid button {
+  align-items: center;
+  background: transparent;
+  border: 0;
+  border-bottom: 1px solid rgba(200, 231, 255, .2);
+  color: #f2f8ff;
+  gap: 10px;
+  grid-template-columns: 31px minmax(0, 1fr) 14px;
+  min-height: 69px;
+  padding: 10px 1px;
+  position: relative;
+}
+.curriculum-module-grid button::before {
+  background: rgba(118, 221, 255, .2);
+  border-radius: 99px;
+  content: '';
+  height: 5px;
+  left: -10px;
+  opacity: 0;
+  position: absolute;
+  transition: opacity .2s ease;
+  width: 5px;
+}
+.curriculum-module-grid button b {
+  align-items: center;
+  background: rgba(119, 211, 255, .12);
+  border: 1px solid rgba(167, 228, 255, .26);
+  border-radius: 50%;
+  color: #99e7ff;
+  display: inline-flex;
+  font-size: 11px;
+  height: 28px;
+  justify-content: center;
+  letter-spacing: .02em;
+  width: 28px;
+}
+.curriculum-module-grid button span { font-size: 15px; font-weight: 700; line-height: 1.22; }
+.curriculum-module-grid button i { color: #8de5ff; font-size: 11px; opacity: .72; padding: 0; }
+.curriculum-module-grid button:hover,
+.curriculum-module-grid button:focus-visible {
+  background: transparent;
+  border-color: rgba(182, 237, 255, .58);
+  box-shadow: none;
+  transform: none;
+}
+.curriculum-module-grid button:hover::before,
+.curriculum-module-grid button:focus-visible::before { opacity: 1; }
+.curriculum-module-grid button.is-active {
+  background: linear-gradient(90deg, #f4fbff, #dcefff);
+  border: 0;
+  border-radius: 13px;
+  box-shadow: 0 12px 24px rgba(2, 25, 75, .23);
+  color: #0b397f;
+  margin: 5px -10px;
+  padding: 11px;
+}
+.curriculum-module-grid button.is-active::before { background: #46c9ff; height: 30px; left: -4px; opacity: 1; width: 4px; }
+.curriculum-module-grid button.is-active b { background: #1878d4; border-color: #1878d4; color: #fff; }
+.curriculum-module-grid button.is-active i { color: #1266c1; opacity: 1; }
+
+.curriculum-focus { padding: 46px 48px 44px; }
+.curriculum-focus-top > span { font-size: 13px; }
+.curriculum-focus-top small { font-size: 14px; }
+.curriculum-focus h3 { font-size: clamp(40px, 3.35vw, 53px); }
+.curriculum-focus-intro { font-size: 18px; line-height: 1.58; }
+.curriculum-focus-outcome { font-size: 17px; gap: 15px; line-height: 1.55; margin: 26px 0 28px; padding: 21px 22px; }
+.curriculum-focus-outcome b { font-size: 12px; }
+.curriculum-focus-topics > p { font-size: 12px; margin-bottom: 13px; }
+.curriculum-focus-topics ul { column-gap: 30px; row-gap: 0; }
+.curriculum-focus-topics li {
+  align-items: center;
+  background: transparent;
+  border: 0;
+  border-bottom: 1px solid #dce8f5;
+  color: #365b8d;
+  font-size: 16px;
+  line-height: 1.35;
+  min-height: 0;
+  padding: 13px 2px;
+}
+.curriculum-focus-topics li i {
+  align-items: center;
+  background: #e1f4ff;
+  border-radius: 50%;
+  color: #1477d4;
+  display: inline-flex;
+  font-size: 10px;
+  height: 20px;
+  justify-content: center;
+  margin: 0 9px 0 0;
+  width: 20px;
+}
+
+@media (max-width: 900px) {
+  .curriculum-module-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .curriculum-focus { padding: 38px 34px; }
+}
+
+@media (max-width: 640px) {
+  .curriculum-navigator { padding: 24px 20px; }
+  .curriculum-module-grid { column-gap: 14px; }
+  .curriculum-module-grid button { grid-template-columns: 27px minmax(0, 1fr); min-height: 64px; }
+  .curriculum-module-grid button b { font-size: 10px; height: 25px; width: 25px; }
+  .curriculum-module-grid button span { font-size: 14px; }
+  .curriculum-module-grid button i { display: none; }
+  .curriculum-focus { padding: 32px 22px; }
+  .curriculum-focus-intro { font-size: 16px; }
+  .curriculum-focus-outcome { font-size: 16px; padding: 18px; }
+  .curriculum-focus-topics li { font-size: 15px; }
+}
+
+/* A calm market-horizon backdrop gives the curriculum room depth without
+   reverting to the square-grid motif used elsewhere on the site. */
+.module-experience {
+  isolation: isolate;
+  position: relative;
+}
+.module-experience::before {
+  background:
+    radial-gradient(ellipse 46% 58% at 7% 22%, rgba(102, 203, 255, .19), transparent 72%),
+    radial-gradient(ellipse 42% 54% at 94% 77%, rgba(67, 119, 232, .14), transparent 74%),
+    linear-gradient(132deg, #f7fbff 0%, #eaf3ff 48%, #f6faff 100%);
+  content: '';
+  height: 100%;
+  left: 50%;
+  pointer-events: none;
+  position: absolute;
+  top: 0;
+  transform: translateX(-50%);
+  width: 100vw;
+  z-index: -2;
+}
+.module-experience::after {
+  border: 1px solid rgba(35, 115, 210, .16);
+  border-radius: 50%;
+  box-shadow: 0 0 0 78px rgba(76, 157, 238, .035);
+  content: '';
+  height: min(65vw, 920px);
+  pointer-events: none;
+  position: absolute;
+  right: min(-38vw, -520px);
+  top: 13%;
+  width: min(65vw, 920px);
+  z-index: -1;
+}
+.module-experience > header {
+  position: relative;
+}
+.module-experience > header::after {
+  background: linear-gradient(90deg, transparent, rgba(58, 174, 244, .48), transparent);
+  content: '';
+  height: 1px;
+  pointer-events: none;
+  position: absolute;
+  right: -250px;
+  top: 84%;
+  transform: rotate(-22deg);
+  transform-origin: right center;
+  width: 420px;
+}
+
+@media (max-width: 900px) {
+  .module-experience::after {
+    height: 660px;
+    right: -430px;
+    width: 660px;
+  }
+  .module-experience > header::after { right: -150px; width: 300px; }
+}
+
+@media (max-width: 640px) {
+  .module-experience::after {
+    height: 420px;
+    right: -290px;
+    top: 9%;
+    width: 420px;
+  }
+  .module-experience > header::after { display: none; }
+}
+
+/* Module detail: give each lesson a useful editorial rhythm rather than one
+   uninterrupted block of heading, copy, and checklist text. */
+.curriculum-focus-top {
+  align-items: center;
+  border-bottom: 1px solid #dbe8f6;
+  padding-bottom: 16px;
+}
+.curriculum-focus-top > span {
+  align-items: center;
+  background: #e7f5ff;
+  border-radius: 999px;
+  color: #126fc4;
+  display: inline-flex;
+  font-size: 12px;
+  gap: 7px;
+  letter-spacing: .08em;
+  padding: 8px 11px;
+  text-transform: uppercase;
+}
+.curriculum-focus-top > span > i { color: #3dbbe9; font-size: 12px; }
+.curriculum-focus-top > span b { color: #174a8b; font-size: inherit; }
+.curriculum-focus-top small {
+  align-items: center;
+  color: #597aa1;
+  display: inline-flex;
+  font-size: 14px;
+  gap: 5px;
+}
+.curriculum-focus-heading { margin: 24px 0 0; }
+.curriculum-focus-heading > p {
+  color: #2581d4;
+  font-size: 12px;
+  font-weight: 850;
+  letter-spacing: .12em;
+  margin: 0 0 7px;
+  text-transform: uppercase;
+}
+.curriculum-focus h3 { margin: 0; max-width: 680px; }
+.curriculum-focus-intro {
+  align-items: baseline;
+  border: 0;
+  border-left: 3px solid #69cffa;
+  color: #466b99;
+  display: flex;
+  gap: 14px;
+  line-height: 1.55;
+  margin: 22px 0 25px;
+  padding: 1px 0 1px 16px;
+}
+.curriculum-focus-intro > b {
+  color: #163e7b;
+  flex: 0 0 auto;
+  font-size: 13px;
+  letter-spacing: .02em;
+}
+.curriculum-focus-intro > p { margin: 0; }
+.curriculum-focus-outcome {
+  align-items: center;
+  background:
+    radial-gradient(circle at 94% 10%, rgba(96, 219, 255, .2), transparent 29%),
+    linear-gradient(128deg, #092d6b, #1759ad);
+  border: 0;
+  border-radius: 16px;
+  box-shadow: 0 16px 28px rgba(18, 70, 142, .16);
+  color: #e6f4ff;
+  display: grid;
+  gap: 16px;
+  grid-template-columns: 54px minmax(0, 1fr);
+  margin: 0 0 28px;
+  padding: 18px 20px;
+}
+.curriculum-outcome-mark {
+  align-items: center;
+  background: radial-gradient(circle at 34% 28%, rgba(133, 234, 255, .34), rgba(74, 183, 239, .1) 48%, transparent 49%);
+  border: 1px solid rgba(166, 232, 255, .42);
+  border-radius: 50%;
+  box-shadow: 0 0 0 6px rgba(118, 221, 255, .08), inset 0 1px 1px rgba(255, 255, 255, .24);
+  display: flex;
+  height: 48px;
+  justify-content: center;
+  width: 48px;
+}
+.curriculum-outcome-mark svg { height: 29px; overflow: visible; width: 29px; }
+.curriculum-outcome-mark circle:first-child { stroke: rgba(157, 239, 255, .82); stroke-width: 1.5; }
+.curriculum-outcome-mark circle:nth-child(2) { stroke: #62dcff; stroke-width: 1.7; }
+.curriculum-outcome-mark path { stroke: #e4fbff; stroke-linecap: round; stroke-linejoin: round; stroke-width: 2.1; }
+.curriculum-focus-outcome > div:last-child > b {
+  color: #77ddff;
+  font-size: 11px;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+}
+.curriculum-focus-outcome > div:last-child > p {
+  color: #f4faff;
+  font-size: 16px;
+  line-height: 1.48;
+  margin: 4px 0 0;
+}
+.curriculum-topics-heading {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 5px;
+}
+.curriculum-topics-heading > p { margin: 0; }
+.curriculum-topics-heading > span {
+  color: #5280ad;
+  font-size: 13px;
+  font-weight: 700;
+}
+.curriculum-focus-topics li {
+  transition: background .18s ease, color .18s ease, padding-left .18s ease;
+}
+.curriculum-focus-topics li:hover {
+  background: #f3f9ff;
+  color: #163e7c;
+  padding-left: 8px;
+}
+
+@media (max-width: 640px) {
+  .curriculum-focus-top { align-items: flex-start; flex-direction: column; gap: 11px; }
+  .curriculum-focus-intro { align-items: flex-start; flex-direction: column; gap: 5px; }
+  .curriculum-focus-outcome { gap: 13px; grid-template-columns: 48px minmax(0, 1fr); padding: 16px; }
+  .curriculum-focus-outcome > div:last-child > p { font-size: 15px; }
+}
+
+/* Cursor-responsive headings, adapted to the site's Urbanist variable font. */
+.text-pressure {
+  cursor: default;
+  display: inline;
+  font-family: inherit;
+  font-kerning: normal;
+  white-space: pre-wrap;
+}
+.text-pressure-character {
+  display: inline-block;
+  font-variation-settings: 'wght' 560;
+  transform-origin: center bottom;
+  transition: font-variation-settings .2s ease, opacity .2s ease, transform .2s ease;
+  will-change: font-variation-settings, opacity, transform;
+}
+.text-pressure:hover .text-pressure-character { transition-duration: .06s; }
+
+@media (prefers-reduced-motion: reduce) {
+  .text-pressure-character { font-variation-settings: inherit; transform: none !important; }
+}
+
+/* Grainient sits beneath the curriculum as atmospheric light, never beneath
+   readable text or the learning-map surface. */
+.module-grainient {
+  height: 100%;
+  left: 50%;
+  opacity: .56;
+  overflow: hidden;
+  pointer-events: none;
+  position: absolute;
+  top: 0;
+  transform: translateX(-50%);
+  width: 100vw;
+  z-index: 0;
+}
+.module-grainient > div { height: 100%; width: 100%; }
+.module-experience::before { opacity: .32; z-index: 0; }
+.module-experience::after { z-index: 1; }
+.module-experience > header,
+.module-experience > .curriculum-map { position: relative; z-index: 2; }
+
+@media (prefers-reduced-motion: reduce) {
+  .module-grainient { display: none; }
+}
+
+/* A faint technical chart watermark adds market context to the lesson panel
+   without competing with the active lesson's real content. */
+.curriculum-focus {
+  background-color: #fff;
+  background-image:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 460 330'%3E%3Cg fill='none' stroke='%23147bc8' stroke-opacity='.15' stroke-width='2'%3E%3Cpath d='M15 284 C70 254 96 268 137 218 S208 247 249 174 S334 184 378 101 S421 82 452 48'/%3E%3Cpath stroke-dasharray='4 8' d='M15 284 H452'/%3E%3C/g%3E%3Cg stroke='%231b8adb' stroke-opacity='.17' stroke-width='2'%3E%3Cpath d='M53 263V307M107 228V280M161 241V299M215 181V256M269 196V263M323 131V226M377 101V176M431 54V140'/%3E%3C/g%3E%3Cg fill='%2366c9f5' fill-opacity='.12' stroke='%231b8adb' stroke-opacity='.18' stroke-width='1.4'%3E%3Crect x='45' y='273' width='16' height='22' rx='2'/%3E%3Crect x='99' y='239' width='16' height='30' rx='2'/%3E%3Crect x='153' y='254' width='16' height='32' rx='2'/%3E%3Crect x='207' y='192' width='16' height='47' rx='2'/%3E%3Crect x='261' y='208' width='16' height='38' rx='2'/%3E%3Crect x='315' y='144' width='16' height='58' rx='2'/%3E%3Crect x='369' y='113' width='16' height='42' rx='2'/%3E%3Crect x='423' y='69' width='16' height='49' rx='2'/%3E%3C/g%3E%3C/svg%3E"),
+    radial-gradient(circle at 86% 12%, rgba(98, 197, 246, .07), transparent 34%);
+  background-position: right -42px top 102px, right top;
+  background-repeat: no-repeat;
+  background-size: min(66%, 470px) auto, 100% 100%;
+}
+
+@media (max-width: 900px) {
+  .curriculum-focus { background-position: right -85px top 125px, right top; background-size: 490px auto, 100% 100%; }
+}
+
+@media (max-width: 640px) {
+  .curriculum-focus { background-position: right -185px top 126px, right top; background-size: 440px auto, 100% 100%; }
+}
+
+/* The enquiry band is a blue glass conversion surface, not a flat form on a
+   pale panel. Its field contrast remains deliberately high for usability. */
+.enquiry-section {
+  background:
+    radial-gradient(circle at 83% 18%, rgba(93, 218, 255, .35), transparent 25%),
+    radial-gradient(circle at 10% 100%, rgba(83, 125, 255, .32), transparent 39%),
+    linear-gradient(122deg, #061f59 0%, #0e4fa5 51%, #254fc1 100%);
+  isolation: isolate;
+  overflow: hidden;
+  padding-bottom: 78px;
+  padding-top: 78px;
+  position: relative;
+}
+.enquiry-section::before {
+  border: 1px solid rgba(153, 229, 255, .26);
+  border-radius: 50%;
+  content: '';
+  height: 620px;
+  pointer-events: none;
+  position: absolute;
+  right: -235px;
+  top: -382px;
+  width: 620px;
+  z-index: -1;
+}
+.enquiry-section::after {
+  background: linear-gradient(128deg, transparent 36%, rgba(163, 236, 255, .22) 36.1%, transparent 36.45%);
+  content: '';
+  inset: 0;
+  opacity: .65;
+  pointer-events: none;
+  position: absolute;
+  z-index: -1;
+}
+.enquiry-section > div { align-self: center; }
+.enquiry-section .section-label { color: #71ddff; }
+.enquiry-section h2 { color: #fff; text-shadow: 0 12px 32px rgba(0, 12, 55, .2); }
+.enquiry-section h2 strong { color: #70d9ff; }
+.enquiry-section > div > p:not(.section-label) { color: rgba(237, 248, 255, .82); font-size: 18px; max-width: 410px; }
+.enquiry-section form {
+  background: linear-gradient(145deg, rgba(218, 244, 255, .22), rgba(79, 155, 236, .16));
+  border: 1px solid rgba(205, 243, 255, .36);
+  border-radius: 22px;
+  box-shadow: 0 24px 56px rgba(0, 19, 79, .28), inset 0 1px 0 rgba(255, 255, 255, .25);
+  gap: 16px;
+  padding: 27px 28px 26px;
+  backdrop-filter: blur(18px) saturate(132%);
+  -webkit-backdrop-filter: blur(18px) saturate(132%);
+}
+.enquiry-section label {
+  color: #d8f5ff;
+  font-size: 12px;
+  letter-spacing: .08em;
+}
+.enquiry-section input,
+.enquiry-section textarea {
+  background: rgba(247, 252, 255, .88);
+  border: 1px solid rgba(214, 243, 255, .66);
+  border-radius: 10px;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, .8), 0 5px 14px rgba(1, 37, 100, .08);
+  color: #0b3d80;
+  margin-top: 9px;
+  min-height: 48px;
+  padding: 13px 14px;
+  transition: background .2s ease, border-color .2s ease, box-shadow .2s ease, transform .2s ease;
+}
+.enquiry-section textarea { min-height: 104px; }
+.enquiry-section input::placeholder,
+.enquiry-section textarea::placeholder { color: #6382a5; opacity: 1; }
+.enquiry-section input:focus,
+.enquiry-section textarea:focus {
+  background: #fff;
+  border-color: #6cddff;
+  box-shadow: 0 0 0 4px rgba(104, 221, 255, .22), 0 8px 18px rgba(1, 37, 100, .15);
+  transform: translateY(-1px);
+}
+.enquiry-section .detail-primary {
+  background: linear-gradient(135deg, #6bdeff, #377aff);
+  border: 1px solid rgba(222, 250, 255, .52);
+  box-shadow: 0 12px 22px rgba(0, 23, 86, .26), inset 0 1px 0 rgba(255, 255, 255, .35);
+  color: #062b68;
+  font-weight: 850;
+  margin-top: 5px;
+  padding-left: 22px;
+  padding-right: 22px;
+}
+.enquiry-section .detail-primary:hover { box-shadow: 0 16px 28px rgba(0, 23, 86, .33), inset 0 1px 0 rgba(255, 255, 255, .45); transform: translateY(-2px); }
+
+@media (max-width: 860px) {
+  .enquiry-section { padding-bottom: 48px; padding-top: 48px; }
+  .enquiry-section form { padding: 23px 22px; }
+}
+
+@media (max-width: 560px) {
+  .enquiry-section { padding-bottom: 38px; padding-top: 38px; }
+  .enquiry-section > div > p:not(.section-label) { font-size: 16px; }
+  .enquiry-section form { border-radius: 18px; padding: 20px 18px; }
+}
+
+/* Give the course concepts a firmer reading weight at a glance. */
+.curriculum-topics-heading > p {
+  color: #0b4f9a;
+  font-size: 13px;
+  font-weight: 850;
+  letter-spacing: .1em;
+}
+.curriculum-topics-heading > span {
+  color: #2b629c;
+  font-size: 14px;
+  font-weight: 800;
+}
+.curriculum-focus-topics li {
+  border-bottom-color: #cbdff3;
+  color: #1f4f8d;
+  font-weight: 620;
+}
+.curriculum-focus-topics li i {
+  background: #d4efff;
+  color: #0e6fc7;
+  font-size: 11px;
+  font-weight: 900;
+}
+
+/* Mentor spotlight: one composed stage shared by all three instructors. */
+.mentor-spotlight {
+  background:
+    radial-gradient(circle at 88% 13%, rgba(74, 204, 255, .22), transparent 28%),
+    linear-gradient(125deg, #071f5c, #103f91 58%, #172d78);
+  border: 1px solid rgba(132, 220, 255, .22);
+  border-radius: 24px;
+  box-shadow: 0 28px 60px rgba(8, 46, 112, .2);
+  grid-template-columns: minmax(390px, .88fr) minmax(0, 1.12fr);
+  isolation: isolate;
+  position: relative;
+}
+.mentor-spotlight::before {
+  border: 1px solid rgba(137, 224, 255, .18);
+  border-radius: 50%;
+  content: '';
+  height: 510px;
+  pointer-events: none;
+  position: absolute;
+  right: -168px;
+  top: -265px;
+  width: 510px;
+  z-index: -1;
+}
+.mentor-photo-stage {
+  align-self: stretch;
+  background: #071a3e;
+  min-height: 535px;
+  overflow: hidden;
+  position: relative;
+}
+.mentor-photo-stage::after {
+  background: linear-gradient(90deg, rgba(4, 20, 62, .05) 30%, rgba(5, 24, 70, .72) 100%), linear-gradient(0deg, rgba(4, 24, 72, .4), transparent 42%);
+  content: '';
+  inset: 0;
+  pointer-events: none;
+  position: absolute;
+  z-index: 2;
+}
+.mentor-photo-track {
+  display: flex;
+  height: 100%;
+  transition: transform .72s cubic-bezier(.22, .82, .2, 1);
+  width: 100%;
+}
+.mentor-photo-slide { flex: 0 0 100%; height: 100%; margin: 0; min-width: 0; }
+.mentor-photo-slide img { display: block; height: 100%; object-fit: cover; object-position: 48% 30%; width: 100%; }
+.mentor-photo-index {
+  align-items: baseline;
+  bottom: 25px;
+  color: rgba(218, 245, 255, .72);
+  display: flex;
+  font-size: 12px;
+  gap: 5px;
+  left: 28px;
+  letter-spacing: .1em;
+  position: absolute;
+  z-index: 3;
+}
+.mentor-photo-index b { color: #75ddff; font-size: 24px; letter-spacing: -.03em; }
+.mentor-spotlight-copy {
+  animation: mentor-spotlight-copy-in .5s ease both;
+  padding: 70px 74px !important;
+  position: relative;
+  z-index: 1;
+}
+@keyframes mentor-spotlight-copy-in { from { opacity: .35; transform: translateX(13px); } to { opacity: 1; transform: translateX(0); } }
+.mentor-spotlight-copy .section-label { color: #72dcff; }
+.mentor-copy-overline { color: rgba(218, 244, 255, .62); font-size: 11px; font-weight: 800; letter-spacing: .14em; margin: 15px 0 -8px; text-transform: uppercase; }
+.mentor-spotlight-copy h2 { font-size: clamp(42px, 4.2vw, 64px); letter-spacing: -3.4px; margin-top: 16px; }
+.mentor-spotlight-copy h2 strong { color: #5ad7ff; }
+.mentor-spotlight-copy .instructor-role { color: #b5ebff !important; }
+.mentor-spotlight-copy .instructor-quote { border-left-color: #55d5ff; color: #f2f8ff; max-width: 545px; }
+.mentor-spotlight-copy .instructor-points span { background: rgba(104, 211, 255, .12); border: 1px solid rgba(147, 227, 255, .17); color: #edf8ff; }
+.mentor-spotlight-copy .instructor-points i { color: #63ddff; }
+.mentor-spotlight-controls { align-items: center; display: flex; justify-content: space-between; margin-top: 31px; max-width: 540px; }
+.mentor-dots { display: flex; gap: 8px; }
+.mentor-dots button {
+  align-items: center;
+  background: rgba(255, 255, 255, .08);
+  border: 1px solid rgba(180, 235, 255, .22);
+  border-radius: 50%;
+  color: #d8f5ff;
+  cursor: pointer;
+  display: inline-flex;
+  font: inherit;
+  font-size: 10px;
+  height: 34px;
+  justify-content: center;
+  transition: background .2s ease, border-color .2s ease, color .2s ease, transform .2s ease;
+  width: 34px;
+}
+.mentor-dots button:hover { border-color: #72ddff; transform: translateY(-2px); }
+.mentor-dots button.is-active { background: #68dcff; border-color: #9eeaff; color: #083276; font-weight: 850; }
+.mentor-arrows { display: flex; gap: 9px; }
+.mentor-arrows button {
+  align-items: center;
+  background: transparent;
+  border: 1px solid rgba(194, 239, 255, .35);
+  border-radius: 50%;
+  color: #eaf9ff;
+  cursor: pointer;
+  display: inline-flex;
+  height: 42px;
+  justify-content: center;
+  transition: background .2s ease, color .2s ease, transform .2s ease;
+  width: 42px;
+}
+.mentor-arrows button:hover { background: #eaf9ff; color: #0b3a83; transform: translateY(-2px); }
+
+@media (max-width: 860px) {
+  .mentor-spotlight { grid-template-columns: 1fr; }
+  .mentor-photo-stage { min-height: 480px; }
+  .mentor-spotlight-copy { padding: 48px 34px !important; }
+}
+
+@media (max-width: 560px) {
+  .mentor-spotlight { border-radius: 18px; }
+  .mentor-photo-stage { min-height: 390px; }
+  .mentor-photo-slide img { object-position: center 25%; }
+  .mentor-spotlight-copy { padding: 37px 24px !important; }
+  .mentor-spotlight-copy h2 { font-size: 42px; letter-spacing: -2.4px; }
+  .mentor-spotlight-controls { align-items: flex-start; gap: 18px; flex-direction: column; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .mentor-photo-track { transition: none; }
+  .mentor-spotlight-copy { animation: none; }
 }
