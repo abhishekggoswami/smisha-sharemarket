@@ -143,10 +143,10 @@ h1 strong, h1 span { display: block; } h1 strong { font-weight: 700; } h1 span {
 .services-section { background: #f8faff; margin-top: 25px; overflow: hidden; padding: 121px max(42px, calc((100vw - 1340px) / 2)) 142px; position: relative; }
 .services-section:before { border: 2px solid rgba(18, 44, 69, .05); border-radius: 50%; content: ""; height: 540px; left: 30%; position: absolute; top: -255px; width: 760px; }
 .services-section:after { border-left: 2px solid rgba(18, 44, 69, .05); border-right: 2px solid rgba(18, 44, 69, .05); content: ""; inset: 0 11.5%; pointer-events: none; position: absolute; }
-.services-heading { align-items: end; display: flex; justify-content: space-between; margin: 0 auto 51px; max-width: 1340px; position: relative; z-index: 1; }
+.services-heading { align-items: end; display: flex; justify-content: space-between; margin: 0 auto 28px; max-width: 1340px; position: relative; z-index: 1; }
 .services-heading .section-kicker { margin-bottom: 25px; }
 .services-heading h2 { font-size: 50px; font-weight: 400; letter-spacing: -2.4px; line-height: 1.17; margin: 0; }
-.services-heading h2 strong, .services-heading h2 span { display: block; }
+.services-heading h2 > strong, .services-heading h2 > span { display: block; }
 .services-heading h2 strong { font-weight: 700; }
 .services-button { align-items: center; background: var(--green); border-radius: 30px; color: #fff; display: inline-flex; font-size: 17px; font-weight: 600; gap: 13px; height: 51px; justify-content: center; margin-bottom: 2px; text-decoration: none; width: 248px; }
 .services-button b { align-items: center; background: #fff; border-radius: 50%; color: var(--green); display: inline-flex; font-size: 13px; height: 16px; justify-content: center; width: 16px; }
@@ -358,7 +358,7 @@ h1 strong, h1 span { display: block; } h1 strong { font-weight: 700; } h1 span {
 .tabs { gap: 8px; }
 .tabs button { flex: 1; min-width: 0; padding: 0 10px; }
 .services-section { padding: 80px 24px; }
-.services-heading { align-items: flex-start; flex-direction: column; gap: 27px; margin-bottom: 35px; }
+.services-heading { align-items: flex-start; flex-direction: column; gap: 24px; margin-bottom: 24px; }
 .services-heading h2 { font-size: 40px; letter-spacing: -1.8px; }
 .services-grid { grid-template-columns: repeat(2, 1fr); }
 .service-card { min-height: 390px; }
@@ -1037,7 +1037,7 @@ h1 strong, h1 span { display: block; } h1 strong { font-weight: 700; } h1 span {
   .vision-row { grid-template-columns: 1fr; }
   .vision-image { aspect-ratio: 16 / 9; height: auto; }
   .services-section, .faq-section { padding: 64px 18px; }
-  .services-heading { gap: 22px; }
+  .services-heading { gap: 18px; margin-bottom: 22px; }
   .services-button { max-width: 100%; width: 100%; }
   .service-card { border-radius: 19px; min-height: 0; padding: 24px 18px 0; }
   .service-card-top { min-height: 120px; }
