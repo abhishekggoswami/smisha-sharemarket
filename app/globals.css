@@ -242,7 +242,8 @@
 
 @media (max-width: 560px) {
   .event-gallery-section { padding: 64px 20px; }
-  .event-gallery-heading h2 { font-size: clamp(2.05rem, 11vw, 3.15rem); }
+  .event-gallery-heading h2 { font-size: clamp(2.05rem, 11vw, 3.15rem); line-height: 1.06; }
+  .event-gallery-heading h2 span { margin-top: .09em; }
   .event-gallery-heading > p { font-size: .98rem; }
   .event-gallery-feature { min-height: 390px; border-radius: 20px; }
   .event-gallery-feature > img { min-height: 390px; }
@@ -447,6 +448,6 @@
   .india-review-map-layout { display: flex; flex-direction: column; gap: 13px; }
   .india-map-panel { height: 390px; order: -1; width: 100%; }
   .india-state-map { height: 390px; }
-  .india-review-card, .india-review-card--compact, .india-review-card--standard, .india-review-card--feature { max-width: none; transform: none; }
+  .india-review-card, .india-review-card--compact, .india-review-card--standard, .india-review-card--feature { height: auto; max-width: none; min-height: 0; transform: none; }
   .india-review-card:nth-of-type(2n + 1) { transform: none; }
 }
