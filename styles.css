@@ -5135,7 +5135,7 @@ body { font-size: 17px; letter-spacing: -.006em; }
       "heading stage"
       "actions actions"
       "trust trust";
-    grid-template-columns: minmax(0, 62%) minmax(0, 38%);
+    grid-template-columns: minmax(0, 52%) minmax(0, 48%);
     align-items: start;
     padding: 48px 22px 0;
   }
@@ -5160,7 +5160,7 @@ body { font-size: 17px; letter-spacing: -.006em; }
   .landing-page .page-shell .keynote-kicker::before { flex-basis: 26px; }
   .landing-page .page-shell .keynote-title-mobile {
     grid-area: heading;
-    font-size: clamp(2.2rem, 11vw, 3.3rem);
+    font-size: clamp(1.9rem, 9.2vw, 2.8rem);
     line-height: .91;
     max-width: none;
     min-width: 0;
@@ -5168,10 +5168,11 @@ body { font-size: 17px; letter-spacing: -.006em; }
     z-index: 3;
   }
   .landing-page .page-shell .keynote-stage {
-    align-self: end;
+    align-self: start;
+    aspect-ratio: 3 / 4;
     grid-area: stage;
-    height: clamp(290px, 85vw, 370px);
-    margin: 8px -22px 0 -32px;
+    height: auto;
+    margin: 0 -22px 0 -16px;
     max-width: none;
     min-width: 0;
     overflow: visible;
@@ -5179,11 +5180,12 @@ body { font-size: 17px; letter-spacing: -.006em; }
     z-index: 2;
   }
   .landing-page .page-shell .keynote-stage .keynote-speaker {
-    bottom: 0;
+    bottom: auto;
     height: 100%;
     object-fit: contain;
-    object-position: center bottom;
+    object-position: center top;
     right: 0;
+    top: 0;
     width: 100%;
   }
   .landing-page .page-shell .keynote-description {
@@ -5218,7 +5220,7 @@ body { font-size: 17px; letter-spacing: -.006em; }
   .landing-page .page-shell .keynote-hero-inner { padding: 42px 17px 0; }
   .landing-page .page-shell .keynote-kicker { font-size: 8px; gap: 7px; letter-spacing: .12em; }
   .landing-page .page-shell .keynote-kicker::before { flex-basis: 22px; }
-  .landing-page .page-shell .keynote-stage { height: 290px; margin-right: -17px; }
+  .landing-page .page-shell .keynote-stage { margin-right: -17px; }
   .landing-page .page-shell .keynote-description { font-size: 14px; }
   .landing-page .page-shell .keynote-button { font-size: 13px; padding-inline: 15px; }
 }
