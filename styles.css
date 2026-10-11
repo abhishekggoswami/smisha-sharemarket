@@ -5160,19 +5160,21 @@ body { font-size: 17px; letter-spacing: -.006em; }
   .landing-page .page-shell .keynote-kicker::before { flex-basis: 26px; }
   .landing-page .page-shell .keynote-title-mobile {
     grid-area: heading;
-    font-size: clamp(1.9rem, 9.2vw, 2.8rem);
-    line-height: .91;
+    font-size: clamp(2.25rem, 11.3vw, 3rem);
+    line-height: .82;
     max-width: none;
     min-width: 0;
     position: relative;
     z-index: 3;
   }
+  .landing-page .page-shell .keynote-title-mobile .mobile-title-to { padding-left: .78em; }
+  .landing-page .page-shell .keynote-title-mobile em { margin: 0 0 0 -.35em; }
   .landing-page .page-shell .keynote-stage {
     align-self: start;
     grid-area: stage;
-    height: clamp(118px, 32vw, 140px);
-    margin: 0 -22px 0 -16px;
-    overflow: hidden;
+    height: clamp(175px, 55vw, 214px);
+    margin: 0;
+    overflow: visible;
     max-width: none;
     min-width: 0;
     overflow: visible;
@@ -5182,7 +5184,7 @@ body { font-size: 17px; letter-spacing: -.006em; }
   .landing-page .page-shell .keynote-stage .keynote-speaker {
     bottom: auto;
     height: 100%;
-    object-fit: cover;
+    object-fit: contain;
     object-position: center top;
     right: 0;
     top: 0;
@@ -5226,7 +5228,7 @@ body { font-size: 17px; letter-spacing: -.006em; }
   .landing-page .page-shell .keynote-hero-inner { padding: 42px 17px 0; }
   .landing-page .page-shell .keynote-kicker { font-size: 8px; gap: 7px; letter-spacing: .12em; }
   .landing-page .page-shell .keynote-kicker::before { flex-basis: 22px; }
-  .landing-page .page-shell .keynote-stage { height: 118px; margin-right: -17px; }
+  .landing-page .page-shell .keynote-stage { height: 175px; margin-right: 0; }
   .landing-page .page-shell .keynote-description { font-size: 14px; }
   .landing-page .page-shell .keynote-button { font-size: 13px; padding-inline: 15px; }
 }

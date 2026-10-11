@@ -47,7 +47,7 @@ export const landingMarkup = String.raw`
             <div class="keynote-heading">
               <p class="keynote-kicker">PUNE'S LEADING SHARE MARKET ACADEMY</p>
               <h1 id="keynote-title" class="keynote-title"><span>Pune learns to trade</span><em>with Smisha,</em><span>then trades with confidence.</span></h1>
-              <h1 class="keynote-title-mobile">Learn to <span>trade with</span> <em>Smisha</em></h1>
+              <h1 class="keynote-title-mobile"><span>Learn</span><span class="mobile-title-to">to</span><span>trade</span><span>with</span><em>Smisha</em></h1>
             </div>
             <div class="keynote-actions">
               <p class="keynote-description">Live market classes, expert mentorship, and risk-first training for Pune learners who want to understand the market, make better decisions, and build lasting confidence.</p>
