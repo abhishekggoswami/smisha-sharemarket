@@ -44,12 +44,16 @@ export const landingMarkup = String.raw`
         <div class="keynote-glow keynote-glow-two" aria-hidden="true"></div>
         <div class="keynote-hero-inner">
           <div class="keynote-copy">
-            <p class="keynote-kicker">PUNE'S LEADING SHARE MARKET ACADEMY</p>
-            <h1 id="keynote-title" class="keynote-title"><span>Pune learns to trade</span><em>with Smisha,</em><span>then trades with confidence.</span></h1>
-            <h1 class="keynote-title-mobile">Learn to <span>trade with</span> <em>Smisha</em></h1>
-            <p class="keynote-description">Live market classes, expert mentorship, and risk-first training for Pune learners who want to understand the market, make better decisions, and build lasting confidence.</p>
-            <a href="#contact" class="keynote-button">Get your free consultation <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></a>
-            <p class="keynote-note"><i class="fa-solid fa-circle-check" aria-hidden="true"></i> Pune-based. Live, online, and offline learning.</p>
+            <div class="keynote-heading">
+              <p class="keynote-kicker">PUNE'S LEADING SHARE MARKET ACADEMY</p>
+              <h1 id="keynote-title" class="keynote-title"><span>Pune learns to trade</span><em>with Smisha,</em><span>then trades with confidence.</span></h1>
+              <h1 class="keynote-title-mobile">Learn to <span>trade with</span> <em>Smisha</em></h1>
+            </div>
+            <div class="keynote-actions">
+              <p class="keynote-description">Live market classes, expert mentorship, and risk-first training for Pune learners who want to understand the market, make better decisions, and build lasting confidence.</p>
+              <a href="#contact" class="keynote-button"><i class="fa-regular fa-calendar-days keynote-calendar-icon" aria-hidden="true"></i><span>Get your free consultation</span><i class="fa-solid fa-arrow-right" aria-hidden="true"></i></a>
+              <p class="keynote-note"><i class="fa-solid fa-circle-check" aria-hidden="true"></i> Pune-based. Live, online, and offline learning.</p>
+            </div>
           </div>
           <div class="keynote-stage" aria-hidden="true">
             <img class="keynote-speaker keynote-speaker--one" src="/assets/sushil-keynote-mic-01.png" alt="" />
