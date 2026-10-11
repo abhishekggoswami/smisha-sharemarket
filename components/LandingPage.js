@@ -178,5 +178,5 @@ export default function LandingPage() {
     return () => cleanups.forEach((cleanup) => cleanup());
   }, []);
 
-  return <><SiteHeader active="Homepage" demoHref="#contact" /><div ref={rootRef} dangerouslySetInnerHTML={{ __html: landingMarkup }} /></>;
+  return <div className="landing-page"><SiteHeader active="Homepage" demoHref="#contact" /><div ref={rootRef} dangerouslySetInnerHTML={{ __html: landingMarkup }} /></div>;
 }

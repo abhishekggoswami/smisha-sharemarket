@@ -46,6 +46,7 @@ export const landingMarkup = String.raw`
           <div class="keynote-copy">
             <p class="keynote-kicker">PUNE'S LEADING SHARE MARKET ACADEMY</p>
             <h1 id="keynote-title" class="keynote-title"><span>Pune learns to trade</span><em>with Smisha,</em><span>then trades with confidence.</span></h1>
+            <h1 class="keynote-title-mobile">Learn to <span>trade with</span> <em>Smisha</em></h1>
             <p class="keynote-description">Live market classes, expert mentorship, and risk-first training for Pune learners who want to understand the market, make better decisions, and build lasting confidence.</p>
             <a href="#contact" class="keynote-button">Get your free consultation <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></a>
             <p class="keynote-note"><i class="fa-solid fa-circle-check" aria-hidden="true"></i> Pune-based. Live, online, and offline learning.</p>
@@ -54,6 +55,10 @@ export const landingMarkup = String.raw`
             <img class="keynote-speaker keynote-speaker--one" src="/assets/sushil-keynote-mic-01.png" alt="" />
             <img class="keynote-speaker keynote-speaker--two" src="/assets/sushil-keynote-mic-02.png" alt="" />
             <img class="keynote-speaker keynote-speaker--three" src="/assets/sushil-keynote-mic-03.png" alt="" />
+          </div>
+          <div class="mobile-hero-trust" aria-label="Trusted by more than 2,500 learners in Pune">
+            <div class="mobile-hero-faces" aria-hidden="true"><span></span><span></span><span></span></div>
+            <p>Trusted by <strong>2,500+</strong><br />learners in Pune</p>
           </div>
         </div>
         <video class="background-video" autoplay muted loop playsinline preload="auto">

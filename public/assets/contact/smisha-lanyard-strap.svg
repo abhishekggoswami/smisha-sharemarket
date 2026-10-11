@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="160" height="960" viewBox="0 0 160 960">
+  <defs><linearGradient id="strap" x1="0" y1="0" x2="160" y2="0"><stop stop-color="#06183f"/><stop offset=".5" stop-color="#1b5aa8"/><stop offset="1" stop-color="#06183f"/></linearGradient></defs>
+  <rect width="160" height="960" fill="url(#strap)"/>
+  <path d="M20 0V960M58 0V960M102 0V960M140 0V960" stroke="#72dcff" stroke-opacity=".3" stroke-width="3"/>
+  <text x="80" y="115" fill="#d9f7ff" fill-opacity=".86" font-family="Arial, sans-serif" font-size="16" font-weight="700" letter-spacing="3" text-anchor="middle" transform="rotate(90 80 115)">SMISHA</text>
+  <text x="80" y="422" fill="#d9f7ff" fill-opacity=".86" font-family="Arial, sans-serif" font-size="16" font-weight="700" letter-spacing="3" text-anchor="middle" transform="rotate(90 80 422)">SMISHA</text>
+  <text x="80" y="729" fill="#d9f7ff" fill-opacity=".86" font-family="Arial, sans-serif" font-size="16" font-weight="700" letter-spacing="3" text-anchor="middle" transform="rotate(90 80 729)">SMISHA</text>
+</svg>

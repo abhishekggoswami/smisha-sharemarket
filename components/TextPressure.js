@@ -96,13 +96,18 @@ export default function TextPressure({
     };
   }, [intensity, maxWeight, minWeight, text]);
 
-  return <span ref={rootRef} className={`text-pressure ${className}`} aria-label={text}>
-    {Array.from(text).map((character, index) => <span
-      aria-hidden="true"
-      className="text-pressure-character"
-      data-space={character === ' ' ? 'true' : undefined}
-      key={`${character}-${index}`}
-      ref={(element) => { characterRefs.current[index] = element; }}
-    >{character === ' ' ? '\u00a0' : character}</span>)}
+  let characterIndex = 0;
+  const hasLeadingSpace = /^\s/.test(text);
+  const hasTrailingSpace = /\s$/.test(text);
+  return <span ref={rootRef} className={`text-pressure ${hasLeadingSpace ? 'text-pressure--leading-space' : ''} ${hasTrailingSpace ? 'text-pressure--trailing-space' : ''} ${className}`} aria-label={text}>
+    {text.trim().split(/\s+/).map((word, wordIndex) => <span aria-hidden="true" className="text-pressure-word" key={`word-${wordIndex}`}>{Array.from(word).map((character) => {
+        const index = characterIndex;
+        characterIndex += 1;
+        return <span
+          className="text-pressure-character"
+          key={`${character}-${index}`}
+          ref={(element) => { characterRefs.current[index] = element; }}
+        >{character}</span>;
+      })}</span>)}
   </span>;
 }

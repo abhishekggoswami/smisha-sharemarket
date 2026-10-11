@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="720" height="1010" viewBox="0 0 720 1010" fill="none">
+  <defs>
+    <linearGradient id="card" x1="0" y1="0" x2="720" y2="1010" gradientUnits="userSpaceOnUse"><stop stop-color="#fafdff"/><stop offset=".53" stop-color="#eef6ff"/><stop offset="1" stop-color="#dcecff"/></linearGradient>
+    <linearGradient id="blue" x1="86" y1="378" x2="636" y2="907" gradientUnits="userSpaceOnUse"><stop stop-color="#123d8c"/><stop offset="1" stop-color="#071d54"/></linearGradient>
+    <radialGradient id="glow" cx="0" cy="0" r="1" gradientTransform="translate(550 418) rotate(138) scale(295 323)" gradientUnits="userSpaceOnUse"><stop stop-color="#74dfff" stop-opacity=".22"/><stop offset="1" stop-color="#74dfff" stop-opacity="0"/></radialGradient>
+    <pattern id="grid" width="36" height="36" patternUnits="userSpaceOnUse"><path d="M36 0H0V36" fill="none" stroke="#2b75be" stroke-opacity=".14"/></pattern>
+    <radialGradient id="avatarField" cx="0" cy="0" r="1" gradientTransform="translate(320 344) rotate(51) scale(260)" gradientUnits="userSpaceOnUse"><stop stop-color="#e9f8ff"/><stop offset="1" stop-color="#a9dcfa"/></radialGradient>
+    <linearGradient id="avatarSilhouette" x1="278" y1="334" x2="442" y2="522" gradientUnits="userSpaceOnUse"><stop stop-color="#47b9f2"/><stop offset="1" stop-color="#218ed3"/></linearGradient>
+    <clipPath id="avatarClip"><circle cx="360" cy="409" r="124"/></clipPath>
+  </defs>
+  <rect width="720" height="1010" rx="42" fill="url(#card)"/>
+  <rect x="24" y="250" width="672" height="700" rx="28" fill="url(#grid)"/>
+  <rect width="720" height="1010" rx="42" fill="url(#glow)"/>
+  <path d="M0 0H720V255C577 309 435 314 300 282C165 250 65 194 0 130V0Z" fill="#0c2d73"/>
+  <path d="M483 0H720V236C618 209 545 170 483 113V0Z" fill="#42c6ff" fill-opacity=".16"/>
+  <g aria-label="Smisha Share Market">
+    <image href="/assets/smisha-logo.png" x="58" y="49" width="58" height="58" preserveAspectRatio="xMidYMid meet"/>
+    <text x="130" y="77" fill="white" font-family="Arial, sans-serif" font-size="31" font-weight="800" letter-spacing="1">SMISHA</text>
+    <text x="131" y="103" fill="#55d2ff" font-family="Arial, sans-serif" font-size="14" font-weight="700" letter-spacing="3">SHARE MARKET</text>
+  </g>
+  <text x="58" y="187" fill="#b7eaff" font-family="Arial, sans-serif" font-size="15" font-weight="800" letter-spacing="3">STUDENT ACADEMY</text>
+  <circle cx="360" cy="409" r="141" fill="#d9efff" stroke="#59cfff" stroke-width="5"/>
+  <circle cx="360" cy="409" r="124" fill="url(#avatarField)"/>
+  <g clip-path="url(#avatarClip)">
+    <circle cx="360" cy="375" r="43" fill="url(#avatarSilhouette)"/>
+    <path d="M345 411H375V443H345Z" fill="url(#avatarSilhouette)"/>
+    <path d="M278 510C285 465 318 439 360 439C402 439 435 465 442 510C420 518 392 523 360 523C328 523 300 518 278 510Z" fill="url(#avatarSilhouette)"/>
+    <path d="M342 348C351 340 369 340 378 348" fill="none" stroke="#d8f4ff" stroke-linecap="round" stroke-width="8" opacity=".28"/>
+  </g>
+  <rect x="58" y="590" width="604" height="310" rx="28" fill="url(#blue)" stroke="#477fc9" stroke-opacity=".7" stroke-width="2"/>
+  <path d="M58 697C185 636 289 766 413 696C513 640 591 641 662 677V900H58V697Z" fill="#52cfff" fill-opacity=".11"/>
+  <path d="M438 808C474 799 499 806 529 771C557 737 580 751 607 702C625 669 638 674 650 648" stroke="#72e4ff" stroke-opacity=".26" stroke-width="3" fill="none"/>
+  <g stroke="#75e5d5" stroke-width="4" fill="#75e5d5" fill-opacity=".28"><path d="M468 758V816"/><rect x="457" y="776" width="22" height="24" rx="2"/><path d="M540 711V780"/><rect x="529" y="732" width="22" height="28" rx="2"/><path d="M615 657V731"/><rect x="604" y="677" width="22" height="31" rx="2"/></g>
+  <g stroke="#ff9aac" stroke-width="4" fill="#ff9aac" fill-opacity=".28"><path d="M504 735V796"/><rect x="493" y="751" width="22" height="27" rx="2"/><path d="M577 685V750"/><rect x="566" y="701" width="22" height="28" rx="2"/></g>
+  <text x="94" y="650" fill="#6ee1ff" font-family="Arial, sans-serif" font-size="13" font-weight="800" letter-spacing="2.8">YOUR NEXT STEP</text>
+  <text x="94" y="715" fill="white" font-family="Arial, sans-serif" font-size="38" font-weight="800">BECOME A</text>
+  <text x="94" y="760" fill="#55d2ff" font-family="Arial, sans-serif" font-size="38" font-weight="800">SMISHA STUDENT</text>
+  <text x="94" y="814" fill="#d4ebff" font-family="Arial, sans-serif" font-size="17">Build skill. Trade with clarity.</text>
+  <line x1="94" y1="850" x2="626" y2="850" stroke="#75d9ff" stroke-opacity=".38"/>
+  <text x="94" y="877" fill="#b9d9f3" font-family="Arial, sans-serif" font-size="12" font-weight="700" letter-spacing="2">SMISHA ACADEMY &#8226; STUDENT PASS</text>
+  <text x="58" y="955" fill="#1b4e91" font-family="Arial, sans-serif" font-size="12" font-weight="800" letter-spacing="2">LEARN &#8226; PRACTISE &#8226; GROW</text>
+  <path d="M569 936H662V964H569Z" fill="#0c2d73"/><path d="M576 941V959M584 941V959M594 941V959M606 941V959M620 941V959M630 941V959M645 941V959M654 941V959" stroke="#fff" stroke-width="3"/>
+</svg>
