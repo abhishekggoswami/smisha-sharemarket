@@ -4,7 +4,6 @@ import { gsap } from 'gsap';
 import { useLayoutEffect, useRef } from 'react';
 import { smartInvestingOutline } from '../lib/generated/smartInvestingOutline';
 import { smartInvestingWritingGuides as trajectories } from '../lib/smartInvestingWritingGuides';
-import { courseBoardTitleOutlines } from '../lib/generated/courseBoardTitleOutlines';
 
 const BOARD_HOLD = .16;
 const PEN_ENTRY = .32;
@@ -57,8 +56,8 @@ export default function SmartInvestingBoardTitle({ slug = 'smart-investing-funda
   const penLayerRef = useRef(null);
   const penImageRef = useRef(null);
   const pathRefs = useRef([]);
-  const outline = slug === 'smart-investing-fundamentals' ? smartInvestingOutline : (courseBoardTitleOutlines[slug] ?? smartInvestingOutline);
-  const writingGuides = slug === 'smart-investing-fundamentals' ? trajectories : (courseBoardTitleOutlines[slug]?.trajectories ?? trajectories);
+  const outline = smartInvestingOutline;
+  const writingGuides = trajectories;
   const titleLines = title.split('\n');
 
   useLayoutEffect(() => {

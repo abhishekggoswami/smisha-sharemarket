@@ -62,7 +62,7 @@ export default function EventGallery() {
   return (
     <div className="event-gallery-showcase">
       <article className="event-gallery-feature" aria-live="polite">
-        <img src={active.image} alt={active.alt} fetchPriority="high" />
+        <img decoding="async" loading="lazy" src={active.image} alt={active.alt} fetchPriority="high" />
         <div className="event-gallery-feature-shade" aria-hidden="true" />
         <div className="event-gallery-feature-copy">
           <span>{active.label}</span>
@@ -82,7 +82,7 @@ export default function EventGallery() {
             aria-pressed={index === activeIndex}
             onClick={() => setActiveIndex(index)}
           >
-            <img src={item.image} alt="" loading={index > 2 ? 'lazy' : 'eager'} />
+            <img decoding="async" src={item.image} alt="" loading={index > 2 ? 'lazy' : 'eager'} />
             <span>{item.label}</span>
           </button>
         ))}

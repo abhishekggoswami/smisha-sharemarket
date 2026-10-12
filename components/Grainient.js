@@ -2,6 +2,7 @@
 
 import { useEffect, useRef } from 'react';
 import { Mesh, Program, Renderer, Triangle } from 'ogl';
+import { createVisibleAnimation } from '../lib/visible-animation';
 
 const rgb = (hex) => {
   const match = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
@@ -109,23 +110,17 @@ export default function Grainient({
       render();
     };
 
-    let frame = 0;
-    let visible = true;
-    const loop = (now) => {
-      if (visible && !document.hidden) { program.uniforms.uTime.value = now / 1000; render(); }
-      frame = requestAnimationFrame(loop);
-    };
     const sizeObserver = new ResizeObserver(resize);
-    const visibilityObserver = new IntersectionObserver(([entry]) => { visible = entry.isIntersecting; }, { threshold: 0 });
     sizeObserver.observe(container);
-    visibilityObserver.observe(container);
     resize();
-    frame = requestAnimationFrame(loop);
+    const stopAnimation = createVisibleAnimation(container, now => {
+      program.uniforms.uTime.value = now / 1000;
+      render();
+    });
 
     return () => {
-      cancelAnimationFrame(frame);
+      stopAnimation();
       sizeObserver.disconnect();
-      visibilityObserver.disconnect();
       if (canvas.parentNode === container) container.removeChild(canvas);
       gl.getExtension('WEBGL_lose_context')?.loseContext();
     };

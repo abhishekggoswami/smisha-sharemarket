@@ -1306,7 +1306,7 @@ const Lanyard = ({
 
     const tick = (now: number) => {
       raf = 0;
-      if (!alive) return;
+      if (!alive || document.hidden) return;
       const maxFrameRate = clamp(settingsRef.current!.maxFrameRate, 24, 60);
       const frameInterval = 1000 / maxFrameRate;
       if (now - last < frameInterval) {
@@ -1447,7 +1447,8 @@ const Lanyard = ({
     });
     intersectionObserver.observe(container);
     const onVisibility = () => {
-      if (!document.hidden) start();
+      if (document.hidden) { cancelAnimationFrame(raf); raf = 0; }
+      else start();
     };
     document.addEventListener('visibilitychange', onVisibility);
 

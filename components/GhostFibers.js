@@ -2,6 +2,7 @@
 
 import { useEffect, useRef } from 'react';
 import { Mesh, Program, Renderer, Triangle } from 'ogl';
+import { createVisibleAnimation } from '../lib/visible-animation';
 
 const hexToRgb = (hex) => {
   const value = hex.trim().replace(/^#/, '');
@@ -129,22 +130,16 @@ export default function GhostFibers({
       render();
     };
 
-    let frameId = 0;
-    let lastFrame = 0;
-    const frameLength = 1000 / Math.min(Math.max(fps, 1), 120);
-    const loop = (now) => {
-      if (!paused && !document.hidden && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-        if (now - lastFrame >= frameLength) { program.uniforms.uTime.value = now / 1000; render(); lastFrame = now; }
-        frameId = requestAnimationFrame(loop);
-      }
-    };
     const observer = new ResizeObserver(resize);
     observer.observe(container);
     resize();
-    if (!paused) frameId = requestAnimationFrame(loop);
+    const stopAnimation = paused ? () => {} : createVisibleAnimation(container, now => {
+      program.uniforms.uTime.value = now / 1000;
+      render();
+    }, Math.min(Math.max(fps, 1), 120));
 
     return () => {
-      cancelAnimationFrame(frameId);
+      stopAnimation();
       observer.disconnect();
       if (canvas.parentNode === container) container.removeChild(canvas);
       gl.getExtension('WEBGL_lose_context')?.loseContext();

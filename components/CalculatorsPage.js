@@ -1,7 +1,6 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import { createCalculationReport } from "../lib/calculation-report";
 import SiteHeader from "./SiteHeader";
 import { SiteCTA, SiteFAQ, SiteFooter } from "./SharedSiteSections";
 import TextPressure from "./TextPressure";
@@ -462,6 +461,7 @@ export default function CalculatorsPage() {
     } catch {
       logo = null;
     }
+    const { createCalculationReport } = await import("../lib/calculation-report");
     const doc = createCalculationReport(bundle, logo);
     doc.save(
       `smisha-calculation-bundle-${new Date().toISOString().slice(0, 10)}.pdf`,

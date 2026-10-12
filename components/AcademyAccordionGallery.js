@@ -4,12 +4,12 @@ import { useEffect, useRef, useState } from 'react';
 import { gsap } from 'gsap';
 
 const galleryItems = [
-  { image: '/assets/academy-gallery/academy-classroom-01.png', label: 'Live learning in action', alt: 'Faculty member leading a full Smisha classroom session' },
-  { image: '/assets/academy-gallery/academy-classroom-02.png', label: 'Focused classroom sessions', alt: 'Students learning in an attentive classroom' },
-  { image: '/assets/academy-gallery/academy-classroom-03.png', label: 'Practice that feels real', alt: 'Students taking notes during a Smisha learning session' },
-  { image: '/assets/academy-gallery/academy-office-01.png', label: 'Support behind the scenes', alt: 'Smisha team working together in the academy office' },
-  { image: '/assets/academy-gallery/academy-office-02.png', label: 'Preparation in progress', alt: 'Smisha operations team at their workstations' },
-  { image: '/assets/academy-gallery/academy-mentor-cabin-01.png', label: 'Mentor-led market room', alt: 'Smisha mentor cabin with a market analysis screen' },
+  { image: '/assets/academy-gallery/academy-classroom-01.webp', label: 'Live learning in action', alt: 'Faculty member leading a full Smisha classroom session' },
+  { image: '/assets/academy-gallery/academy-classroom-02.webp', label: 'Focused classroom sessions', alt: 'Students learning in an attentive classroom' },
+  { image: '/assets/academy-gallery/academy-classroom-03.webp', label: 'Practice that feels real', alt: 'Students taking notes during a Smisha learning session' },
+  { image: '/assets/academy-gallery/academy-office-01.webp', label: 'Support behind the scenes', alt: 'Smisha team working together in the academy office' },
+  { image: '/assets/academy-gallery/academy-office-02.webp', label: 'Preparation in progress', alt: 'Smisha operations team at their workstations' },
+  { image: '/assets/academy-gallery/academy-mentor-cabin-01.webp', label: 'Mentor-led market room', alt: 'Smisha mentor cabin with a market analysis screen' },
 ];
 
 export default function AcademyAccordionGallery() {
@@ -75,7 +75,7 @@ export default function AcademyAccordionGallery() {
           }}
         >
           <span className="academy-accordion-media" ref={(node) => { mediaRefs.current[index] = node; }}>
-            <img src={item.image} alt={item.alt} loading={index > 1 ? 'lazy' : 'eager'} />
+            <img decoding="async" src={item.image} alt={item.alt} loading={index > 1 ? 'lazy' : 'eager'} />
           </span>
           <span className="academy-accordion-shade" aria-hidden="true" />
           <span className="academy-accordion-caption"><i aria-hidden="true"></i><span>{item.label}</span></span>

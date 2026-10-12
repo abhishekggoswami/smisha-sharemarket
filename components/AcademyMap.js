@@ -1,10 +1,37 @@
-// Official Google Maps Share → Embed a map URL for the academy. It provides
-// the standard road-map view; satellite imagery remains available through the
-// clearly labelled Google Maps link in the location card.
-const mapSource = 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3782.389784249118!2d73.955024!3d18.5564578!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x5a37ca71a18dde9%3A0xc556b3a904271aa5!2sSmisha%20Share%20Market%20Institute!5e0!3m2!1sen!2sin!4v1791182655647!5m2!1sen!2sin';
+'use client';
+
+import { useEffect, useRef, useState } from 'react';
+import './AcademyMap.css';
+
+const satelliteSource = zoom => `https://maps.google.com/maps?q=18.5564578%2C73.955024&t=k&z=${zoom}&output=embed`;
 
 export default function AcademyMap({ className = '' }) {
-  return <div className={`academy-map ${className}`}>
-    <iframe src={mapSource} title="Smisha Share Market Institute location on Google Maps" loading="lazy" referrerPolicy="strict-origin-when-cross-origin" allowFullScreen />
+  const rootRef = useRef(null);
+  const [requested, setRequested] = useState(false);
+  const active = requested;
+  const [nearViewport, setNearViewport] = useState(false);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(([entry]) => {
+      if (entry.isIntersecting) { setNearViewport(true); observer.disconnect(); }
+    }, { rootMargin: '600px' });
+    if (rootRef.current) observer.observe(rootRef.current);
+    return () => observer.disconnect();
+  }, []);
+
+  useEffect(() => {
+    const section = rootRef.current?.closest('section');
+    if (!section) return;
+    const activate = () => setRequested(true);
+    section.addEventListener('click', activate, true);
+    return () => {
+      section.removeEventListener('click', activate, true);
+    };
+  }, []);
+
+  return <div ref={rootRef} className={`academy-map academy-map--satellite ${active ? 'is-focused' : ''} ${className}`} data-map-view={active ? 'close' : 'wide'} data-zoom-requested={requested} style={{ height: '100%', minHeight: 0, width: '100%' }}>
+    <iframe className="academy-satellite-wide" src={satelliteSource(16)} title="Wider satellite view around Smisha Academy" loading="lazy" referrerPolicy="strict-origin-when-cross-origin" tabIndex={-1} aria-hidden={active} />
+    <iframe className="academy-satellite-close" src={nearViewport || active ? satelliteSource(18) : undefined} title="Satellite map of Smisha Share Market Academy in Pune" loading="eager" referrerPolicy="strict-origin-when-cross-origin" allowFullScreen tabIndex={active ? 0 : -1} aria-hidden={!active} />
+    {!active && <button type="button" className="academy-map-zoom-trigger" aria-label="Zoom satellite map to Smisha Academy" onClick={() => setRequested(true)}><span>Click to explore Smisha</span></button>}
   </div>;
 }

@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useRef } from 'react';
+import { createVisibleAnimation } from '../lib/visible-animation';
 
 const clamp = (value, min, max) => Math.min(max, Math.max(min, value));
 
@@ -41,7 +42,6 @@ export default function MarketCandles({ className = '' }) {
 
     const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
     const candles = createSeries(48);
-    let frame = 0;
     let previousTime = 0;
     let advanceAccumulator = 0;
     let scroll = 0;
@@ -127,27 +127,16 @@ export default function MarketCandles({ className = '' }) {
         }
       }
       draw();
-      if (!prefersReducedMotion.matches) frame = window.requestAnimationFrame(tick);
     };
 
-    const observer = new ResizeObserver(resize);
+    const observer = new ResizeObserver(() => { resize(); draw(); });
     observer.observe(canvas);
     resize();
-    if (prefersReducedMotion.matches) draw();
-    else frame = window.requestAnimationFrame(tick);
-
-    const onMotionPreferenceChange = () => {
-      window.cancelAnimationFrame(frame);
-      previousTime = 0;
-      if (prefersReducedMotion.matches) draw();
-      else frame = window.requestAnimationFrame(tick);
-    };
-    prefersReducedMotion.addEventListener('change', onMotionPreferenceChange);
-
+    draw();
+    const stopAnimation = createVisibleAnimation(canvas, tick);
     return () => {
       observer.disconnect();
-      prefersReducedMotion.removeEventListener('change', onMotionPreferenceChange);
-      window.cancelAnimationFrame(frame);
+      stopAnimation();
     };
   }, []);
 

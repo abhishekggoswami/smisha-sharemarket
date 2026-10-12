@@ -46,9 +46,10 @@ export default function TextPressure({
       const titleBounds = root.getBoundingClientRect();
       const radius = Math.max(150, Math.min(360, titleBounds.width * 0.58));
 
-      characterRefs.current.forEach((character) => {
+      const characterBounds = characterRefs.current.map(character => character?.getBoundingClientRect());
+      characterRefs.current.forEach((character, index) => {
         if (!character || character.dataset.space === 'true') return;
-        const bounds = character.getBoundingClientRect();
+        const bounds = characterBounds[index];
         const x = bounds.left + (bounds.width / 2);
         const y = bounds.top + (bounds.height / 2);
         const distance = Math.hypot(current.x - x, current.y - y);

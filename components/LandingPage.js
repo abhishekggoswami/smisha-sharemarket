@@ -4,6 +4,7 @@ import { useEffect, useRef } from 'react';
 import { createRoot } from 'react-dom/client';
 import { landingMarkup } from './landing-markup';
 import SiteHeader from './SiteHeader';
+import AcademyMap from './AcademyMap';
 import GhostFibers from './GhostFibers';
 import MarketCandles from './MarketCandles';
 import HomeCourseCarousel from './HomeCourseCarousel';
@@ -28,6 +29,13 @@ export default function LandingPage() {
     const select = (selector) => root.querySelector(selector);
     const selectAll = (selector) => [...root.querySelectorAll(selector)];
     const cleanups = [];
+
+    const mapSlot = select('.academy-map-slot');
+    if (mapSlot) {
+      const mapRoot = createRoot(mapSlot);
+      mapRoot.render(<AcademyMap />);
+      cleanups.push(() => mapRoot.unmount());
+    }
 
     const fibersSlot = select('.hero-fibers-slot');
     if (fibersSlot) {

@@ -146,7 +146,7 @@ export default function LibraryPage() {
                 rel="noopener noreferrer"
                 aria-label={`View ${book.title} by ${book.author}`}
               >
-                <img
+                <img decoding="async"
                   src={book.cover}
                   alt={`Original editorial cover artwork for ${book.title} by ${book.author}`}
                   width="768"

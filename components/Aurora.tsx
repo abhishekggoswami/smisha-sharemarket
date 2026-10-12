@@ -2,6 +2,7 @@
 
 import { useEffect, useRef } from 'react';
 import { Color, Mesh, Program, Renderer, Triangle } from 'ogl';
+import { createVisibleAnimation } from '../lib/visible-animation';
 
 const vertex = `#version 300 es
 in vec2 position;
@@ -110,16 +111,13 @@ export default function Aurora({
     observer.observe(container);
     resize();
 
-    let frame = 0;
-    const animate = (time: number) => {
+    const stopAnimation = createVisibleAnimation(container, (time: number) => {
       program.uniforms.uTime.value = time * speed * 0.001;
       renderer.render({ scene: mesh });
-      frame = requestAnimationFrame(animate);
-    };
-    frame = requestAnimationFrame(animate);
+    });
 
     return () => {
-      cancelAnimationFrame(frame);
+      stopAnimation();
       observer.disconnect();
       if (gl.canvas.parentNode === container) container.removeChild(gl.canvas);
       gl.getExtension('WEBGL_lose_context')?.loseContext();

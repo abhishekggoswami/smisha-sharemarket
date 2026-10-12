@@ -48,7 +48,7 @@ export function SiteFooter({ hideContactStrip = false }) {
     <div className="footer-main">
       <section className="footer-brand" aria-label="Smisha Share Market">
         <a className="footer-logo" href="/">
-          <img src="/assets/smisha-academy-logo-transparent.png" alt="Smisha Share Market Academy" />
+          <img decoding="async" loading="lazy" src="/assets/smisha-academy-logo-transparent.png" alt="Smisha Share Market Academy" />
         </a>
 
         <p>

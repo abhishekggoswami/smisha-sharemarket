@@ -116,7 +116,7 @@ h1 strong, h1 span { display: block; } h1 strong { font-weight: 700; } h1 span {
 .story-card > p { font-size: 16px; line-height: 26px; margin: 0 0 35px; max-width: 560px; }
 .story-image, .vision-image { background-position: center; background-size: cover; }
 .story-image { align-items: center; border-radius: 22px 22px 0 0; display: flex; height: 410px; justify-content: center; overflow: hidden; }
-.image-placeholder-one { background-image: linear-gradient(rgba(5,23,41,.08),rgba(5,23,41,.08)), url('/assets/about-mission-event.png'); }
+.image-placeholder-one { background-image: linear-gradient(rgba(5,23,41,.08),rgba(5,23,41,.08)), url('/assets/about-mission-event.webp'); }
 .story-video { width: 100%; min-width: 0; max-width: 100%; aspect-ratio: 16 / 9; background: transparent; border: 5px solid var(--green); border-radius: 20px; box-sizing: border-box; height: auto; isolation: isolate; position: relative; }
 .about-intro-video { inset: 0; max-width: 100%; background: #0d2740; display: block; height: 100%; object-fit: contain; object-position: center; position: absolute; width: 100%; z-index: 0; }
 .story-video-poster { background: linear-gradient(rgba(7, 34, 61, .04), rgba(7, 34, 61, .1)); inset: 0; position: absolute; transition: opacity .32s ease, visibility .32s ease; z-index: 1; }
@@ -135,7 +135,7 @@ h1 strong, h1 span { display: block; } h1 strong { font-weight: 700; } h1 span {
 .tabs .active { background: var(--green); color: #fff; }
 .vision-row { align-items: flex-start; display: grid; gap: 49px; grid-template-columns: 245px 1fr; }
 .vision-image { aspect-ratio: 16 / 9; background-color: #e7eee7; background-position: center; border-radius: 15px; height: auto; }
-.image-placeholder-two { background-image: url('/assets/about-vision-event.png'); }
+.image-placeholder-two { background-image: url('/assets/about-vision-event.webp'); }
 .tab-panel-copy h3 { font-size: 19px; letter-spacing: -.4px; margin: 0 0 10px; }
 .vision-row p { font-size: 16px; line-height: 25px; margin: 1px 0 0; }
 .vision-row.is-changing .vision-image, .vision-row.is-changing .tab-panel-copy { animation: about-tab-in .42s cubic-bezier(.2,.8,.2,1) both; }
@@ -1322,9 +1322,9 @@ h1 strong, h1 span { display: block; } h1 strong { font-weight: 700; } h1 span {
 /* The three featured cards use the same classroom treatment without duplicating their static markup. */
 .service-course-art.course-art { isolation: isolate; }
 .service-course-art.course-art::before { animation: course-background-glance 8s ease-in-out infinite; background: radial-gradient(circle at 86% 17%, rgba(255,255,255,.15), transparent 0 24%), linear-gradient(130deg, transparent 0 55%, rgba(255,255,255,.06) 55% 56%, transparent 56%); background-size: 150% 150%; }
-.service-course-art.course-art::after { background: url('/assets/instructors/sushil-course-cutout.png') right bottom / contain no-repeat; bottom: 0; content: ''; height: 100%; pointer-events: none; position: absolute; right: -7%; width: 57%; z-index: 3; }
-.service-course-art.course-art--technical::after { background-image: url('/assets/instructors/instructor-navy-course-cutout.png'); right: -4%; width: 54%; }
-.service-course-art.course-art--options::after { background-image: url('/assets/instructors/instructor-charcoal-course-cutout.png'); right: -4%; width: 53%; }
+.service-course-art.course-art::after { background: url('/assets/instructors/sushil-course-cutout.webp') right bottom / contain no-repeat; bottom: 0; content: ''; height: 100%; pointer-events: none; position: absolute; right: -7%; width: 57%; z-index: 3; }
+.service-course-art.course-art--technical::after { background-image: url('/assets/instructors/instructor-navy-course-cutout.webp'); right: -4%; width: 54%; }
+.service-course-art.course-art--options::after { background-image: url('/assets/instructors/instructor-charcoal-course-cutout.webp'); right: -4%; width: 53%; }
 .service-course-art .course-art-caption { animation: course-board-arrival 8s cubic-bezier(.2,.8,.2,1) infinite; background: linear-gradient(135deg, #ffffff, #f4f8ff); border: 3px solid rgba(255,255,255,.78); border-radius: 7px; box-shadow: 0 13px 24px rgba(7,21,35,.28), inset 0 0 0 1px rgba(26,48,70,.14); box-sizing: border-box; justify-content: center; min-height: 57%; padding: 15px clamp(13px, 4%, 22px); top: 13%; transform: rotate(-1.4deg); width: 61%; }
 .service-course-art .course-art-caption::before { background: repeating-linear-gradient(0deg, transparent 0 20px, rgba(12,45,115,.055) 20px 21px), repeating-linear-gradient(90deg, transparent 0 20px, rgba(12,45,115,.035) 20px 21px); content: ''; inset: 0; pointer-events: none; position: absolute; }
 .service-course-art .course-art-caption span { color: transparent; font-size: 0; margin-bottom: 7px; position: relative; }.service-course-art .course-art-caption span::after { color: #63769a; content: 'SMISHA ACADEMY'; font-size: clamp(7px, .75vw, 9px); font-weight: 800; letter-spacing: .13em; }
