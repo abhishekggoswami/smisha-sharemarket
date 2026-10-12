@@ -22,9 +22,9 @@ export function SiteFAQ() {
   </section>;
 }
 
-export function SiteFooter() {
+export function SiteFooter({ hideContactStrip = false }) {
   return <footer className="site-footer" id="contact">
-    <div className="footer-contact-strip">
+    {!hideContactStrip && <div className="footer-contact-strip">
       <span className="footer-ring ring-a" aria-hidden="true" />
       <span className="footer-ring ring-b" aria-hidden="true" />
       <span className="footer-ring ring-c" aria-hidden="true" />
@@ -43,15 +43,12 @@ export function SiteFooter() {
           </span>
         </span>
       </a>
-    </div>
+    </div>}
 
     <div className="footer-main">
       <section className="footer-brand" aria-label="Smisha Share Market">
         <a className="footer-logo" href="/">
-          <img src="/assets/smisha-logo.png" alt="Smisha Share Market Classes" />
-          <span>
-            SMISHA <small>SHARE MARKET</small>
-          </span>
+          <img src="/assets/smisha-academy-logo-transparent.png" alt="Smisha Share Market Academy" />
         </a>
 
         <p>

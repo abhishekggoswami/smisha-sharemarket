@@ -4,6 +4,7 @@ import { gsap } from 'gsap';
 import { useLayoutEffect, useRef } from 'react';
 import { smartInvestingOutline } from '../lib/generated/smartInvestingOutline';
 import { smartInvestingWritingGuides as trajectories } from '../lib/smartInvestingWritingGuides';
+import { courseBoardTitleOutlines } from '../lib/generated/courseBoardTitleOutlines';
 
 const BOARD_HOLD = .16;
 const PEN_ENTRY = .32;
@@ -29,27 +30,36 @@ function pointOn(path, distance) {
   };
 }
 
-function maskDataUrl(viewBox, dimensions, masks) {
-  const paths = masks.map(({ d, length, amount, width }) => {
+function maskDataUrl(viewBox, dimensions, masks, maskPadding = MASK_PAD) {
+  const clips = masks.map(({ glyphPath }, index) => (
+    glyphPath
+      ? `<clipPath id="glyph-${index}" clipPathUnits="userSpaceOnUse"><path d="${glyphPath}"/></clipPath>`
+      : ''
+  )).join('');
+  const paths = masks.map(({ d, length, amount, width, glyphPath }, index) => {
     if (amount <= 0) return '';
-    return `<path d="${d}" fill="none" stroke="#fff" stroke-width="${width + MASK_PAD}" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="${length} ${length}" stroke-dashoffset="${length * (1 - amount)}"/>`;
+    const stroke = `<path d="${d}" fill="none" stroke="#fff" stroke-width="${width + maskPadding}" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="${length} ${length}" stroke-dashoffset="${length * (1 - amount)}"/>`;
+    return glyphPath ? `<g clip-path="url(#glyph-${index})">${stroke}</g>` : stroke;
   }).join('');
   const scaleX = dimensions.width / viewBox.width;
   const scaleY = dimensions.drawingHeight * MASK_HEIGHT_SCALE / viewBox.height;
   const offsetY = dimensions.drawingHeight * MASK_TOP_OFFSET;
   // The mask and nib share this transform. `preserveAspectRatio="none"`
   // prevents the browser from adding a second, implicit SVG fit transform.
-  const svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${dimensions.width} ${dimensions.height}" preserveAspectRatio="none"><g transform="translate(0 ${offsetY}) scale(${scaleX} ${scaleY}) translate(${-viewBox.x} ${-viewBox.y})">${paths}</g></svg>`;
+  const svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${dimensions.width} ${dimensions.height}" preserveAspectRatio="none"><g transform="translate(0 ${offsetY}) scale(${scaleX} ${scaleY}) translate(${-viewBox.x} ${-viewBox.y})"><defs>${clips}</defs>${paths}</g></svg>`;
   return `url("data:image/svg+xml,${encodeURIComponent(svg)}")`;
 }
 
-export default function SmartInvestingBoardTitle() {
+export default function SmartInvestingBoardTitle({ slug = 'smart-investing-fundamentals', title = 'Smart Investing' }) {
   const rootRef = useRef(null);
   const titleRef = useRef(null);
   const penRef = useRef(null);
   const penLayerRef = useRef(null);
   const penImageRef = useRef(null);
   const pathRefs = useRef([]);
+  const outline = slug === 'smart-investing-fundamentals' ? smartInvestingOutline : (courseBoardTitleOutlines[slug] ?? smartInvestingOutline);
+  const writingGuides = slug === 'smart-investing-fundamentals' ? trajectories : (courseBoardTitleOutlines[slug]?.trajectories ?? trajectories);
+  const titleLines = title.split('\n');
 
   useLayoutEffect(() => {
     const root = rootRef.current;
@@ -58,7 +68,7 @@ export default function SmartInvestingBoardTitle() {
     const penLayer = penLayerRef.current;
     const penImage = penImageRef.current;
     const paths = pathRefs.current.filter(Boolean);
-    if (!root || !title || !pen || !penLayer || !penImage || paths.length !== trajectories.length) return undefined;
+    if (!root || !title || !pen || !penLayer || !penImage || paths.length !== writingGuides.length) return undefined;
 
     const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     if (reduceMotion) {
@@ -72,6 +82,7 @@ export default function SmartInvestingBoardTitle() {
     const bottomPaintAllowance = Number.parseFloat(window.getComputedStyle(title).paddingBottom) || 0;
     const height = paintHeight - bottomPaintAllowance;
     if (!width || !height) return undefined;
+    const markerPadding = slug === 'smart-investing-fundamentals' ? MASK_PAD : 0;
 
     penLayer.setAttribute('viewBox', `0 0 ${width} ${height}`);
     penLayer.style.height = `${height}px`;
@@ -103,8 +114,8 @@ export default function SmartInvestingBoardTitle() {
     });
 
     const toLocal = (point) => ({
-      x: (point.x - smartInvestingOutline.viewBox.x) / smartInvestingOutline.viewBox.width * width,
-      y: height * (MASK_TOP_OFFSET + (point.y - smartInvestingOutline.viewBox.y) / smartInvestingOutline.viewBox.height * MASK_HEIGHT_SCALE),
+      x: (point.x - outline.viewBox.x) / outline.viewBox.width * width,
+      y: height * (MASK_TOP_OFFSET + (point.y - outline.viewBox.y) / outline.viewBox.height * MASK_HEIGHT_SCALE),
     });
     const stabilizeAngle = (pathAngle) => {
       const normalized = ((pathAngle + 180) % 360) - 180;
@@ -122,12 +133,17 @@ export default function SmartInvestingBoardTitle() {
       return local;
     };
     const setMask = (time) => {
-      const masks = trajectories.map((trajectory, index) => {
+      const masks = writingGuides.map((trajectory, index) => {
         const segment = schedule.find((entry) => entry.type === 'draw' && entry.index === index);
         const amount = Math.max(0, Math.min(1, (time - segment.start) / (segment.end - segment.start)));
         return { ...trajectory, length: lengths[index], amount };
       });
-      const image = maskDataUrl(smartInvestingOutline.viewBox, { width, height: paintHeight, drawingHeight: height }, masks);
+      const image = maskDataUrl(
+        outline.viewBox,
+        { width, height: paintHeight, drawingHeight: height },
+        masks,
+        markerPadding,
+      );
       title.style.webkitMaskImage = image;
       title.style.maskImage = image;
       title.style.webkitMaskSize = '100% 100%';
@@ -189,6 +205,8 @@ export default function SmartInvestingBoardTitle() {
             onUpdate: () => positionPen({ x: last.x + 190 * exit.progress, y: last.y - 150 * exit.progress }, stabilizeAngle(last.angle), 1 - exit.progress),
             onComplete: () => {
               pen.style.opacity = '0';
+              title.style.webkitMaskImage = 'none';
+              title.style.maskImage = 'none';
               root.dataset.complete = 'true';
             },
           });
@@ -196,12 +214,12 @@ export default function SmartInvestingBoardTitle() {
       });
     }, root);
     return () => context.revert();
-  }, []);
+  }, [slug, writingGuides.length]);
 
-  return <span className="board-title-writing" ref={rootRef} aria-label="Smart Investing">
-    <strong ref={titleRef} className="board-title-writing-live" aria-hidden="true"><b>Smart Investing</b></strong>
-    <svg className="board-title-trajectory-source" viewBox={`${smartInvestingOutline.viewBox.x} ${smartInvestingOutline.viewBox.y} ${smartInvestingOutline.viewBox.width} ${smartInvestingOutline.viewBox.height}`} aria-hidden="true">
-      {trajectories.map((trajectory, index) => <path key={trajectory.d} ref={(node) => { pathRefs.current[index] = node; }} d={trajectory.d} />)}
+  return <span className="board-title-writing" ref={rootRef} aria-label={titleLines.join(' ')}>
+    <strong ref={titleRef} className="board-title-writing-live" aria-hidden="true">{titleLines.map((line) => <b key={line}>{line}</b>)}</strong>
+    <svg className="board-title-trajectory-source" viewBox={`${outline.viewBox.x} ${outline.viewBox.y} ${outline.viewBox.width} ${outline.viewBox.height}`} aria-hidden="true">
+      {writingGuides.map((trajectory, index) => <path key={trajectory.d} ref={(node) => { pathRefs.current[index] = node; }} d={trajectory.d} />)}
     </svg>
     <svg ref={penLayerRef} className="board-title-pen-layer" preserveAspectRatio="none" aria-hidden="true">
       <g ref={penRef} className="board-title-pen">

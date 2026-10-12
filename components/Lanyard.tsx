@@ -7,7 +7,7 @@ import * as THREE from 'three';
 type Orientation = 'portrait' | 'landscape';
 type Finish = 'glossy' | 'matte' | 'holographic' | 'metallic';
 type Metal = 'graphite' | 'silver' | 'gold';
-type Anchor = 'left' | 'center' | 'right';
+type Anchor = 'left' | 'center' | 'right' | 'contact';
 type ImageFit = 'cover' | 'contain';
 type Rgb = [number, number, number];
 type Point = { clientX: number; clientY: number };
@@ -37,6 +37,8 @@ export interface LanyardProps {
   damping?: number;
   elasticity?: number;
   breeze?: number;
+  maxPixelRatio?: number;
+  maxFrameRate?: number;
   interactive?: boolean;
   intro?: boolean;
   className?: string;
@@ -62,6 +64,8 @@ interface Settings {
   damping: number;
   elasticity: number;
   breeze: number;
+  maxPixelRatio: number;
+  maxFrameRate: number;
   interactive: boolean;
   intro: boolean;
 }
@@ -166,7 +170,9 @@ const CARD_SIZES: Record<string, [number, number]> = {
   portrait: [1.6, 2.25],
   landscape: [2.25, 1.6]
 };
-const ANCHORS: Record<string, number> = { left: 0.27, center: 0.5, right: 0.73 };
+/* This aligns the pass with the Contact navigation link without relying on
+   fixed page pixels, so the same composition survives viewport changes. */
+const ANCHORS: Record<string, number> = { left: 0.27, center: 0.5, right: 0.73, contact: 0.62 };
 const THICKNESS = 0.018;
 const BEVEL = 0.007;
 const JOINTS = 4;
@@ -886,6 +892,8 @@ const Lanyard = ({
   damping = 0.5,
   elasticity = 0.5,
   breeze = 0.5,
+  maxPixelRatio = 2,
+  maxFrameRate = 60,
   interactive = true,
   intro = true,
   className = '',
@@ -914,6 +922,8 @@ const Lanyard = ({
     damping,
     elasticity,
     breeze,
+    maxPixelRatio,
+    maxFrameRate,
     interactive,
     intro
   };
@@ -1297,6 +1307,12 @@ const Lanyard = ({
     const tick = (now: number) => {
       raf = 0;
       if (!alive) return;
+      const maxFrameRate = clamp(settingsRef.current!.maxFrameRate, 24, 60);
+      const frameInterval = 1000 / maxFrameRate;
+      if (now - last < frameInterval) {
+        if (visible) raf = requestAnimationFrame(tick);
+        return;
+      }
       const dt = Math.min(1 / 30, Math.max(1 / 240, (now - last) / 1000));
       last = now;
       time += dt;
@@ -1331,6 +1347,11 @@ const Lanyard = ({
       raycaster.setFromCamera(pointer, camera);
     };
 
+    const isInsideCanvas = (event: Point) => {
+      const rect = canvas.getBoundingClientRect();
+      return event.clientX >= rect.left && event.clientX <= rect.right && event.clientY >= rect.top && event.clientY <= rect.bottom;
+    };
+
     const pickCard = () => {
       cardGroup.updateMatrixWorld();
       const hits = raycaster.intersectObjects([bodyMesh, frontMesh, backMesh], false);
@@ -1355,7 +1376,7 @@ const Lanyard = ({
     };
 
     const onPointerDown = (event: PointerEvent) => {
-      if (!settingsRef.current!.interactive || event.button > 0) return;
+      if (!visible || !settingsRef.current!.interactive || event.button > 0 || !isInsideCanvas(event)) return;
       toPointer(event);
       const hit = pickCard();
       if (!hit) return;
@@ -1373,9 +1394,9 @@ const Lanyard = ({
     };
 
     const onPointerMove = (event: PointerEvent) => {
-      if (!settingsRef.current!.interactive) return;
-      toPointer(event);
+      if (!visible || !settingsRef.current!.interactive) return;
       if (sim.grab) {
+        toPointer(event);
         if (press && Math.hypot(event.clientX - press.x, event.clientY - press.y) > 6) press = null;
         raycaster.ray.at(sim.grab.reach, sim.grab.target);
         event.preventDefault();
@@ -1383,6 +1404,12 @@ const Lanyard = ({
         return;
       }
       if (event.pointerType === 'touch') return;
+      if (!isInsideCanvas(event)) {
+        hovering = false;
+        setCursor('');
+        return;
+      }
+      toPointer(event);
       hovering = !!pickCard();
       setCursor(hovering ? 'grab' : '');
     };
@@ -1406,7 +1433,7 @@ const Lanyard = ({
     const resize = () => {
       view.width = Math.max(1, container.clientWidth);
       view.height = Math.max(1, container.clientHeight);
-      renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
+      renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, clamp(settingsRef.current!.maxPixelRatio, 1, 2)));
       renderer.setSize(view.width, view.height, false);
       apply();
       render();

@@ -16,9 +16,7 @@ export default function CourseHeroVisual({ slug }) {
   return <aside className={`course-hero-visual course-hero-visual--${item.theme}`} aria-label={`${titleLines.join(' ')} course visual`}>
     <div className="course-hero-board">
       <span>SMISHA ACADEMY</span>
-      {slug === 'smart-investing-fundamentals'
-        ? <SmartInvestingBoardTitle />
-        : <strong>{titleLines.map((line) => <b key={line}>{line}</b>)}</strong>}
+      <SmartInvestingBoardTitle slug={slug} title={item.title} />
       <i />
     </div>
   </aside>;

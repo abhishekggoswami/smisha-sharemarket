@@ -7,7 +7,7 @@ from reportlab.pdfgen import canvas
 
 ROOT = Path(__file__).resolve().parents[1]
 OUT = ROOT / 'public' / 'course-materials'
-LOGO = ROOT / 'public' / 'assets' / 'smisha-logo.png'
+LOGO = ROOT / 'public' / 'assets' / 'smisha-academy-logo-transparent.png'
 COURSES = [
  ('smart-investing-fundamentals','Smart Investing Fundamentals',"Beginner's Guide to Stock Market",'Beginner','15 modules','Build a strong investing foundation - from how markets work and opening a Demat account to portfolio building, risk and live market practice.',['How Indian stock markets work','Demat accounts, instruments and orders','Fundamental and technical basics','Risk management and portfolio construction'],['Build a calm, repeatable investing process','Read market information with context','Create a practical first portfolio']),
  ('mutual-fund-wealth-builder','Mutual Fund Wealth Builder','Mutual Fund Blueprint','Beginner to intermediate','10-15 hours','Learn how mutual funds work, compare fund categories, analyse performance, manage risk, optimise taxes, and build a long-term wealth creation strategy.',['Fund categories and investment objectives','NAV, returns and performance analysis','SIP, STP, SWP and taxation','Portfolio construction and live fund analysis'],['Choose funds against real financial goals','Compare risk and returns with clarity','Build a disciplined long-term plan']),
@@ -64,9 +64,7 @@ def guide(course):
     target = OUT / f'{slug}-course-guide.pdf'; pdf = canvas.Canvas(str(target), pagesize=A4)
     pdf.setTitle(f'{title} - Course Guide'); pdf.setAuthor('Smisha Share Market')
     chrome(pdf, 1)
-    if LOGO.exists(): pdf.drawImage(ImageReader(str(LOGO)), 52, H-100, 52, 52, mask='auto')
-    pdf.setFillColor(CYAN); pdf.setFont('Helvetica-Bold',9); pdf.drawString(116,H-68,'SMISHA ACADEMY')
-    pdf.setFillColor(SKY); pdf.setFont('Helvetica',9); pdf.drawString(116,H-83,'PRACTICAL MARKET EDUCATION')
+    if LOGO.exists(): pdf.drawImage(ImageReader(str(LOGO)), 52, H-109, 142, 74, mask='auto')
     rounded(pdf,52,H-188,184,25,BLUE,12); pdf.setFillColor(CYAN); pdf.setFont('Helvetica-Bold',8); pdf.drawCentredString(144,H-178,'COURSE GUIDE  |  FOUNDATIONS')
     wrap(pdf,52,H-250,title,31,WHITE,'Helvetica-Bold',440,37)
     pdf.setFillColor(CYAN); pdf.setFont('Helvetica-Bold',10); pdf.drawString(54,H-325,subtitle.upper())

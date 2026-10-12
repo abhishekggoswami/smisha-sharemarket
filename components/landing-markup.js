@@ -19,8 +19,8 @@ export const landingMarkup = String.raw`
       </div>
       <header class="site-header">
         <a class="brand" href="#top" aria-label="Bisco home">
-          <img class="brand-logo" src="/assets/smisha-logo.png" alt="Smisha Share Market Classes" />
-          <span class="brand-name">SMISHA <small>SHARE MARKET</small></span>
+          <img class="brand-logo" src="/assets/smisha-academy-wordmark-transparent.png" alt="Smisha" />
+          <span class="brand-tagline">Share Market Academy</span>
         </a>
         <nav class="desktop-nav" id="primary-navigation" aria-label="Primary navigation">
           <a href="#top">Homepage</a>
@@ -263,7 +263,7 @@ export const landingMarkup = String.raw`
           </div>
           <div class="footer-main">
             <section class="footer-brand" aria-label="Smisha Share Market">
-              <a class="footer-logo" href="#top"><img src="/assets/smisha-logo.png" alt="Smisha Share Market Classes" /><span>SMISHA <small>SHARE MARKET</small></span></a>
+              <a class="footer-logo" href="#top"><img src="/assets/smisha-academy-logo-transparent.png" alt="Smisha Share Market Academy" /></a>
               <p>Pune's practical share market academy for knowledge, discipline, and earned market confidence.</p>
               <div class="footer-socials social-login-icons" aria-label="Social media links">
                 <a class="socialcontainer social-instagram" href="https://www.instagram.com/smisha_share_market?stkn=c2ltZjM4NHI0NWtl" target="_blank" rel="noreferrer" aria-label="Instagram"><span class="social-icon social-icon-primary"><i class="fa-brands fa-instagram" aria-hidden="true"></i></span><span class="social-icon social-icon-reveal"><i class="fa-brands fa-instagram" aria-hidden="true"></i></span></a>

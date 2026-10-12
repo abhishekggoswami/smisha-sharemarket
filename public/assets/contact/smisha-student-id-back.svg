@@ -6,9 +6,7 @@
   <path d="M76 881C164 845 230 871 305 820C380 768 443 813 516 749C572 700 626 719 692 665" stroke="#6ce2ff" stroke-opacity=".24" stroke-width="4" fill="none"/>
   <g stroke="#79e7d2" stroke-width="5" fill="#79e7d2" fill-opacity=".25"><path d="M138 828V890"/><rect x="126" y="846" width="24" height="28" rx="2"/><path d="M315 783V851"/><rect x="303" y="802" width="24" height="31" rx="2"/><path d="M507 729V798"/><rect x="495" y="748" width="24" height="32" rx="2"/></g>
   <g stroke="#ff9aac" stroke-width="5" fill="#ff9aac" fill-opacity=".25"><path d="M224 808V871"/><rect x="212" y="825" width="24" height="29" rx="2"/><path d="M413 758V824"/><rect x="401" y="775" width="24" height="30" rx="2"/></g>
-  <image href="/assets/smisha-logo.png" x="276" y="82" width="168" height="168" preserveAspectRatio="xMidYMid meet"/>
-  <text x="360" y="300" fill="white" font-family="Arial, sans-serif" font-size="42" font-weight="800" text-anchor="middle">SMISHA</text>
-  <text x="360" y="333" fill="#60d7ff" font-family="Arial, sans-serif" font-size="16" font-weight="800" letter-spacing="4" text-anchor="middle">SHARE MARKET</text>
+  <image href="/assets/smisha-academy-logo-transparent.png" x="160" y="70" width="400" height="210" preserveAspectRatio="xMidYMid meet"/>
   <line x1="90" y1="405" x2="630" y2="405" stroke="#61d3ff" stroke-opacity=".42"/>
   <text x="360" y="480" fill="white" font-family="Arial, sans-serif" font-size="26" font-weight="700" text-anchor="middle">Learn markets with confidence.</text>
   <text x="360" y="521" fill="#b9e8ff" font-family="Arial, sans-serif" font-size="18" text-anchor="middle">Courses • Workshops • Mentorship</text>

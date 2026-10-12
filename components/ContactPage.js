@@ -1,11 +1,32 @@
 'use client';
 
-import { useState } from 'react';
+import dynamic from 'next/dynamic';
+import { useEffect, useRef, useState } from 'react';
+import { gsap } from 'gsap';
 import AcademyMap from './AcademyMap';
-import Lanyard from './Lanyard';
 import SiteHeader from './SiteHeader';
 import { SiteFooter } from './SharedSiteSections';
 import TextPressure from './TextPressure';
+
+// Three.js is only needed for the interactive pass. Loading it after the
+// contact shell has painted keeps the page responsive without changing the
+// final card treatment.
+const Lanyard = dynamic(() => import('./Lanyard'), { ssr: false });
+
+function ContactBackgroundSlideshow() {
+  const slideshowRef = useRef(null);
+  const [isVisible, setIsVisible] = useState(false);
+
+  useEffect(() => {
+    const slideshow = slideshowRef.current;
+    if (!slideshow || !('IntersectionObserver' in window)) return undefined;
+    const observer = new IntersectionObserver(([entry]) => setIsVisible(entry.isIntersecting), { rootMargin: '160px 0px' });
+    observer.observe(slideshow);
+    return () => observer.disconnect();
+  }, []);
+
+  return <div ref={slideshowRef} className={`contact-form-slideshow${isVisible ? ' is-active' : ''}`} aria-hidden="true"><span /><span /></div>;
+}
 
 function ContactEnquiryForm() {
   const [submitted, setSubmitted] = useState(false);
@@ -27,17 +48,47 @@ function ContactEnquiryForm() {
 }
 
 export default function ContactPage() {
+  const locationSectionRef = useRef(null);
+
+  useEffect(() => {
+    const section = locationSectionRef.current;
+    if (!section || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return undefined;
+
+    const map = section.querySelector('.academy-map');
+    const card = section.querySelector('.home-map-overlay');
+    const actions = section.querySelectorAll('.home-map-actions a');
+    if (!map || !card) return undefined;
+
+    let timeline;
+    const observer = new IntersectionObserver(([entry]) => {
+      if (!entry.isIntersecting) return;
+      observer.disconnect();
+      const compactMotion = window.matchMedia('(max-width: 640px)').matches;
+      timeline = gsap.timeline({ defaults: { ease: 'power3.out' } });
+      timeline
+        .fromTo(map, { autoAlpha: 0, scale: compactMotion ? 1.018 : 1.035 }, { autoAlpha: 1, duration: compactMotion ? .65 : .85, scale: 1 })
+        .fromTo(card, { autoAlpha: 0, y: compactMotion ? 18 : 28 }, { autoAlpha: 1, duration: .58, y: 0 }, '-=.38')
+        .fromTo(actions, { autoAlpha: 0, y: 10 }, { autoAlpha: 1, duration: .38, stagger: .09, y: 0 }, '-=.2');
+    }, { rootMargin: '120px 0px', threshold: .14 });
+
+    observer.observe(section);
+    return () => {
+      observer.disconnect();
+      timeline?.kill();
+    };
+  }, []);
+
   return <main className="course-shell contact-page-shell">
     <SiteHeader active="Contact" demoHref="#contact-details" />
     <section className="contact-page-hero" aria-labelledby="contact-page-title">
       <video className="contact-hero-video" src="/assets/contact/contact-market-background.mp4" autoPlay muted loop playsInline preload="metadata" aria-hidden="true" />
       <div className="contact-page-hero-copy"><p className="course-kicker"><i className="fa-solid fa-id-card" /> Your Smisha journey</p><h1 id="contact-page-title"><span><TextPressure text="Become a Smisha" /></span><strong><TextPressure text="Academy student." minWeight={700} /></strong></h1><p>Start with a conversation. Our team will help you choose a practical path through courses, workshops, and market education.</p></div>
       <aside className="contact-lanyard-stage" aria-label="Smisha Academy student ID card. Drag to interact or tap to turn it over.">
-        <Lanyard frontImage="/assets/contact/smisha-student-id-front.svg?v=3" backImage="/assets/contact/smisha-student-id-back.svg" strapImage="/assets/contact/smisha-lanyard-strap.svg" imageFit="cover" cardColor="#f8fbff" orientation="portrait" finish="glossy" cornerRadius={0.3} size={0.59} anchor="right" strapLength={0.5} strapColor="#0b2f75" strapWidth={0.65} metal="silver" gravity={1} damping={0.42} elasticity={0.5} breeze={0.56} interactive intro />
+        <Lanyard frontImage="/assets/contact/smisha-student-id-front.svg?v=3" backImage="/assets/contact/smisha-student-id-back.svg" strapImage="/assets/contact/smisha-lanyard-strap.svg" imageFit="cover" cardColor="#f8fbff" orientation="portrait" finish="glossy" cornerRadius={0.3} size={0.47} anchor="contact" strapLength={0.5} strapColor="#0b2f75" strapWidth={0.65} metal="silver" gravity={1} damping={0.34} elasticity={0.58} breeze={0.72} maxPixelRatio={1.35} maxFrameRate={36} interactive intro />
       </aside>
     </section>
     <section className="contact-page-content" id="contact-details" aria-labelledby="contact-details-title">
-      <div className="contact-form-slideshow" aria-hidden="true"><span /><span /></div>
+      <ContactBackgroundSlideshow />
       <ContactEnquiryForm />
       <div className="contact-page-details contact-page-details--after-form">
         <div className="contact-details-copy"><p className="section-label">CONNECT WITH US</p><h2 id="contact-details-title">We are here to<br /><strong>help you begin.</strong></h2><p>Share a few details and we will help you find an education path that matches where you are now.</p></div>
@@ -45,8 +96,8 @@ export default function ContactPage() {
         <div className="contact-location-note"><i className="fa-solid fa-location-dot" aria-hidden="true" /><span><b>Visit our Pune academy</b><small>Meet the team and explore how practical market learning works.</small></span></div>
       </div>
     </section>
-    <section className="home-location-section contact-location-map-section" aria-labelledby="contact-map-title">
-      <div className="home-map-frame"><AcademyMap /><div className="home-map-overlay"><p className="section-kicker">VISIT SMISHA IN PUNE</p><h2 id="contact-map-title"><strong>Learn where market</strong><span>confidence is built.</span></h2><p>Visit the academy, meet the team, and explore practical stock market learning built for real progress.</p><a href="tel:+917420001687">Plan your visit <i className="fa-solid fa-arrow-right" aria-hidden="true" /></a></div></div>
+    <section ref={locationSectionRef} className="home-location-section contact-location-map-section" aria-labelledby="contact-map-title">
+      <div className="home-map-frame"><AcademyMap /><div className="home-map-overlay"><p className="section-kicker">VISIT SMISHA IN PUNE</p><h2 id="contact-map-title"><strong>Learn where market</strong><span>confidence is built.</span></h2><p>Visit the academy, meet the team, and explore practical stock market learning built for real progress.</p><div className="home-map-actions"><a className="home-map-primary" href="https://www.google.com/maps/dir/?api=1&destination=18.5564578%2C73.955024" target="_blank" rel="noopener noreferrer" aria-label="Plan your visit with Google Maps directions">Plan Your Visit <i className="fa-solid fa-arrow-right" aria-hidden="true" /></a><a className="home-map-satellite" href="https://www.google.com/maps/@?api=1&map_action=map&center=18.5564578%2C73.955024&zoom=18&basemap=satellite" target="_blank" rel="noopener noreferrer" aria-label="Explore Smisha Academy in satellite view on Google Maps"><i className="fa-solid fa-satellite-dish" aria-hidden="true" />Explore Satellite View</a></div></div></div>
     </section>
     <SiteFooter />
   </main>;

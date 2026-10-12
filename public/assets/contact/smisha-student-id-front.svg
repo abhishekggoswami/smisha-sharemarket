@@ -14,11 +14,9 @@
   <path d="M0 0H720V255C577 309 435 314 300 282C165 250 65 194 0 130V0Z" fill="#0c2d73"/>
   <path d="M483 0H720V236C618 209 545 170 483 113V0Z" fill="#42c6ff" fill-opacity=".16"/>
   <g aria-label="Smisha Share Market">
-    <image href="/assets/smisha-logo.png" x="58" y="49" width="58" height="58" preserveAspectRatio="xMidYMid meet"/>
-    <text x="130" y="77" fill="white" font-family="Arial, sans-serif" font-size="31" font-weight="800" letter-spacing="1">SMISHA</text>
-    <text x="131" y="103" fill="#55d2ff" font-family="Arial, sans-serif" font-size="14" font-weight="700" letter-spacing="3">SHARE MARKET</text>
+    <image href="/assets/smisha-academy-logo-transparent.png" x="52" y="27" width="282" height="148" preserveAspectRatio="xMinYMid meet"/>
   </g>
-  <text x="58" y="187" fill="#b7eaff" font-family="Arial, sans-serif" font-size="15" font-weight="800" letter-spacing="3">STUDENT ACADEMY</text>
+  <text x="58" y="208" fill="#b7eaff" font-family="Arial, sans-serif" font-size="15" font-weight="800" letter-spacing="3">STUDENT ACADEMY</text>
   <circle cx="360" cy="409" r="141" fill="#d9efff" stroke="#59cfff" stroke-width="5"/>
   <circle cx="360" cy="409" r="124" fill="url(#avatarField)"/>
   <g clip-path="url(#avatarClip)">

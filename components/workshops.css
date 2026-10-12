@@ -13,3 +13,97 @@
 @media(prefers-reduced-motion:reduce){.ws-shell *{scroll-behavior:auto!important;transition:none!important}}
 
 .ws-hero h1 strong{display:inline}.ws-hero .course-primary-button{border:0}
+
+/* A single backdrop lives outside the tab panels, so it continues to move
+   while visitors switch between upcoming, past, and host workshops. */
+.ws-body{isolation:isolate;position:relative}
+.ws-backdrop{background:#dbeafa;border-radius:26px;inset:0;overflow:hidden;pointer-events:none;position:absolute;z-index:0}
+.ws-backdrop::after{background:linear-gradient(118deg,rgba(239,247,255,.91),rgba(230,241,255,.83) 48%,rgba(243,249,255,.92));content:'';inset:0;position:absolute;z-index:1}
+.ws-backdrop img{animation:ws-workshop-backdrop 40s ease-in-out infinite;animation-delay:var(--ws-slide-delay);height:108%;inset:-4%;object-fit:cover;opacity:0;position:absolute;transform:scale(1.06);width:108%;will-change:opacity,transform}
+.ws-tabs,.ws-panel{position:relative;z-index:1}
+@keyframes ws-workshop-backdrop{0%,3%{opacity:0;transform:scale(1.065)}7%,18%{opacity:1;transform:scale(1)}23%,100%{opacity:0;transform:scale(1.04)}}
+@media(prefers-reduced-motion:reduce){.ws-backdrop img{animation:none;display:none}.ws-backdrop img:first-child{display:block;opacity:1;transform:none}}
+
+/* Workshop enquiries share the Contact page's calm glass-panel form language. */
+.ws-upcoming,.ws-host-layout{background:linear-gradient(128deg,#edf6ff,#f8fbff)}
+.ws-form{
+  -webkit-backdrop-filter:blur(20px) saturate(130%);
+  align-self:stretch;
+  backdrop-filter:blur(20px) saturate(130%);
+  background:linear-gradient(135deg,rgba(255,255,255,.78),rgba(221,239,255,.52));
+  border:1px solid rgba(255,255,255,.9);
+  border-radius:22px;
+  box-shadow:0 24px 54px rgba(13,55,120,.14),inset 0 1px 0 rgba(255,255,255,.76);
+  box-sizing:border-box;
+  margin:16px;
+  padding:clamp(30px,3.4vw,48px);
+  position:relative;
+}
+.ws-form-title{align-items:flex-start;border-bottom:1px solid rgba(12,45,115,.2);margin-bottom:29px;padding-bottom:24px}
+.ws-form-title>div{min-width:0}
+.ws-form-title>div>span{color:var(--theme-brand);display:block;font-size:10px;font-weight:850;letter-spacing:.12em;margin:0 0 10px;text-transform:uppercase}
+.ws-form-title h3{color:var(--theme-deep);font-family:Georgia,'Times New Roman',serif;font-size:clamp(28px,2.7vw,39px);font-style:italic;font-weight:500;letter-spacing:-1.4px;line-height:1.03;margin:0}
+.ws-form-title h3 strong{color:var(--theme-brand)}
+.ws-form-title>small{color:#58759b;font-size:10px;padding-top:4px;white-space:nowrap}
+.ws-fields{gap:27px 32px}
+.ws-field>span{color:#34527b;font-size:10px;font-weight:850;letter-spacing:.105em;margin:0;text-transform:uppercase}
+.ws-field em{color:var(--theme-action)}
+.ws-field input,.ws-field select,.ws-field textarea{
+  background:transparent;
+  border:0;
+  border-bottom:1px solid rgba(19,59,111,.48);
+  border-radius:0;
+  color:#0d326a;
+  font-size:15px;
+  font-weight:500;
+  margin-top:8px;
+  min-height:43px;
+  outline:0;
+  padding:10px 0 8px;
+}
+.ws-field select{appearance:auto;color:#0d326a}
+.ws-field textarea{background:rgba(255,255,255,.18);border:1px solid rgba(19,59,111,.42);border-radius:2px;min-height:142px;padding:13px}
+.ws-field input:focus,.ws-field select:focus{background:transparent;border-bottom-color:var(--theme-brand);box-shadow:0 5px 0 -4px rgba(12,45,115,.36);outline:0}
+.ws-field textarea:focus{border-color:var(--theme-brand);box-shadow:0 0 0 4px rgba(12,45,115,.11);outline:0}
+.ws-field input::placeholder,.ws-field textarea::placeholder{color:#7891b1}
+.ws-consent{color:#496b95;font-size:11px;margin:27px 0 23px}
+.ws-consent input{accent-color:var(--theme-brand);height:17px;width:17px}
+.ws-submit.course-primary-button{align-items:center;background:linear-gradient(#164baf,#0c2d73);border:0;border-bottom:3px solid #071e53;border-radius:.5rem;box-shadow:inset 0 4px 3px -2px #2b65c5,0 4px 5px -3px #0009;color:#fff;justify-content:center;letter-spacing:.12em;min-height:56px;text-transform:uppercase}
+.ws-submit.course-primary-button i{background:#1e58b2;border-radius:.25rem;box-shadow:inset 0 -3px 3px -2px #123f8a,inset 0 3px 3px -2px #4380dc,0 2px 2px -2px #0005,0 0 0 2px #164baf;margin-left:12px;padding:7px}
+.ws-form-note{color:#5c789b!important;margin-top:14px}
+@media(max-width:800px){.ws-form{margin:0;border-radius:0;box-shadow:none}.ws-form-title h3{font-size:32px}}
+@media(max-width:560px){.ws-form{border-radius:17px;margin:0;padding:28px 22px}.ws-form-title>small{font-size:9px}.ws-form-title h3{font-size:29px}.ws-fields{gap:20px}.ws-submit.course-primary-button{font-size:11px}}
+
+/* The host brief is deliberately a full Contact-style enquiry surface. */
+.ws-host-layout{background:linear-gradient(125deg,#eaf4ff,#f8fbff)}
+.ws-host-layout>.ws-form--host{
+  align-self:stretch;
+  background:radial-gradient(circle at 92% 8%,rgba(112,194,255,.2),transparent 31%),linear-gradient(135deg,rgba(255,255,255,.82),rgba(221,239,255,.56));
+  border:1px solid rgba(255,255,255,.92);
+  border-radius:0;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.82);
+  margin:0;
+  min-height:100%;
+  padding:clamp(36px,4vw,58px);
+}
+.ws-host-layout>.ws-form--host .ws-form-title{margin-bottom:32px;padding-bottom:27px}
+.ws-host-layout>.ws-form--host .ws-form-title h3{font-size:clamp(31px,2.8vw,41px)}
+.ws-host-layout>.ws-form--host .ws-fields{gap:29px 36px}
+.ws-host-layout>.ws-form--host .ws-consent{margin-top:30px}
+@media(max-width:800px){.ws-host-layout>.ws-form--host{border-radius:0;padding:32px 30px}.ws-host-layout>.ws-form--host .ws-fields{gap:22px 18px}}
+@media(max-width:560px){.ws-host-layout>.ws-form--host{border-radius:0;padding:29px 22px}.ws-host-layout>.ws-form--host .ws-fields{gap:20px}.ws-host-layout>.ws-form--host .ws-form-title h3{font-size:29px}}
+
+/* Let the shared photo sequence span the full tab section, rather than only
+   the centred content column, while keeping the imagery deliberately calm. */
+.ws-backdrop{border-radius:0;left:50%;right:auto;transform:translateX(-50%);width:100vw}
+.ws-backdrop::after{background:linear-gradient(118deg,rgba(234,245,255,.87),rgba(219,237,255,.79) 48%,rgba(243,249,255,.88))}
+.ws-tabs{background:rgba(255,255,255,.84);-webkit-backdrop-filter:blur(11px);backdrop-filter:blur(11px)}
+.ws-upcoming,.ws-host-layout,.ws-past-feature{background:rgba(248,252,255,.78);-webkit-backdrop-filter:blur(9px);backdrop-filter:blur(9px)}
+.ws-announcement{background:rgba(225,240,255,.76)}
+.ws-past-copy,.ws-event,.ws-highlights article,.ws-resource-empty,.ws-resources blockquote{background:rgba(255,255,255,.78);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px)}
+.ws-bottom-link{background:rgba(247,252,255,.46)}
+@media(max-width:800px){.ws-backdrop::after{background:rgba(235,246,255,.87)}}
+
+/* Separate the first-tab handoff from the enquiry panel above it. */
+.ws-bottom-link{background:rgba(248,252,255,.58);border:1px solid rgba(151,184,219,.36);border-radius:14px;margin-top:28px;padding:25px 24px}
+@media(max-width:560px){.ws-bottom-link{margin-top:22px;padding:21px 18px}}
