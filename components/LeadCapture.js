@@ -35,8 +35,7 @@ export default function LeadCapture(){
   catch(err){setStatus("");setError(err.message)}
  }
  return <>
-  <div className="lead-sticky"><button onClick={()=>open("Free Session")}>Book free session <i className="fa-solid fa-arrow-right"/></button><button onClick={()=>open("Callback")} aria-label="Request callback"><i className="fa-solid fa-phone"/></button></div>
-  <div className="lead-resource-strip">{Object.entries(offers).filter(([k])=>k!=="Newsletter").map(([k,v])=><button key={k} onClick={()=>open(k)}>{v[0]}</button>)}</div>
+  <div className="lead-resource-strip" aria-label="Quick access to free resources and enquiries"><div className="lead-ticker-track">{[0,1].map(copy=><div className="lead-ticker-group" key={copy} aria-hidden={copy===1?"true":undefined}>{Object.entries(offers).filter(([k])=>k!=="Newsletter").map(([k,v])=><button type="button" key={k} tabIndex={copy===1?-1:0} onClick={()=>open(k)}><span className="lead-ticker-dot" aria-hidden="true"/>{v[0]}<i className="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"/></button>)}</div>)}</div></div>
   {category&&<div className="lead-overlay" onMouseDown={e=>{if(e.currentTarget===e.target)setCategory("")}}>
    <section role="dialog" aria-modal="true" aria-label={offers[category][0]} className="lead-modal">
     <button className="lead-close" onClick={()=>setCategory("")} aria-label="Close">×</button>
