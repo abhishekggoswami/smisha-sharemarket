@@ -4,16 +4,15 @@ import opentype from 'opentype.js';
 import sharp from 'sharp';
 const root=process.cwd();
 const font=opentype.parse(await readFile(process.env.SMISHA_SEGOE_PRINT_FONT_PATH ?? 'C:/Windows/Fonts/segoeprb.ttf'));
-const titles={
-'mutual-fund-wealth-builder':'Mutual Fund\nWealth Builder',
-'technical-analysis-blueprint':'Technical\nAnalysis',
-'professional-options-trading':'Options\nTrading',
-'value-investing-blueprint':'Value\nInvesting',
-'professional-equity-research-analyst-program':'Equity\nResearch',
-'nism-xv-research-analyst-exam-prep':'NISM XV\nExam Prep'
-};
+const titles={"smisha-complete-market-mastery":"Market\nMastery","wd-gann-advance-masterclass":"W.D. Gann\nMasterclass","global-forex-program":"Global Forex\nProgram"};
 // Normalized center-line strokes, with separate pen lifts for crossbars and dots.
 const strokes={
+C:['M .9 .12 C .2 -.1 .02 .3 .13 .7 C .24 1.12 .68 1.06 .94 .85'],
+D:['M .16 .97 L .21 .03','M .21 .03 C 1.05 -.07 1.1 .94 .16 .97'],
+G:['M .9 .14 C .2 -.1 .01 .36 .15 .75 C .28 1.1 .9 1.05 .92 .52 L .57 .53'],
+'.':['M .5 .5 L .5 .55'],
+k:['M .19 0 L .13 .98','M .87 .28 L .17 .66 L .86 .99'],
+w:['M .08 .07 L .24 .97 L .51 .43 L .72 .97 L .95 .06'],
 a:['M .86 .3 C .55 -.1 .04 .18 .12 .66 C .2 1.08 .72 1.02 .85 .55 L .88 .2 L .88 .95'],
 b:['M .22 0 L .16 .95','M .18 .52 C .6 .15 1.06 .42 .82 .8 C .66 1.05 .28 1.04 .17 .9'],
 c:['M .88 .18 C .45 -.1 .02 .26 .12 .67 C .2 1.04 .64 1.08 .9 .86'],

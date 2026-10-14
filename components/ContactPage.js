@@ -7,6 +7,7 @@ import AcademyMap from './AcademyMap';
 import SiteHeader from './SiteHeader';
 import { SiteFooter } from './SharedSiteSections';
 import TextPressure from './TextPressure';
+import {sendLead} from './LeadCapture';
 
 // Three.js is only needed for the interactive pass. Loading it after the
 // contact shell has painted keeps the page responsive without changing the
@@ -30,10 +31,13 @@ function ContactBackgroundSlideshow() {
 
 function ContactEnquiryForm() {
   const [submitted, setSubmitted] = useState(false);
+  const [saving,setSaving]=useState(false);
+  const [error,setError]=useState('');
+  async function submit(event){event.preventDefault();setSaving(true);setError('');const d=new FormData(event.currentTarget);try{await sendLead({category:'Contact',form:'Contact page enquiry',name:String(d.get('name')||''),phone:String(d.get('phone')||''),email:String(d.get('email')||''),interest:String(d.get('interest')||''),message:String(d.get('message')||''),consent:d.get('consent')==='yes'});setSubmitted(true)}catch(err){setError(err.message)}finally{setSaving(false)}}
 
   if (submitted) return <div className="contact-enquiry-success" role="status"><i className="fa-solid fa-circle-check" aria-hidden="true" /><p className="section-label">ENQUIRY RECEIVED</p><h2>Thank you for reaching out.</h2><p>Our Smisha team will connect with you shortly to help you choose your next learning step.</p><button type="button" onClick={() => setSubmitted(false)}>Send another enquiry <i className="fa-solid fa-arrow-right" aria-hidden="true" /></button></div>;
 
-  return <form className="contact-enquiry-form" onSubmit={(event) => { event.preventDefault(); setSubmitted(true); }}>
+  return <form className="contact-enquiry-form" onSubmit={submit}>
     <div className="contact-form-heading"><div><p className="section-label">START YOUR ENQUIRY</p><h2>Let&apos;s plan your<br /><strong>next market move.</strong></h2></div></div>
     <div className="contact-form-fields">
       <label>Full name<input required name="name" autoComplete="name" placeholder="Enter your name" /></label>
@@ -42,7 +46,9 @@ function ContactEnquiryForm() {
       <label className="contact-form-wide">What would you like to learn?<input required name="interest" placeholder="e.g. Smart investing, technical analysis, or a workshop" /></label>
       <label className="contact-form-wide">How can we help?<textarea required name="message" rows="4" placeholder="Tell us what you would like to learn" /></label>
     </div>
-    <button type="submit" className="contact-form-submit btn btn-primary"><span className="btn-txt">Send enquiry</span><kbd className="btn-kbd" aria-hidden="true"><i className="fa-solid fa-arrow-right" /></kbd></button>
+    <label className="contact-form-wide"><input type="checkbox" name="consent" value="yes" required /> I agree to be contacted by Smisha about my enquiry.</label>
+    {error&&<p role="alert" style={{color:'#b42318'}}>{error}</p>}
+    <button type="submit" disabled={saving} className="contact-form-submit btn btn-primary"><span className="btn-txt">{saving?'Sending…':'Send enquiry'}</span><kbd className="btn-kbd" aria-hidden="true"><i className="fa-solid fa-arrow-right" /></kbd></button>
     <p className="contact-form-note">No dropdowns, no pressure—just tell us how we can help.</p>
   </form>;
 }

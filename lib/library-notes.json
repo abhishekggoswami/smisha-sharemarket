@@ -1,0 +1,537 @@
+[
+  {
+    "slug": "investor-starter-kit",
+    "title": "Your first investment playbook",
+    "topic": "Investing",
+    "type": "Investment Resources",
+    "level": "Beginner",
+    "icon": "seedling",
+    "accent": "#2474bf",
+    "description": "Build an investment policy with goals, timelines, risk limits and a repeatable review process.",
+    "sections": [
+      {
+        "title": "Begin with a goal, not a ticker",
+        "paragraphs": [
+          "Investing starts with the purpose of the money. A deposit for a home in two years, a retirement goal in twenty years and an emergency reserve need different plans. Write down the goal, its current cost, the date you need the money and the amount you can contribute regularly.",
+          "Separate emergency funds from investment capital. A reserve held in an accessible, appropriate account reduces the chance of selling an investment during a market fall to pay an urgent bill. Decide its size using essential monthly expenses, income stability, dependants and insurance coverage rather than a universal number."
+        ],
+        "exercise": "Create a goal table: goal | amount today | target year | monthly contribution | access needed. Identify which money must remain available without relying on market prices."
+      },
+      {
+        "title": "Translate risk into a decision",
+        "paragraphs": [
+          "Risk tolerance describes your emotional comfort with losses. Risk capacity describes whether your finances can absorb them. Your plan should respect both. A long horizon does not remove the need to meet expenses along the way.",
+          "Write a stress scenario before choosing products. If a portfolio fell 25%, would your goal become unaffordable? Would you need to sell? If the answer is yes, reconsider the allocation or contribution plan. This hypothetical is a planning exercise, not a forecast."
+        ],
+        "bullets": [
+          "List liabilities, dependants and predictable expenses.",
+          "Separate short-term commitments from long-term goals.",
+          "Consider inflation, liquidity, concentration and credit risk alongside price volatility."
+        ]
+      },
+      {
+        "title": "Diversify the sources of risk",
+        "paragraphs": [
+          "A portfolio with ten similar companies can still be concentrated. Look through holdings to sectors, business drivers and asset classes. Diversification reduces dependence on one outcome; it does not guarantee a profit or prevent all losses.",
+          "Compare products using their documents: objective, underlying assets, fees, lock-in, exit conditions and risks. Do not use a recent return ranking as your entire selection process. Check the intermediary through the appropriate official register before transferring money."
+        ],
+        "exercise": "Write down the three largest risks in your proposed portfolio. If all three depend on the same industry or economic event, explain how you would reduce that dependence."
+      },
+      {
+        "title": "Write a one-page investment policy",
+        "paragraphs": [
+          "An investment policy converts intentions into rules. Include the goal, contribution schedule, target allocation, permitted instruments and review dates. Decide in advance what would justify a change: a changed goal, a changed financial situation or a material change in the investment.",
+          "Review on a planned schedule and after major life events. Compare the portfolio with your goals and risk limits, not a stranger's best-performing trade. Record the reason for every change so you can distinguish deliberate decisions from reactions to headlines."
+        ],
+        "bullets": [
+          "Goal and horizon: ______",
+          "Contribution and reserve: ______",
+          "Allocation and concentration limit: ______",
+          "Review date and conditions for a change: ______"
+        ]
+      },
+      {
+        "title": "Before the first transfer",
+        "paragraphs": [
+          "Read the product disclosure and check the costs you will actually pay. Keep copies of applications, confirmations and account statements. Never share passwords or OTPs with someone claiming to manage your account.",
+          "Education helps you ask better questions; it does not make every product suitable for you. These notes are general education and do not recommend a security or promise a return."
+        ],
+        "exercise": "Explain your selected product in five sentences: what you own, how it can earn, how it can lose, how you can exit and what it costs."
+      }
+    ],
+    "kind": "guide",
+    "author": "Smisha Learning Library",
+    "download": "/resources/guides/investor-starter-kit.pdf",
+    "format": "PDF",
+    "sourceName": "Original educational guide",
+    "sourceUrl": "https://investor.sebi.gov.in/due_diligence.html",
+    "license": "Original Smisha learning material. Free personal study download.",
+    "minutes": 3
+  },
+  {
+    "slug": "trade-risk-workbook",
+    "title": "The risk-first trading workbook",
+    "topic": "Trading",
+    "type": "Trading Guides",
+    "level": "Intermediate",
+    "icon": "shield-halved",
+    "accent": "#135366",
+    "description": "Position sizing, expectancy and a trade journal you can apply before placing an order.",
+    "sections": [
+      {
+        "title": "Define the loss before the trade",
+        "paragraphs": [
+          "A trade plan needs an entry condition, an invalidation level and an exit process. Invalidation is the price or evidence that means the original idea no longer holds. Choose it because it fits the setup, not because it makes the position size look attractive.",
+          "A stop order is a risk tool, not a guarantee of an execution price. Gaps, thin liquidity and fast markets can produce slippage. Consider whether the proposed position remains tolerable if the actual loss is larger than the planned one. Avoid using borrowed money needed for essentials."
+        ],
+        "exercise": "Describe one hypothetical setup without naming a current security. What evidence would invalidate it? What would you do if the market opened beyond the stop?"
+      },
+      {
+        "title": "Calculate a position size",
+        "paragraphs": [
+          "For a cash-equity example, planned rupee risk = account capital x chosen risk fraction. Per-share planned risk = absolute difference between entry and stop. Maximum shares = floor(planned rupee risk / per-share risk), subject to available capital, liquidity and a buffer for costs.",
+          "Illustration only: capital of Rs 100,000 with a chosen 0.5% risk allowance gives Rs 500. Entry Rs 200 and stop Rs 195 imply Rs 5 per-share risk, so the unadjusted quantity is 100 shares. If you reserve Rs 100 for costs and slippage, the calculation becomes 80 shares. Neither risk fraction nor example is a recommendation.",
+          "This simple formula does not describe option or leveraged derivative risk. Lot sizes, nonlinear payoffs, margin changes and assignment or settlement rules require separate analysis."
+        ],
+        "exercise": "Capital ____ x risk fraction ____ = budget ____. Entry ____ minus stop ____ = per-unit risk ____. Costs buffer ____; final quantity ____."
+      },
+      {
+        "title": "Evaluate expectancy, not only win rate",
+        "paragraphs": [
+          "Expected result per trade = win probability x average win - loss probability x average loss, with costs included. A high win rate can coexist with negative expectancy if occasional losses are large.",
+          "Hypothetical example: 40% wins averaging Rs 1,000 and 60% losses averaging Rs 500 produces Rs 100 gross expectancy per trade. Costs of Rs 120 would make the net expectancy negative. Historical estimates are uncertain, especially with a small sample or changing market conditions."
+        ],
+        "bullets": [
+          "Use net outcomes after fees and slippage.",
+          "Measure average loss as well as average win.",
+          "Check whether one exceptional trade dominates the result.",
+          "Do not treat a backtest as a promise of future performance."
+        ]
+      },
+      {
+        "title": "Build a journal that teaches you",
+        "paragraphs": [
+          "Save a chart at entry and exit. Record the setup, time, size, planned risk, realised result and whether you followed the rules. Separate a good decision with a losing outcome from a poor decision that happened to make money.",
+          "Review groups of trades rather than changing the strategy after every loss. Look for recurring execution mistakes, concentration across open positions and behaviour after a losing streak. Define a session loss limit and a condition for pausing before the session starts."
+        ],
+        "bullets": [
+          "Date | setup | entry | invalidation | quantity | planned loss",
+          "Exit | costs | net outcome | rule adherence",
+          "One thing to repeat | one thing to improve"
+        ]
+      },
+      {
+        "title": "A pre-order checklist",
+        "paragraphs": [
+          "Before submitting an order, verify instrument, exchange, side, quantity, order type and product type. Check whether overlapping positions increase exposure to the same risk. If you cannot explain the loss scenario, postpone the trade."
+        ],
+        "exercise": "Confirm: written setup, capital not needed for essentials, total open risk, liquidity, costs, order fields and an exit process. Practise on paper before committing capital."
+      }
+    ],
+    "kind": "guide",
+    "author": "Smisha Learning Library",
+    "download": "/resources/guides/trade-risk-workbook.pdf",
+    "format": "PDF",
+    "sourceName": "Original educational guide",
+    "sourceUrl": "https://zerodha.com/varsity/modules/",
+    "license": "Original Smisha learning material. Free personal study download.",
+    "minutes": 3
+  },
+  {
+    "slug": "financial-statements-field-guide",
+    "title": "Read a business, not just a chart",
+    "topic": "Research",
+    "type": "Study Notes",
+    "level": "Intermediate",
+    "icon": "chart-column",
+    "accent": "#7057aa",
+    "description": "Connect the income statement, balance sheet and cash flow with a practical research worksheet.",
+    "sections": [
+      {
+        "title": "Map how the business makes money",
+        "paragraphs": [
+          "Begin with the annual report's business description and segment disclosures. Identify customers, products, pricing, recurring versus one-off revenue and the main costs. A ratio means little until you understand the business underneath it.",
+          "Ask what drives demand and whether the company has bargaining power with customers and suppliers. Compare it with similar businesses using consistent periods and accounting definitions. These notes are a research framework, not a valuation or recommendation."
+        ],
+        "exercise": "In one paragraph, explain who pays the company, why they pay, its two largest costs and one event that could damage demand."
+      },
+      {
+        "title": "Follow earnings through the income statement",
+        "paragraphs": [
+          "Revenue is not cash collected, and accounting profit is not automatically distributable cash. Review revenue growth, operating margin, financing costs and tax expense together. Separate recurring operations from exceptional items.",
+          "Compare several years rather than one strong quarter. Check segment performance and whether acquisitions changed the comparison. A margin improvement driven by an unusual gain should not be projected indefinitely."
+        ],
+        "bullets": [
+          "Operating margin = operating profit / revenue.",
+          "Use the company's defined profit measure consistently.",
+          "Read notes explaining exceptional items and revenue recognition."
+        ]
+      },
+      {
+        "title": "Understand the balance sheet",
+        "paragraphs": [
+          "The balance sheet records assets, liabilities and equity at a point in time. Examine debt maturities, receivables, inventory and liquidity. A profitable company can still face stress if cash is tied up while debt falls due.",
+          "Check contingent liabilities, related-party transactions and pledged shares where disclosed. Ratios such as debt-to-equity vary in usefulness across sectors. Financial companies require a different framework from manufacturers."
+        ],
+        "exercise": "List near-term obligations, available cash, receivables growth and inventory growth. Explain why each change may or may not be a concern."
+      },
+      {
+        "title": "Reconcile profit with cash",
+        "paragraphs": [
+          "The cash flow statement separates operating, investing and financing activity. Compare operating cash flow with profit over multiple periods. Investigate whether receivables or inventory absorb cash as reported earnings rise.",
+          "Capital expenditure may maintain the existing business or expand it; the distinction is not always disclosed cleanly. Free cash flow is often calculated as operating cash flow minus capital expenditure, but definitions differ. State your definition when comparing companies."
+        ],
+        "bullets": [
+          "Profit trend versus operating cash trend.",
+          "Maintenance and expansion spending, where identifiable.",
+          "Debt raised, debt repaid and dividends paid."
+        ]
+      },
+      {
+        "title": "Turn observations into a research note",
+        "paragraphs": [
+          "Write the evidence for your thesis and the evidence against it. Include source document, reporting period and page number for important figures. Do not fill gaps in disclosure with guesses.",
+          "Conclude with unanswered questions rather than a forced buy or sell opinion. Price, business quality and suitability are separate questions. A useful research note makes its assumptions visible."
+        ],
+        "exercise": "Research sheet: business model | three-year trend | cash conversion | debt and liquidity | governance questions | key uncertainties | source links."
+      }
+    ],
+    "kind": "guide",
+    "author": "Smisha Learning Library",
+    "download": "/resources/guides/financial-statements-field-guide.pdf",
+    "format": "PDF",
+    "sourceName": "Original educational guide",
+    "sourceUrl": "https://investor.sebi.gov.in/due_diligence.html",
+    "license": "Original Smisha learning material. Free personal study download.",
+    "minutes": 3
+  },
+  {
+    "slug": "mutual-fund-selection-notes",
+    "title": "A clearer way to compare mutual funds",
+    "topic": "Investing",
+    "type": "Study Notes",
+    "level": "Beginner",
+    "icon": "layer-group",
+    "accent": "#216fa2",
+    "description": "Use mandate, portfolio risk, costs and consistency to compare funds beyond headline returns.",
+    "sections": [
+      {
+        "title": "Match the mandate to the goal",
+        "paragraphs": [
+          "Read the scheme's stated objective, category and permitted assets before looking at returns. A short-term goal and a long-term equity allocation ask different questions of a fund. The scheme name alone is not enough to understand its risk.",
+          "Check the current scheme information document, key information memorandum and factsheet through official sources. Risk labels, portfolio holdings and terms can change, so use current documents rather than an old screenshot."
+        ]
+      },
+      {
+        "title": "Look beneath the return number",
+        "paragraphs": [
+          "Compare returns over matching periods with the appropriate benchmark and peers. Rolling returns show outcomes across multiple starting dates, whereas a single point-to-point return can depend heavily on the chosen dates.",
+          "Examine drawdowns, concentration, turnover and whether a fund's approach changed. Past performance does not assure future results. A high return with a concentrated portfolio may represent risks that do not fit your goal."
+        ],
+        "exercise": "For two funds, record category, benchmark, date of factsheet, top-sector exposure and concentration. Explain whether the comparison is fair."
+      },
+      {
+        "title": "Understand costs and access",
+        "paragraphs": [
+          "Expense ratio reduces the return available to investors. Direct and regular plans have different cost structures; choosing between them should also account for whether you need and receive advice or service.",
+          "Read exit-load conditions and redemption rules. An exit load is different from tax, and a low expense ratio does not by itself make a fund suitable. Liquidity, credit risk and interest-rate sensitivity matter for debt-oriented portfolios."
+        ],
+        "bullets": [
+          "Plan and option selected.",
+          "Expense ratio and any exit-load period.",
+          "Redemption timeline and restrictions.",
+          "Tax treatment checked against current official guidance."
+        ]
+      },
+      {
+        "title": "SIP is a method, not a guarantee",
+        "paragraphs": [
+          "A systematic investment plan spreads contributions over time. It can support discipline and reduce dependence on one entry date, but it does not turn a risky portfolio into a guaranteed-return product.",
+          "Size contributions so they can continue through realistic income changes. A recurring investment should not cause you to borrow for ordinary expenses. Review the goal and contribution plan after material changes in your finances."
+        ]
+      },
+      {
+        "title": "Document the selection",
+        "paragraphs": [
+          "Use a short scorecard with a reason for inclusion and a reason for rejection. Avoid adding several funds with almost identical holdings and mistaking their number for diversification."
+        ],
+        "exercise": "Scorecard: goal fit | mandate | concentration | downside behaviour | costs | manager/process continuity | reasons to review. Write what would cause you to stop new contributions."
+      }
+    ],
+    "kind": "guide",
+    "author": "Smisha Learning Library",
+    "download": "/resources/guides/mutual-fund-selection-notes.pdf",
+    "format": "PDF",
+    "sourceName": "Original educational guide",
+    "sourceUrl": "https://investor.sebi.gov.in/due_diligence.html",
+    "license": "Original Smisha learning material. Free personal study download.",
+    "minutes": 3
+  },
+  {
+    "slug": "candlestick-context-guide",
+    "title": "Candlesticks with context",
+    "topic": "Trading",
+    "type": "Trading Guides",
+    "level": "Beginner",
+    "icon": "chart-simple",
+    "accent": "#338677",
+    "description": "Understand price bars, context and invalidation without turning patterns into promises.",
+    "sections": [
+      {
+        "title": "What a candle actually tells you",
+        "paragraphs": [
+          "A candle summarises the open, high, low and close for a selected interval. The body spans open to close; the wicks show the range outside it. Colour is a chart convention. One candle does not reveal every transaction or the reason behind it.",
+          "Changing the interval changes the picture. A strong five-minute candle can be a small fluctuation inside a daily downtrend. Define the timeframe before interpreting a pattern."
+        ]
+      },
+      {
+        "title": "Location changes interpretation",
+        "paragraphs": [
+          "Read a candle alongside the prevailing trend, nearby levels, liquidity and recent volatility. A long lower wick after a decline may show a rejection of lower prices during that interval, but it does not ensure a reversal.",
+          "Support and resistance are areas where market behaviour may change, not barriers prices must respect. Avoid drawing so many levels that every outcome appears predicted."
+        ],
+        "exercise": "Choose a historical chart. Mark the trend, two relevant price areas and the range of recent candles before naming any pattern."
+      },
+      {
+        "title": "Use confirmation and invalidation",
+        "paragraphs": [
+          "A pattern is a hypothesis. Define what subsequent price action would support it and what would invalidate it. Entering without an invalidation rule leaves the loss decision to emotion.",
+          "Volume can add context but data definitions vary by instrument and platform. Compare like with like. Confirmation can reduce some false signals while also producing later entries; it does not remove risk."
+        ],
+        "bullets": [
+          "Context: trend and meaningful price area.",
+          "Trigger: a condition that can be checked.",
+          "Invalidation: where the idea no longer applies.",
+          "Risk: size and an allowance for slippage."
+        ]
+      },
+      {
+        "title": "Evaluate examples honestly",
+        "paragraphs": [
+          "Study failed patterns alongside successful ones. A chart chosen after the event makes a signal look cleaner than it was in real time. Use a consistent rule set and keep results after trading costs.",
+          "Backtesting must address look-ahead bias, survivorship bias and changes in liquidity. Paper trading helps practise process, but simulated fills may differ from real execution."
+        ],
+        "exercise": "Log twenty historical occurrences with the same definition. Record both wins and losses, maximum adverse movement and whether the signal was visible at the time."
+      },
+      {
+        "title": "The chart-reading worksheet",
+        "paragraphs": [
+          "Do not place a trade merely because a candle has a familiar name. Decide whether the context supports a testable plan and whether its risk is acceptable. These notes explain analysis, not a trading signal."
+        ],
+        "exercise": "Instrument/timeframe | trend | location | trigger | invalidation | planned risk | result | lesson. If any field is missing, the analysis is incomplete."
+      }
+    ],
+    "kind": "guide",
+    "author": "Smisha Learning Library",
+    "download": "/resources/guides/candlestick-context-guide.pdf",
+    "format": "PDF",
+    "sourceName": "Original educational guide",
+    "sourceUrl": "https://zerodha.com/varsity/modules/",
+    "license": "Original Smisha learning material. Free personal study download.",
+    "minutes": 3
+  },
+  {
+    "slug": "options-payoff-primer",
+    "title": "Options: payoff before prediction",
+    "topic": "Trading",
+    "type": "E-books",
+    "level": "Intermediate",
+    "icon": "wave-square",
+    "accent": "#535aac",
+    "description": "Separate premium, payoff, breakeven and the risks that a simple expiry diagram leaves out.",
+    "sections": [
+      {
+        "title": "Rights, obligations and premium",
+        "paragraphs": [
+          "An option buyer pays premium for a contractual right. The seller takes the corresponding obligation under the contract. Calls and puts respond differently to the underlying price; contract specifications determine exercise and settlement.",
+          "The premium is not the same as margin. Margin requirements can change, and a strategy that looks small in premium terms can carry substantial obligations. Read the current exchange specifications before considering an actual contract."
+        ]
+      },
+      {
+        "title": "Read a long call at expiry",
+        "paragraphs": [
+          "For one unit of a simple long call, expiry payoff is max(underlying price - strike, 0). Net profit before costs is payoff minus premium. Breakeven at expiry is strike plus premium.",
+          "Illustration: strike Rs 100, premium Rs 5. At expiry price Rs 112, payoff is Rs 12 and net result before costs is Rs 7. At price Rs 98, payoff is zero and the premium is lost. Multiply by the contract quantity to calculate total amounts; do not confuse a per-unit example with a whole contract."
+        ]
+      },
+      {
+        "title": "Read a long put at expiry",
+        "paragraphs": [
+          "For a simple long put, expiry payoff is max(strike - underlying price, 0). Net profit before costs is payoff minus premium. Breakeven at expiry is strike minus premium.",
+          "Illustration: strike Rs 100, premium Rs 4. At expiry price Rs 90, payoff is Rs 10 and net result before costs is Rs 6. At price Rs 105, payoff is zero. This arithmetic does not include taxes, fees, settlement obligations or the path of the option price before expiry."
+        ],
+        "exercise": "Calculate call and put net results at three underlying prices. Label premium, strike, quantity and costs separately."
+      },
+      {
+        "title": "Before expiry, more than direction matters",
+        "paragraphs": [
+          "Option prices also depend on time remaining, implied volatility, rates and the contract. A correct directional view can still lose money if the move is too small, too late or accompanied by a fall in implied volatility.",
+          "Delta describes sensitivity to the underlying, gamma describes changes in delta, theta relates to time decay and vega relates to volatility sensitivity. These are model sensitivities, not fixed promises or isolated trading instructions."
+        ]
+      },
+      {
+        "title": "What the diagram leaves out",
+        "paragraphs": [
+          "Selling options can involve very large losses, including theoretically unlimited losses for an uncovered short call. Combining legs may define an expiry payoff, but introduces execution, liquidity and settlement considerations.",
+          "A payoff chart at expiry does not describe mark-to-market losses, early exercise where applicable, margin calls or gaps. Learn the instrument and settlement rules before risking capital."
+        ],
+        "bullets": [
+          "Confirm lot size, expiry and settlement type.",
+          "Calculate all legs and transaction costs.",
+          "Assess worst-case and interim funding needs.",
+          "Practise using hypothetical examples without placing an order."
+        ]
+      }
+    ],
+    "kind": "guide",
+    "author": "Smisha Learning Library",
+    "download": "/resources/guides/options-payoff-primer.pdf",
+    "format": "PDF",
+    "sourceName": "Original educational guide",
+    "sourceUrl": "https://zerodha.com/varsity/modules/",
+    "license": "Original Smisha learning material. Free personal study download.",
+    "minutes": 3
+  },
+  {
+    "slug": "investment-policy-template",
+    "title": "Your one-page investment policy",
+    "topic": "Planning",
+    "type": "Soft Copies",
+    "level": "All levels",
+    "icon": "clipboard-check",
+    "accent": "#c38937",
+    "description": "A printable, reusable worksheet for goals, allocation, contributions and review rules.",
+    "sections": [
+      {
+        "title": "Purpose and priorities",
+        "paragraphs": [
+          "Use this worksheet to document decisions before market headlines influence them. Complete it using your own circumstances. It is a planning aid, not personalised investment advice."
+        ],
+        "bullets": [
+          "My goal and why it matters: __________________",
+          "Target date and amount: __________________",
+          "Essential reserve and where it is held: __________________",
+          "Liabilities and commitments to account for: __________________"
+        ]
+      },
+      {
+        "title": "Risk and allocation",
+        "paragraphs": [
+          "Describe both your ability to bear a loss and your likely reaction to it. List target allocations only after understanding each asset's risks and access conditions."
+        ],
+        "bullets": [
+          "Loss scenario I could absorb without missing the goal: __________",
+          "Actions I would take in a severe market decline: __________",
+          "Target allocation by asset class: __________",
+          "Maximum exposure to one company or sector: __________",
+          "Products I understand and allow: __________"
+        ]
+      },
+      {
+        "title": "Contribution and rebalancing rules",
+        "paragraphs": [
+          "Choose a contribution process you can maintain. Record when and why you will rebalance. Consider costs, tax and product restrictions before making changes."
+        ],
+        "bullets": [
+          "Contribution amount and frequency: __________",
+          "Where contributions will go: __________",
+          "Rebalancing review date or threshold: __________",
+          "Costs and tax checks before a change: __________"
+        ]
+      },
+      {
+        "title": "Review triggers",
+        "paragraphs": [
+          "A review is different from an automatic transaction. Life changes may require a new plan; a temporary price move alone may not."
+        ],
+        "bullets": [
+          "Scheduled review date: __________",
+          "Life events that require an earlier review: __________",
+          "Evidence that would change my investment thesis: __________",
+          "Documents and account records to retain: __________"
+        ]
+      },
+      {
+        "title": "Decision log",
+        "paragraphs": [
+          "Keep this log with the policy. Revisit the original reason for a decision before replacing it with a new narrative."
+        ],
+        "exercise": "Date | decision | reason | evidence/source | cost | next review. Sign/date the policy and keep the previous version when you revise it."
+      }
+    ],
+    "kind": "guide",
+    "author": "Smisha Learning Library",
+    "download": "/resources/guides/investment-policy-template.pdf",
+    "format": "PDF",
+    "sourceName": "Original educational guide",
+    "sourceUrl": "https://investor.sebi.gov.in/due_diligence.html",
+    "license": "Original Smisha learning material. Free personal study download.",
+    "minutes": 3
+  },
+  {
+    "slug": "research-due-diligence-checklist",
+    "title": "The investor due-diligence checklist",
+    "topic": "Research",
+    "type": "PDF Collection",
+    "level": "All levels",
+    "icon": "magnifying-glass-chart",
+    "accent": "#377591",
+    "description": "A compact checklist for source quality, business evidence, governance and investment fraud.",
+    "sections": [
+      {
+        "title": "Check the source and intermediary",
+        "paragraphs": [
+          "Start with official company disclosures, exchange filings and regulator websites. Verify registration through the regulator's own records rather than a screenshot supplied by the person selling a product.",
+          "Be cautious with urgency, guaranteed high returns, private app downloads and requests to pay into unrelated personal accounts. Never share OTPs, credentials or remote access to your financial accounts."
+        ],
+        "bullets": [
+          "Official URL and document date recorded.",
+          "Intermediary's registration checked independently.",
+          "Payment recipient and account details verified."
+        ]
+      },
+      {
+        "title": "Check the business evidence",
+        "paragraphs": [
+          "Explain the business model and compare multi-year financial statements. Note whether income is supported by cash generation, whether debt is manageable and whether the information is complete enough to form a view.",
+          "Read the auditor's report and relevant notes. A missing disclosure is an uncertainty to record, not an invitation to invent a figure."
+        ],
+        "bullets": [
+          "Revenue drivers and major risks.",
+          "Profit compared with operating cash flow.",
+          "Debt maturities, liquidity and contingent liabilities.",
+          "Related-party transactions and audit qualifications."
+        ]
+      },
+      {
+        "title": "Check price and suitability separately",
+        "paragraphs": [
+          "A good business can be an unsuitable investment at a given price or for a given goal. Record the assumptions behind any valuation range and test less favourable scenarios.",
+          "Check whether the proposed position adds concentration and whether you may need the money before the thesis can play out. A persuasive story does not replace a risk plan."
+        ]
+      },
+      {
+        "title": "Check the downside story",
+        "paragraphs": [
+          "Write the strongest evidence against your idea. Consider competition, regulation, customer concentration, refinancing and operational disruption. Decide what you still need to learn before proceeding."
+        ],
+        "exercise": "Three reasons the thesis could be wrong | evidence that would reveal each problem | action if that evidence appears."
+      },
+      {
+        "title": "Keep an evidence trail",
+        "paragraphs": [
+          "Save the source links, reporting periods and calculations that informed the decision. Reassess when relevant new evidence appears. Educational checklists cannot prevent every loss or detect every fraud."
+        ],
+        "exercise": "Decision date | source documents | unresolved questions | position limit | review trigger | person consulted where appropriate."
+      }
+    ],
+    "kind": "guide",
+    "author": "Smisha Learning Library",
+    "download": "/resources/guides/research-due-diligence-checklist.pdf",
+    "format": "PDF",
+    "sourceName": "Original educational guide",
+    "sourceUrl": "https://investor.sebi.gov.in/due_diligence.html",
+    "license": "Original Smisha learning material. Free personal study download.",
+    "minutes": 3
+  }
+]

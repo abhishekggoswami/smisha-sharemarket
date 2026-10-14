@@ -1,191 +1,57 @@
+"use client";
+import {useEffect,useMemo,useState} from "react";
 import SiteHeader from "./SiteHeader";
-import { SiteCTA, SiteFAQ, SiteFooter } from "./SharedSiteSections";
 import TextPressure from "./TextPressure";
+import {SiteCTA,SiteFAQ,SiteFooter} from "./SharedSiteSections";
+import LibraryIcon from "./LibraryIcon";
+import {libraryResources,libraryTypes,physicalBooks,learningPaths,retailLinks} from "../lib/library-catalog";
+import {readShelf,saveShelf} from "./library-shelf";
+import "./Library.css";
+import "./LibraryEditorial.css";
 
-const books = [
-  {
-    title: "The Wealth of Nations",
-    author: "Adam Smith",
-    category: "Economics",
-    description:
-      "A foundational exploration of markets, productivity, trade and how economies create wealth.",
-    cover: "/assets/library/wealth-of-nations.jpg",
-    purchaseUrl: "https://www.amazon.in/s?k=The+Wealth+of+Nations+Adam+Smith",
-  },
-  {
-    title: "The Art of Money Getting",
-    author: "P. T. Barnum",
-    category: "Money & Business",
-    description:
-      "Timeless lessons about earning, saving, discipline, business judgment and financial habits.",
-    cover: "/assets/library/art-of-money-getting.jpg",
-    purchaseUrl:
-      "https://www.amazon.in/s?k=The+Art+of+Money+Getting+P.+T.+Barnum",
-  },
-  {
-    title: "The Way to Wealth",
-    author: "Benjamin Franklin",
-    category: "Personal Finance",
-    description:
-      "A short classic on work, saving, frugality, debt and building long-term financial security.",
-    cover: "/assets/library/way-to-wealth.jpg",
-    purchaseUrl:
-      "https://www.amazon.in/s?k=The+Way+to+Wealth+Benjamin+Franklin",
-  },
-  {
-    title: "The Theory of the Leisure Class",
-    author: "Thorstein Veblen",
-    category: "Economics & Society",
-    description:
-      "A landmark examination of wealth, consumption, status and the economic behavior of society.",
-    cover: "/assets/library/theory-of-leisure-class.jpg",
-    purchaseUrl:
-      "https://www.amazon.in/s?k=The+Theory+of+the+Leisure+Class+Thorstein+Veblen",
-  },
-  {
-    title: "The Richest Man in Babylon",
-    author: "George S. Clason",
-    category: "Personal Finance",
-    description:
-      "Classic financial lessons told through simple stories about saving, wealth building and responsible money management.",
-    cover: "/assets/library/richest-man-in-babylon.jpg",
-    purchaseUrl:
-      "https://www.amazon.in/s?k=The+Richest+Man+in+Babylon+George+S.+Clason",
-  },
-];
-
-export default function LibraryPage() {
-  return (
-    <main className="course-shell library-shell">
-      <SiteHeader active="Library" demoHref="#contact" />
-      <section
-        className="course-hero library-hero shared-atmosphere-hero"
-        aria-labelledby="library-title"
-      >
-        <video
-          className="shared-hero-atmosphere"
-          src="/assets/courses/courses-hero-atmosphere.mp4"
-          autoPlay
-          muted
-          loop
-          playsInline
-          preload="metadata"
-          aria-hidden="true"
-        />
-        <div className="shared-hero-atmosphere-shade" aria-hidden="true" />
-        <div className="course-hero-ring ring-one" />
-        <div className="course-hero-ring ring-two" />
-        <div className="course-hero-grid" />
-        <div className="course-hero-content">
-          <p className="course-kicker">
-            <i className="fa-solid fa-book-open" /> Smisha Library
-          </p>
-          <h1 id="library-title">
-            <TextPressure text="Books that build" />
-            <br />
-            <strong>
-              <TextPressure text="better investors." minWeight={700} />
-            </strong>
-          </h1>
-          <p className="course-hero-copy">
-            A curated collection of timeless books on money, investing,
-            economics and financial thinking.
-          </p>
-          <a className="course-primary-button" href="#book-collection">
-            Explore the collection <i className="fa-solid fa-arrow-down" />
-          </a>
-        </div>
-        <aside
-          className="library-hero-proof"
-          aria-label="The Smisha Library collection"
-        >
-          <div className="proof-top">
-            <span>CURATED FOR YOU</span>
-            <i className="fa-solid fa-bookmark" />
-          </div>
-          <strong>05</strong>
-          <p>timeless reads for sharper financial thinking</p>
-          <div className="proof-pills">
-            <span>Money</span>
-            <span>Markets</span>
-            <span>Mindset</span>
-          </div>
-        </aside>
-      </section>
-      <section
-        className="library-intro"
-        id="book-collection"
-        aria-labelledby="library-collection-heading"
-      >
-        <div>
-          <p className="section-label">CURATED READING</p>
-          <h2 id="library-collection-heading">
-            <span>Timeless ideas about</span>
-            <strong> money &amp; markets.</strong>
-          </h2>
-        </div>
-        <p>
-          Five classics selected to deepen your understanding of wealth,
-          behavior and economic thinking.
-        </p>
-      </section>
-      <section className="library-grid" aria-label="Book collection">
-        {books.map((book, index) => (
-          <article
-            className={`library-card library-card-${index + 1}`}
-            key={book.title}
-          >
-            <div className="library-cover-stage">
-              <span className="library-index" aria-hidden="true">
-                {String(index + 1).padStart(2, "0")}
-              </span>
-              <a
-                className="library-cover"
-                href={book.purchaseUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label={`View ${book.title} by ${book.author}`}
-              >
-                <img decoding="async"
-                  src={book.cover}
-                  alt={`Original editorial cover artwork for ${book.title} by ${book.author}`}
-                  width="768"
-                  height="1152"
-                  loading={index > 1 ? "lazy" : "eager"}
-                />
-                <span aria-hidden="true">
-                  <i className="fa-solid fa-arrow-up-right-from-square" />
-                </span>
-              </a>
-            </div>
-            <div className="library-card-content">
-              <p className="course-subtitle">{book.category}</p>
-              <h3>{book.title}</h3>
-              <p className="library-author">by {book.author}</p>
-              <p className="course-description">{book.description}</p>
-              <a
-                className="course-details-button"
-                href={book.purchaseUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                View Book{" "}
-                <i
-                  className="fa-solid fa-arrow-up-right-from-square"
-                  aria-hidden="true"
-                />
-              </a>
-            </div>
-          </article>
-        ))}
-      </section>
-      <SiteCTA label="READY TO LEARN WITH INTENTION?">
-        <span>Turn timeless ideas into</span>
-        <br />
-        <strong>your next clear decision.</strong>
-      </SiteCTA>
-      <SiteFAQ />
-      <SiteFooter />
-    </main>
-  );
+function Cover({resource,large=false}){
+ return <div className={"knowledge-cover "+(large?"knowledge-cover-large":"")} style={{"--cover-accent":resource.accent}}>
+ {resource.cover?<img src={"/assets/library/"+resource.cover} alt={resource.title+" — editorial cover"} loading="lazy" decoding="async" width="768" height="1152"/>:
+ <div className="knowledge-editorial-cover"><span>SMISHA<br/>KNOWLEDGE LIBRARY</span><LibraryIcon className={"fa-solid fa-"+(resource.icon||"book-open")} aria-hidden="true"/><strong>{resource.title}</strong><small>{resource.kind==="physical"?resource.author:"LEARN · APPLY · REVISIT"}</small><div className="knowledge-cover-lines" aria-hidden="true"/></div>}
+ </div>;
+}
+export default function LibraryPage({recommendations=[]}){
+ const [type,setType]=useState("Financial Books"),[query,setQuery]=useState(""),[topic,setTopic]=useState("All topics"),[sort,setSort]=useState("curated"),[shelf,setShelf]=useState([]),[savedOnly,setSavedOnly]=useState(false),[message,setMessage]=useState(""),[status,setStatus]=useState("idle"),[formMessage,setFormMessage]=useState(""),[reference,setReference]=useState("");
+ useEffect(()=>{const sync=()=>setShelf(readShelf());sync();window.addEventListener("storage",sync);window.addEventListener("smisha-library-shelf",sync);return()=>{window.removeEventListener("storage",sync);window.removeEventListener("smisha-library-shelf",sync);};},[]);
+ useEffect(()=>{const root=document.querySelector(".knowledge-library");if(!root)return;const observer=new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add("is-revealed");observer.unobserve(e.target);}}),{threshold:.08});root.querySelectorAll(".knowledge-path,.knowledge-resource,.knowledge-print-card,.knowledge-feature").forEach(el=>observer.observe(el));return()=>observer.disconnect();},[type,query,topic,savedOnly]);
+ useEffect(()=>{const root=document.querySelector(".knowledge-library");if(!root)return;const observer=new IntersectionObserver(entries=>entries.forEach(e=>e.target.classList.toggle("motion-active",e.isIntersecting)),{threshold:.05});root.querySelectorAll(".knowledge-real-stack,.knowledge-feature,.knowledge-recommend").forEach(el=>observer.observe(el));return()=>observer.disconnect();},[]);
+ const bookmark=r=>{const next=shelf.includes(r.slug)?shelf.filter(x=>x!==r.slug):[...shelf,r.slug];try{saveShelf(next);setShelf(next);setMessage(next.includes(r.slug)?"Saved to your reading shelf.":"Removed from your reading shelf.");}catch{setMessage("Your browser could not save this bookmark. Check browser storage settings.");}};
+ const results=useMemo(()=>{const q=query.toLowerCase().trim();const list=libraryResources.filter(r=>(type==="All resources"||r.type===type||(type==="PDF Collection"&&r.format==="PDF")||(type==="Soft Copies"&&!!r.download)||(type==="E-books"&&r.kind==="classic"))&&(topic==="All topics"||r.topic===topic)&&(!savedOnly||shelf.includes(r.slug))&&(!q||[r.title,r.author,r.description,r.topic,r.type].join(" ").toLowerCase().includes(q)));return sort==="curated"?list.sort((a,b)=>(a.kind==="classic"?0:a.kind==="guide"?1:2)-(b.kind==="classic"?0:b.kind==="guide"?1:2)):sort==="az"?list.sort((a,b)=>a.title.localeCompare(b.title)):sort==="quick"?list.sort((a,b)=>(a.minutes||999)-(b.minutes||999)):list;},[type,query,topic,savedOnly,shelf,sort]);
+ const reset=()=>{setQuery("");setType("All resources");setTopic("All topics");setSavedOnly(false);setSort("curated");};
+ const submit=async e=>{e.preventDefault();if(status==="sending")return;setStatus("sending");setFormMessage("");const f=e.currentTarget,fd=new FormData(f);try{const r=await fetch("/api/library/recommendations",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({title:fd.get("title"),author:fd.get("author"),reason:fd.get("reason"),name:fd.get("name"),email:fd.get("email"),website:fd.get("website"),consent:fd.get("consent")==="on"})});const data=await r.json();if(!r.ok)throw Error(data.error||"Please try again.");setStatus("success");setReference(data.reference);setFormMessage("Recommendation received. It will appear in community picks after review.");f.reset();}catch(error){setStatus("error");setFormMessage(error.message||"Connection interrupted. Please try again.");}};
+ const featured=libraryResources.find(r=>r.slug==="reminiscences-of-a-stock-operator");
+ return <main className="course-shell library-shell knowledge-library">
+ <SiteHeader active="Library" demoHref="/contact"/>
+ <section className="course-hero library-hero shared-atmosphere-hero knowledge-hero" aria-labelledby="library-title">
+ <video className="shared-hero-atmosphere" src="/assets/courses/courses-hero-atmosphere.mp4" autoPlay muted loop playsInline preload="metadata" aria-hidden="true"/>
+ <div className="shared-hero-atmosphere-shade" aria-hidden="true"/><div className="course-hero-ring ring-one"/><div className="course-hero-ring ring-two"/><div className="course-hero-grid"/>
+ <div className="course-hero-content"><p className="course-kicker"><LibraryIcon className="fa-solid fa-book-open" aria-hidden="true"/> THE DIGITAL KNOWLEDGE LIBRARY</p><h1 id="library-title"><TextPressure text="Go beyond"/><br/><strong><TextPressure text="the classroom." minWeight={700}/></strong></h1><p className="course-hero-copy">Original books. Enduring ideas. Open a classic, turn its pages and discover the thinking behind money, markets and a meaningful life.</p><div className="knowledge-hero-actions"><a className="course-primary-button" href="#knowledge-collection">Find your next read <LibraryIcon className="fa-solid fa-arrow-down" aria-hidden="true"/></a><a href="#recommend-book" className="knowledge-text-link">Recommend a book <LibraryIcon className="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"/></a></div></div>
+ <aside className="knowledge-hero-shelf" aria-label="Original books, ready to read"><span className="knowledge-overline"><LibraryIcon name="sparkle"/> YOUR NEXT CHAPTER</span><div className="knowledge-real-stack">{["successful-stock-speculation","reminiscences-of-a-stock-operator","theory-of-stock-exchange-speculation"].map(slug=>{const r=libraryResources.find(x=>x.slug===slug);return <a key={slug} href={"/library/"+slug} aria-label={"Open "+r.title}><img src={"/assets/library/"+r.cover} alt={r.title+" editorial cover"} width="768" height="1152"/><span>Open book <LibraryIcon name="arrow"/></span></a>;})}</div><div className="knowledge-hero-shelf-footer"><span><b>09</b> complete original books</span><span><b>08</b> study PDFs</span></div></aside>
+ </section>
+ <div className="knowledge-benefits"><span><LibraryIcon className="fa-solid fa-book-open" aria-hidden="true"/> Read inside the website</span><span><LibraryIcon className="fa-regular fa-bookmark" aria-hidden="true"/> Build your personal shelf</span><span><LibraryIcon className="fa-solid fa-download" aria-hidden="true"/> Take selected guides offline</span><span><LibraryIcon className="fa-solid fa-people-group" aria-hidden="true"/> Share a worthwhile read</span></div>
+ <section className="knowledge-section knowledge-paths" aria-labelledby="paths-heading"><div className="knowledge-heading"><div><p className="section-label">A LITTLE DIRECTION</p><h2 id="paths-heading">Find your<br/><strong>line of enquiry.</strong></h2></div><p>Start with a question. Follow a considered path through investing, trading or business research.</p></div><div className="knowledge-path-grid">{learningPaths.map((path,i)=><article className="knowledge-path" key={path.title}><div className="knowledge-path-top"><span>0{i+1} / {path.label}</span><LibraryIcon className={"fa-solid fa-"+path.icon} aria-hidden="true"/></div><h3>{path.title}</h3><ol>{path.slugs.map(slug=>{const r=libraryResources.find(x=>x.slug===slug);return <li key={slug}><a href={"/library/"+slug}>{r.title}<LibraryIcon className="fa-solid fa-arrow-right" aria-hidden="true"/></a></li>;})}</ol></article>)}</div></section>
+ <section className="knowledge-section knowledge-collection" id="knowledge-collection" aria-labelledby="collection-heading">
+ <div className="knowledge-heading"><div><p className="section-label">THE READING ROOM</p><h2 id="collection-heading">The collected<br/><strong>works &amp; field notes.</strong></h2></div><button className={"knowledge-shelf-button "+(savedOnly?"is-active":"")} aria-pressed={savedOnly} onClick={()=>setSavedOnly(!savedOnly)}><LibraryIcon className="fa-regular fa-bookmark" aria-hidden="true"/> My shelf <span>{shelf.length}</span></button></div>
+ <div className="knowledge-controls"><label className="knowledge-search"><LibraryIcon className="fa-solid fa-magnifying-glass" aria-hidden="true"/><input type="search" value={query} onChange={e=>setQuery(e.target.value)} placeholder="Search books, authors, topics…" aria-label="Search library"/></label><label><span className="knowledge-control-label">Topic</span><select value={topic} onChange={e=>setTopic(e.target.value)}><option>All topics</option>{[...new Set(libraryResources.map(r=>r.topic))].map(t=><option key={t}>{t}</option>)}</select></label><label><span className="knowledge-control-label">Sort</span><select value={sort} onChange={e=>setSort(e.target.value)}><option value="curated">Curated order</option><option value="az">Title A–Z</option><option value="quick">Quick reads first</option></select></label></div>
+ <div className="knowledge-tabs" role="group" aria-label="Resource categories">{libraryTypes.map(t=><button key={t} aria-pressed={type===t} className={type===t?"is-active":""} onClick={()=>setType(t)}>{t}</button>)}</div>
+ <div className="knowledge-results-meta"><span role="status">{results.length} {results.length===1?"resource":"resources"} {savedOnly?"on your shelf":"to explore"}</span><span>Bookmarks stay in this browser.</span><button onClick={reset}>Reset filters</button></div>
+ <p className="knowledge-live-message" role="status">{message}</p>
+ {results.length?<div className="knowledge-resource-grid">{results.map((r,index)=><article className={"knowledge-resource "+(r.kind==="external"?"knowledge-resource-external":"")} key={r.slug}>
+ <div className="knowledge-resource-visual"><span className="editorial-volume" aria-hidden="true">{String(index+1).padStart(2,"0")}</span><a href={r.kind==="external"?r.sourceUrl:"/library/"+r.slug} {...(r.kind==="external"?{target:"_blank",rel:"noopener noreferrer"}:{})} aria-label={(r.kind==="external"?"Visit ":"Read ")+r.title}><Cover resource={r}/></a><button className={"knowledge-bookmark "+(shelf.includes(r.slug)?"is-saved":"")} aria-label={(shelf.includes(r.slug)?"Remove bookmark for ":"Bookmark ")+r.title} aria-pressed={shelf.includes(r.slug)} onClick={()=>bookmark(r)}><LibraryIcon className={(shelf.includes(r.slug)?"fa-solid":"fa-regular")+" fa-bookmark"} aria-hidden="true"/></button><span className="knowledge-format">{r.kind==="external"?"OFFICIAL SOURCE":r.kind==="classic"?"ORIGINAL BOOK":"STUDY GUIDE"}</span></div>
+ <div className="knowledge-resource-copy"><p className="knowledge-resource-eyebrow">{r.topic} <span>·</span> {r.level}</p><h3><a href={r.kind==="external"?r.sourceUrl:"/library/"+r.slug} {...(r.kind==="external"?{target:"_blank",rel:"noopener noreferrer"}:{})}>{r.title}</a></h3><p className="knowledge-author">{r.author}</p><p className="knowledge-description">{r.description}</p><div className="knowledge-resource-bottom"><a className="knowledge-read-link" href={r.kind==="external"?r.sourceUrl:"/library/"+r.slug} {...(r.kind==="external"?{target:"_blank",rel:"noopener noreferrer"}:{})}>{r.kind==="external"?"Visit source":r.kind==="classic"?"Open book":"Open guide"} <LibraryIcon className={"fa-solid fa-"+(r.kind==="external"?"arrow-up-right-from-square":"arrow-right")} aria-hidden="true"/></a>{r.download?<a className="knowledge-download-link" href={r.download} download aria-label={"Download "+r.title+" ("+r.format+")"}><LibraryIcon className="fa-solid fa-download" aria-hidden="true"/> {r.format}</a>:<small>External resource</small>}</div><small className="knowledge-resource-detail">{r.minutes?r.minutes+" min guide · ":""}{r.kind==="classic"?"Historical classic · Original source credited":r.kind==="guide"?"Academy study notes · Not a published book":"Opens the publisher's website"}</small></div>
+ </article>)}</div>:<div className="knowledge-empty"><LibraryIcon className="fa-regular fa-bookmark" aria-hidden="true"/><h3>{savedOnly?"Your shelf has room for a good idea.":"No matches yet."}</h3><p>{savedOnly?"Save a resource using its bookmark button, or broaden your filters.":"Try a different title, author or topic."}</p><button className="knowledge-button" onClick={reset}>Explore all resources</button></div>}
+ </section>
+ <section className="knowledge-section knowledge-feature" aria-labelledby="featured-heading"><div><p className="section-label"><LibraryIcon name="book"/> IN THE SPOTLIGHT / EDWIN LEFÈVRE</p><h2 id="featured-heading">A classic.<br/>A new way to<br/><strong>turn the page.</strong></h2><p>Read the complete <em>Reminiscences of a Stock Operator</em> in an immersive book viewer. Original text, comfortable typography, animated page turns—and your place saved for next time.</p><a className="knowledge-button" href={"/library/"+featured.slug}>Open the original book <LibraryIcon name="arrow"/></a><a className="knowledge-feature-download" href={featured.download} download><LibraryIcon name="download"/> Download the full text</a></div><a href={"/library/"+featured.slug} className="knowledge-spotlight-book" aria-label="Read Reminiscences of a Stock Operator"><Cover resource={featured} large/><span><LibraryIcon name="book"/> THE COMPLETE ORIGINAL / FREE TO READ</span></a></section>
+ <section className="knowledge-section" id="physical-books" aria-labelledby="physical-heading"><div className="knowledge-heading"><div><p className="section-label">FOR YOUR BOOKSHELF</p><h2 id="physical-heading">Some ideas deserve <strong>a paper copy.</strong></h2></div><p>Browse retailer searches and publisher listings. Check the edition, seller and delivery details before buying.</p></div><div className="knowledge-print-grid">{physicalBooks.map(b=><article className="knowledge-print-card" key={b.slug}><Cover resource={b}/><div><p className="knowledge-resource-eyebrow">{b.topic}</p><h3>{b.title}</h3><p className="knowledge-author">{b.author}</p><p>{b.description}</p><div className="knowledge-retail-links">{retailLinks(b).map(l=><a key={l.label} href={l.url} target="_blank" rel="noopener noreferrer">{l.label}<LibraryIcon className="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"/></a>)}</div><small>Amazon & Flipkart links open book searches.</small></div></article>)}</div></section>
+ <section className="knowledge-section knowledge-community" aria-labelledby="community-heading"><div className="knowledge-heading"><div><p className="section-label">A LIBRARY WE BUILD TOGETHER</p><h2 id="community-heading">Good ideas<br/><strong>are worth sharing.</strong></h2></div><a className="knowledge-text-link" href="#recommend-book">Share your recommendation <LibraryIcon className="fa-solid fa-arrow-down" aria-hidden="true"/></a></div>{recommendations.length?<div className="knowledge-community-grid">{recommendations.map(r=><article key={r.id}><LibraryIcon className="fa-solid fa-quote-left" aria-hidden="true"/><h3>{r.title}</h3><p className="knowledge-author">{r.author}</p><p>{r.reason}</p><small>Recommended by {r.name}</small></article>)}</div>:<div className="knowledge-community-empty"><LibraryIcon className="fa-solid fa-people-group" aria-hidden="true"/><div><h3>The next worthwhile read could come from you.</h3><p>Be among the first to contribute. Thoughtful recommendations appear here after review.</p></div></div>}
+ </section>
+ <div className="knowledge-recommend" id="recommend-book"><div><p className="section-label">PASS A GOOD IDEA ON</p><h2>An exceptional read<br/><strong>deserves company.</strong></h2><p>Tell us which book changed the way you think about money, markets or investing—and why it belongs here.</p><div className="knowledge-recommend-note"><LibraryIcon className="fa-solid fa-circle-check" aria-hidden="true"/><p>Every submission is reviewed. Approved recommendations show your name and review; your email stays private.</p></div></div><form className="contact-enquiry-form" onSubmit={submit}><div className="contact-form-heading"><p className="section-label">RECOMMEND A MARKET READ</p><h2>Share a book.<br/><strong>Grow our reading room.</strong></h2></div><div className="knowledge-form-grid contact-form-fields"><label>Book title<input name="title" required minLength={2} maxLength={160} placeholder="The book you'd recommend"/></label><label>Author<input name="author" required minLength={2} maxLength={120} placeholder="Who wrote it?"/></label><label>Your name<input name="name" autoComplete="name" required minLength={2} maxLength={80} placeholder="Your public display name"/></label><label>Email<input name="email" type="email" autoComplete="email" required maxLength={200} placeholder="For submission records only"/></label><label className="contact-form-wide">Why is it worth reading?<textarea name="reason" required minLength={30} maxLength={1200} rows={4} placeholder="What did you learn, and who would find it useful? (30–1,200 characters)"/></label></div><label className="knowledge-honeypot" aria-hidden="true">Website<input name="website" tabIndex={-1} autoComplete="off"/></label><label className="knowledge-consent"><input name="consent" type="checkbox" required/> <span>I agree to have my name and recommendation published after review. My email will not be published.</span></label><button className="contact-form-submit btn btn-primary" type="submit" disabled={status==="sending"}><span className="btn-txt">{status==="sending"?"Saving your recommendation…":"Recommend this book"}</span><kbd className="btn-kbd" aria-hidden="true"><LibraryIcon name="arrow"/></kbd></button><div className={"knowledge-form-message "+status} role={status==="error"?"alert":"status"}>{formMessage}{reference&&status==="success"?<small>Submission reference: {reference}</small>:null}</div></form></div>
+ <div className="knowledge-editorial-note"><LibraryIcon className="fa-solid fa-book-open" aria-hidden="true"/><p>Read with perspective. Classic texts reflect their time; educational guides are for learning, not personalised investment advice. Source credits and download terms accompany each in-site resource.</p></div>
+ <SiteCTA label="KEEP LEARNING, WITH INTENTION."><span>Turn what you read into</span><br/><strong>clearer financial thinking.</strong></SiteCTA><SiteFAQ/><SiteFooter/>
+ </main>;
 }

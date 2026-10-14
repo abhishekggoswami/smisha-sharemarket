@@ -1,0 +1,354 @@
+[
+  {
+    "slug": "smisha-complete-market-mastery",
+    "title": "Smisha Complete Market Mastery",
+    "subtitle": "From market basics to professional trading & investing",
+    "level": "Beginner to advanced",
+    "duration": "Enquire for schedule",
+    "mode": "Offline classes",
+    "description": "Build one connected market framework across investing, wealth creation, chart analysis, options, equity research, NISM XV preparation and Forex.",
+    "highlights": [
+      "Stock market basics & smart investing",
+      "Wealth creation & financial planning",
+      "Technical analysis & options trading",
+      "Value investing & equity research",
+      "NISM XV preparation & Forex trading"
+    ],
+    "outcomes": [
+      "Connect investing, trading and research in one learning framework.",
+      "Evaluate market opportunities with analysis and risk management.",
+      "Prepare for analyst-focused study through cases and exam practice."
+    ],
+    "theme": "foundation",
+    "boardTitle": "Market\nMastery",
+    "instructor": "sushil",
+    "marketVideo": "foundation-market-web.mp4",
+    "modules": [
+      {
+        "title": "Smart Investing Fundamentals",
+        "topics": [
+          "Stock market basics, IPOs and investing",
+          "Fundamental analysis and company analysis",
+          "Risk management and investment strategies"
+        ],
+        "outcome": "Understand market foundations and use company analysis and risk management to structure investing decisions.",
+        "guide": "Understand market foundations and use company analysis and risk management to structure investing decisions.",
+        "duration": "Guided module"
+      },
+      {
+        "title": "Wealth Creation",
+        "topics": [
+          "Mutual fund types, SIPs, returns, risk and taxation",
+          "Fund selection and portfolio building",
+          "Insurance and financial planning"
+        ],
+        "outcome": "Compare fund choices and connect portfolio building with insurance and financial goals.",
+        "guide": "Compare fund choices and connect portfolio building with insurance and financial goals.",
+        "duration": "Guided module"
+      },
+      {
+        "title": "Technical Analysis Blueprint",
+        "topics": [
+          "Line charts, candlesticks and chart patterns",
+          "Trends, support and resistance",
+          "Indicators, price action and trading strategies",
+          "Risk management techniques"
+        ],
+        "outcome": "Read charts, mark important levels and explain a trade setup with its risks.",
+        "guide": "Read charts, mark important levels and explain a trade setup with its risks.",
+        "duration": "Guided module"
+      },
+      {
+        "title": "Professional Options Trading",
+        "topics": [
+          "Options basics, buying and selling",
+          "Greeks and premium calculation",
+          "Strike price selection and option chain",
+          "Options strategies, volatility and risk management"
+        ],
+        "outcome": "Understand options mechanics and evaluate strategy choices alongside volatility and risk.",
+        "guide": "Understand options mechanics and evaluate strategy choices alongside volatility and risk.",
+        "duration": "Guided module"
+      },
+      {
+        "title": "Value Investing Blueprint",
+        "topics": [
+          "Financial statements and ratio analysis",
+          "Valuation and stock screening",
+          "Long-term and short-term investing strategies"
+        ],
+        "outcome": "Evaluate business information and valuation when comparing investment opportunities.",
+        "guide": "Evaluate business information and valuation when comparing investment opportunities.",
+        "duration": "Guided module"
+      },
+      {
+        "title": "Professional Equity Research",
+        "topics": [
+          "Equity research process and financial modelling",
+          "Valuation and research reports",
+          "Regulations and industry analysis",
+          "Career skills in equity research"
+        ],
+        "outcome": "Organise business research, financial modelling and valuation into a structured research report.",
+        "guide": "Organise business research, financial modelling and valuation into a structured research report.",
+        "duration": "Guided module"
+      },
+      {
+        "title": "NISM XV Exam Prep",
+        "topics": [
+          "Complete NISM XV syllabus",
+          "Financial analysis, valuation and regulations",
+          "Mock tests and case studies",
+          "Tips and strategies to clear the exam"
+        ],
+        "outcome": "Build a structured exam preparation routine with cases, revision and mock-test practice.",
+        "guide": "Build a structured exam preparation routine with cases, revision and mock-test practice.",
+        "duration": "Guided module"
+      },
+      {
+        "title": "Forex Trading",
+        "topics": [
+          "Basics of Forex and how the market works",
+          "Fundamental and technical analysis",
+          "Trading strategies and trade setup",
+          "Risk management and trading psychology"
+        ],
+        "outcome": "Connect currency market analysis with trade planning, risk controls and trading discipline.",
+        "guide": "Connect currency market analysis with trade planning, risk controls and trading discipline.",
+        "duration": "Guided module"
+      }
+    ]
+  },
+  {
+    "slug": "wd-gann-advance-masterclass",
+    "title": "W.D. Gann Advance Masterclass",
+    "subtitle": "Time · Price · Cycles · Market Geometry",
+    "level": "Advanced",
+    "duration": "Enquire for schedule",
+    "mode": "Offline classes",
+    "description": "Study Gann’s price-time framework through Squares of 9 and 12, time cycles, angles, planetary-cycle concepts and Excel-based case studies.",
+    "highlights": [
+      "Gann philosophy & price-time principles",
+      "Square of 9 & Square of 12",
+      "Time cycles, angles & Gann Fan",
+      "Financial astrology & planetary cycles",
+      "Excel automation & live case studies"
+    ],
+    "outcomes": [
+      "Explain Gann’s price, time and proportion framework.",
+      "Work through Gann calculations and market case studies.",
+      "Build a personal trading plan with risk and capital protection."
+    ],
+    "theme": "technical",
+    "boardTitle": "W.D. Gann\nMasterclass",
+    "instructor": "charcoal",
+    "marketVideo": "technical-market-web.mp4",
+    "modules": [
+      {
+        "title": "Gann Introduction",
+        "topics": [
+          "W.D. Gann philosophy and core principles: price, time and proportion",
+          "Understanding the relationship between market price and time"
+        ],
+        "outcome": "Explain the core ideas of price, time and proportion in Gann’s market framework.",
+        "guide": "Explain the core ideas of price, time and proportion in Gann’s market framework.",
+        "duration": "Guided module"
+      },
+      {
+        "title": "Gann Square of 9",
+        "topics": [
+          "Square of 9 structure and calculations",
+          "Support, resistance and price levels using 90°, 180° and 360° relationships",
+          "Application to intraday levels"
+        ],
+        "outcome": "Work through Square of 9 calculations and identify the reference levels they produce.",
+        "guide": "Work through Square of 9 calculations and identify the reference levels they produce.",
+        "duration": "Guided module"
+      },
+      {
+        "title": "Gann Square of 12",
+        "topics": [
+          "Advanced Square of 12 and Hexagon Chart structure",
+          "Square of 12 for positional analysis",
+          "Trend identification and major price targets"
+        ],
+        "outcome": "Compare Square of 12 and Hexagon Chart structures in positional-analysis examples.",
+        "guide": "Compare Square of 12 and Hexagon Chart structures in positional-analysis examples.",
+        "duration": "Guided module"
+      },
+      {
+        "title": "Gann Time Cycles",
+        "topics": [
+          "Gann time cycles and natural turn dates",
+          "30-, 60- and 90-day cycles and market symmetry",
+          "Intraday time reversals and clock pivots"
+        ],
+        "outcome": "Map cycle dates and clock pivots as reference points in a market study.",
+        "guide": "Map cycle dates and clock pivots as reference points in a market study.",
+        "duration": "Guided module"
+      },
+      {
+        "title": "Gann Angles & Gann Fan",
+        "topics": [
+          "Gann geometry, scale setting and the master 1:1 line (45°)",
+          "Gann Fan construction, trend identification and channel analysis"
+        ],
+        "outcome": "Construct a Gann Fan using scale settings and explain its trend and channel context.",
+        "guide": "Construct a Gann Fan using scale settings and explain its trend and channel context.",
+        "duration": "Guided module"
+      },
+      {
+        "title": "Financial Astrology & Planetary Cycles",
+        "topics": [
+          "Fundamentals of financial astrology and planetary cycles",
+          "Nakshatra transits, retrogrades, astro-calendars and their application in market-cycle analysis"
+        ],
+        "outcome": "Describe the planetary-cycle concepts included in the course and examine their use as a historical analysis framework.",
+        "guide": "Describe the planetary-cycle concepts included in the course and examine their use as a historical analysis framework.",
+        "duration": "Guided module"
+      },
+      {
+        "title": "Psychology & Risk Management",
+        "topics": [
+          "Trader psychology, discipline and emotional control",
+          "Risk management and stop-loss placement",
+          "Position sizing and capital protection"
+        ],
+        "outcome": "Create risk limits, position-sizing rules and a disciplined trading routine.",
+        "guide": "Create risk limits, position-sizing rules and a disciplined trading routine.",
+        "duration": "Guided module"
+      },
+      {
+        "title": "Excel Automation, Live Case Studies & Master Plan",
+        "topics": [
+          "Excel automation for Gann calculations and Gann Wheel sheets",
+          "Live case studies: NIFTY, BANKNIFTY, Gold, Silver and Crude Oil",
+          "Creating a personal master trading plan and implementing a structured strategy"
+        ],
+        "outcome": "Apply the course framework to Excel-based case studies and document a personal trading plan.",
+        "guide": "Apply the course framework to Excel-based case studies and document a personal trading plan.",
+        "duration": "Guided module"
+      }
+    ],
+    "facultyName": "Rahul Kotkar"
+  },
+  {
+    "slug": "global-forex-program",
+    "title": "Global Forex Program",
+    "subtitle": "Currency markets · Execution · Price action",
+    "level": "Beginner to advanced",
+    "duration": "6 weeks",
+    "mode": "Offline classes",
+    "description": "A six-week Forex learning path covering currency pairs, execution, chart analysis, indicators, intraday and swing strategies, risk and trading psychology.",
+    "highlights": [
+      "Forex foundations & currency pairs",
+      "MT4 / MT5 execution mechanics",
+      "Price action & confirmation indicators",
+      "Intraday & swing trading strategies",
+      "Risk control, timing & live examples"
+    ],
+    "outcomes": [
+      "Read currency pairs and understand execution mechanics.",
+      "Combine price action, indicators and session context in trade planning.",
+      "Use position sizing, risk-reward and trading discipline."
+    ],
+    "theme": "funds",
+    "boardTitle": "Global Forex\nProgram",
+    "instructor": "navy",
+    "marketVideo": "funds-market-web.mp4",
+    "modules": [
+      {
+        "title": "Forex Foundations",
+        "topics": [
+          "Forex market basics and currency pairs",
+          "Major, minor and exotic pairs",
+          "Pips, pip value and lot size"
+        ],
+        "outcome": "Explain currency pairs, pip value and lot size before reviewing a trade.",
+        "guide": "Explain currency pairs, pip value and lot size before reviewing a trade.",
+        "duration": "Guided module"
+      },
+      {
+        "title": "Execution Mechanics",
+        "topics": [
+          "Spread, leverage and margin explained",
+          "MT4 / MT5 platform setup",
+          "Buy / sell order execution"
+        ],
+        "outcome": "Navigate platform setup and explain order execution, spreads, leverage and margin.",
+        "guide": "Navigate platform setup and explain order execution, spreads, leverage and margin.",
+        "duration": "Guided module"
+      },
+      {
+        "title": "Chart & Price Action",
+        "topics": [
+          "Forex candlesticks and price action",
+          "Support, resistance and trend trading"
+        ],
+        "outcome": "Read price structure and mark support, resistance and trend context on a Forex chart.",
+        "guide": "Read price structure and mark support, resistance and trend context on a Forex chart.",
+        "duration": "Guided module"
+      },
+      {
+        "title": "Indicators",
+        "topics": [
+          "RSI, MACD and moving averages",
+          "Indicator and price-action strategy"
+        ],
+        "outcome": "Use indicators as confirmation tools alongside a price-action analysis.",
+        "guide": "Use indicators as confirmation tools alongside a price-action analysis.",
+        "duration": "Guided module"
+      },
+      {
+        "title": "Trading Styles",
+        "topics": [
+          "Intraday Forex strategies",
+          "Swing trading in Forex"
+        ],
+        "outcome": "Compare intraday and swing approaches and select a timeframe for a trade plan.",
+        "guide": "Compare intraday and swing approaches and select a timeframe for a trade plan.",
+        "duration": "Guided module"
+      },
+      {
+        "title": "Risk Control",
+        "topics": [
+          "Risk management and position sizing",
+          "Risk-reward, risk percentage and risk models"
+        ],
+        "outcome": "Define position size, risk percentage and risk-reward before considering an entry.",
+        "guide": "Define position size, risk percentage and risk-reward before considering an entry.",
+        "duration": "Guided module"
+      },
+      {
+        "title": "Market Timing",
+        "topics": [
+          "Forex sessions: Asian, London and New York",
+          "Session overlaps and volatility"
+        ],
+        "outcome": "Compare session timings and overlaps when planning market observation.",
+        "guide": "Compare session timings and overlaps when planning market observation.",
+        "duration": "Guided module"
+      },
+      {
+        "title": "Psychology",
+        "topics": [
+          "Trading psychology and discipline",
+          "Avoiding overtrading and revenge trading"
+        ],
+        "outcome": "Build a routine that limits emotional decisions, overtrading and revenge trading.",
+        "guide": "Build a routine that limits emotional decisions, overtrading and revenge trading.",
+        "duration": "Guided module"
+      },
+      {
+        "title": "Live Trading",
+        "topics": [
+          "Live Forex market analysis",
+          "Real-time trade examples"
+        ],
+        "outcome": "Review real-time examples through a structured process of analysis, risk and trade review.",
+        "guide": "Review real-time examples through a structured process of analysis, risk and trade review.",
+        "duration": "Guided module"
+      }
+    ]
+  }
+]

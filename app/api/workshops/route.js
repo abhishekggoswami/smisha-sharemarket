@@ -3,6 +3,7 @@ import { mkdirSync } from 'node:fs';
 import path from 'node:path';
 import { randomUUID } from 'node:crypto';
 import { upcomingWorkshops } from '../../../lib/workshops';
+import { mirrorLeadToSheet } from '../../../lib/smisha-lead-sync';
 
 export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
@@ -19,7 +20,7 @@ export async function GET() {
   let db;
   try {
     db = database();
-    const seats = Object.fromEntries(upcomingWorkshops.map(event => [event.id, Math.max(0, event.capacity - db.prepare("SELECT count(*) AS total FROM submissions WHERE kind = 'register' AND workshop_id = ?").get(event.id).total)]));
+    const seats = Object.fromEntries(upcomingWorkshops.filter(event => event.startsAt && Number.isFinite(event.capacity)).map(event => [event.id, Math.max(0, event.capacity - db.prepare("SELECT count(*) AS total FROM submissions WHERE kind = 'register' AND workshop_id = ?").get(event.id).total)]));
     return Response.json(seats, { headers: { 'Cache-Control': 'no-store' } });
   } catch { return Response.json({ error: 'Availability is temporarily unavailable.' }, { status: 503 }); }
   finally { db?.close(); }
@@ -45,7 +46,8 @@ export async function POST(request) {
     if (!/^\d{4}-\d{2}-\d{2}$/.test(data.date) || !Number.isFinite(date.getTime()) || date.getTime() < Date.now()) return fail('Choose a preferred date today or in the future.');
   }
   const event = upcomingWorkshops.find(w => w.id === data.workshopId);
-  if (data.kind === 'register' && (!event || new Date(event.startsAt).getTime() <= Date.now())) return fail('This workshop is not open for registration.');
+  if (data.kind === 'interest' && data.workshopId && !event) return fail('Please choose a valid workshop.');
+  if (data.kind === 'register' && (!event || event.status === 'planned' || !event.startsAt || !Number.isFinite(event.capacity) || new Date(event.startsAt).getTime() <= Date.now())) return fail('This workshop is not open for registration.');
   let db;
   try {
     db = database(); db.exec('BEGIN IMMEDIATE');
@@ -57,9 +59,10 @@ export async function POST(request) {
     const recent = db.prepare('SELECT count(*) AS total FROM submissions WHERE email = ? AND created_at > ?').get(data.email, new Date(Date.now() - 3600000).toISOString());
     if (recent.total >= 5) { db.exec('ROLLBACK'); return Response.json({ error: 'You have sent several requests. Please try again later or call our team.' }, { status: 429 }); }
     const reference = `WS-${randomUUID()}`;
-    db.prepare('INSERT INTO submissions VALUES (?, ?, ?, ?, ?, ?)').run(reference, data.kind, data.kind === 'register' ? event.id : null, data.email, new Date().toISOString(), JSON.stringify(data));
+    db.prepare('INSERT INTO submissions VALUES (?, ?, ?, ?, ?, ?)').run(reference, data.kind, event?.id || null, data.email, new Date().toISOString(), JSON.stringify(data));
     db.exec('COMMIT');
-    return Response.json({ reference }, { status: 201 });
+    const syncedToSheet=await mirrorLeadToSheet({category:'Workshop',name:data.name,email:data.email,phone:data.phone,sourcePage:'/workshops',form:'Workshop '+data.kind,interest:event?.title||'Host a workshop',message:[data.city,data.company,data.organization,data.message].filter(Boolean).join(' | ')});
+    return Response.json({ reference,syncedToSheet }, { status: 201 });
   } catch { try { db?.exec('ROLLBACK'); } catch {} return Response.json({ error: 'We could not save your request. Please try again or call +91 7420001687.' }, { status: 503 }); }
   finally { db?.close(); }
 }

@@ -17,3 +17,8 @@ The `submissions` table stores `id`, `kind` (`host`, `interest`, `register`), `w
 Submission confirmations mean the request is saved. Email notifications, CRM delivery, payments, and an authenticated staff dashboard are not connected. The team must review saved submissions. Add a delivery integration before promising automatic email follow-up.
 
 Verification: `npm run build` and `node scripts/test-workshops.mjs`. Tests use an isolated temporary database and synthetic events, never published workshop data.
+
+## Planned online workshop
+`read-the-market-online` is an upcoming online workshop, **Read the Market. Build Your Plan.** Date, fees and joining information remain to be announced. It accepts event-specific interest submissions, not seat registrations. `startsAt` and `capacity` are unset; the availability endpoint omits this event. Confirm the schedule and capacity before changing its status and opening registrations.
+
+Generated campaign artwork is installed at `public/assets/workshops/read-the-market-upcoming.webp` (1672×941, approximately 143 KB). The banner is promotional artwork for the upcoming workshop. Existing documented past-event content remains intact.

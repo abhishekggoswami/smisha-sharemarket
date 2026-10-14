@@ -1,0 +1,4 @@
+import './CourseCardFacts.css';
+export default function CourseCardFacts({course}) {
+ return <div className="course-card-facts"><ul className="course-card-highlights">{course.highlights.map(point=><li key={point}><i className="fa-solid fa-circle-check" aria-hidden="true"/><span>{point}</span></li>)}</ul><div className="course-card-schedule"><span><i className="fa-regular fa-clock" aria-hidden="true"/> {course.duration}</span><span>Offline classes</span></div><p className="course-card-fee">Enquire for fees</p><div className="course-card-footer"><a className="course-details-button" href={"/courses/"+course.slug}>View curriculum <i className="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"/></a><a className="course-demo-button" href={"/contact?course="+encodeURIComponent(course.title)}>Book a free demo class <i className="fa-solid fa-arrow-right" aria-hidden="true"/></a></div></div>;
+}

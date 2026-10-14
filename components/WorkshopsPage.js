@@ -500,38 +500,24 @@ export default function WorkshopsPage() {
                 </p>
               </div>
               {upcomingWorkshops.filter(
-                (w) => new Date(w.startsAt).getTime() > Date.now(),
+                (w) => w.status === "planned" || new Date(w.startsAt).getTime() > Date.now(),
               ).length ? (
                 <div className="ws-events">
                   {upcomingWorkshops
-                    .filter((w) => new Date(w.startsAt).getTime() > Date.now())
+                    .filter((w) => w.status === "planned" || new Date(w.startsAt).getTime() > Date.now())
                     .map((event) => (
-                      <article className="ws-event" key={event.id}>
-                        <p className="section-label">UPCOMING WORKSHOP</p>
-                        <h3>{event.title}</h3>
-                        <p>{event.description}</p>
-                        <p>
-                          {new Date(event.startsAt).toLocaleString("en-IN", {
-                            timeZone: "Asia/Kolkata",
-                          })}{" "}
-                          IST · {event.location}
-                        </p>
-                        <Countdown date={event.startsAt} />
-                        <p>
-                          {availability[event.id] === undefined
-                            ? "Checking seat availability…"
-                            : `${availability[event.id]} of ${event.capacity} seats available`}
-                        </p>
-                        <button
-                          className="course-primary-button"
-                          disabled={!availability[event.id]}
-                          onClick={() => setRegistration(event)}
-                        >
-                          {availability[event.id] === 0
-                            ? "Fully booked"
-                            : "Register now"}{" "}
-                          {arrow}
-                        </button>
+                      <article className="ws-event ws-event-featured" key={event.id}>
+                        {event.thumbnail && <div className="ws-event-banner"><img className="ws-event-banner-art" src={event.thumbnail} alt={event.thumbnailAlt || event.title} width="1672" height="941" decoding="async" loading="lazy"/><img className="ws-event-banner-sushil" src="/assets/smisha-coach-hero-pointing.webp" alt="Mr. Sushil Kamboj" decoding="async" loading="lazy"/><span><i className="fa-solid fa-laptop" aria-hidden="true"/> UPCOMING ONLINE WORKSHOP</span></div>}
+                        <div className="ws-event-content">
+                          <p className="section-label">YOUR NEXT MARKET LEARNING SESSION</p>
+                          <h3>{event.title}</h3>
+                          <p className="ws-event-description">{event.description}</p>
+                          <div className="ws-event-facts"><span><i className="fa-regular fa-calendar" aria-hidden="true"/>{event.startsAt ? new Date(event.startsAt).toLocaleString("en-IN", {timeZone:"Asia/Kolkata"})+" IST" : "Date to be announced"}</span><span><i className="fa-solid fa-globe" aria-hidden="true"/>{event.location}</span></div>
+                          {event.highlights && <div className="ws-event-topics">{event.highlights.map(topic=><div key={topic.title}><i className={"fa-solid fa-"+topic.icon} aria-hidden="true"/><h4>{topic.title}</h4><p>{topic.copy}</p></div>)}</div>}
+                          {event.startsAt && <Countdown date={event.startsAt}/>}
+                          {event.status !== "planned" && <p>{availability[event.id] === undefined ? "Checking seat availability…" : availability[event.id]+" of "+event.capacity+" seats available"}</p>}
+                          <div className="ws-event-actions"><button className="course-primary-button" disabled={event.status !== "planned" && !availability[event.id]} onClick={()=>setRegistration(event)}>{event.status === "planned" ? "Notify me when dates open" : availability[event.id] === 0 ? "Fully booked" : "Register now"} {arrow}</button><small>{event.status === "planned" ? "Register your interest. Date, fees and joining details will be announced once confirmed." : "Reserve your place in this workshop."}</small></div>
+                        </div>
                       </article>
                     ))}
                 </div>
@@ -890,7 +876,7 @@ export default function WorkshopsPage() {
             <h2 id="registration-title">{registration.title}</h2>
             <EnquiryForm
               key={registration.id}
-              kind="register"
+              kind={registration.status === "planned" ? "interest" : "register"}
               event={registration}
               onRegistered={refreshAvailability}
             />

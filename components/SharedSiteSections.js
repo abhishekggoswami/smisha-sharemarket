@@ -1,3 +1,5 @@
+'use client';
+import {openLead} from './LeadCapture';
 const footerSocialLinks = [
   ['Instagram', 'https://www.instagram.com/smisha_share_market?stkn=c2ltZjM4NHI0NWtl', 'instagram', 'fa-instagram'],
   ['LinkedIn', 'https://www.linkedin.com/company/smishasharemarket/', 'linkedin', 'fa-linkedin-in'],
@@ -89,7 +91,7 @@ export function SiteFooter({ hideContactStrip = false }) {
             placeholder="Enter your email"
           />
 
-          <button type="button" aria-label="Subscribe">
+          <button type="button" aria-label="Subscribe" onClick={()=>openLead('Newsletter')}>
             <i className="fa-solid fa-arrow-right" />
           </button>
         </div>

@@ -1,23 +1,15 @@
-import SmartInvestingBoardTitle from './SmartInvestingBoardTitle';
+import { courses } from '../lib/course-catalog';
 import CourseBoardTitle from './CourseBoardTitle';
 
-const heroArtwork = {
-  'smart-investing-fundamentals': { theme: 'foundation', title: 'Smart Investing' },
-  'mutual-fund-wealth-builder': { theme: 'funds', title: 'Mutual Fund\nWealth Builder' },
-  'technical-analysis-blueprint': { theme: 'technical', title: 'Technical\nAnalysis' },
-  'professional-options-trading': { theme: 'options', title: 'Options\nTrading' },
-  'value-investing-blueprint': { theme: 'value', title: 'Value\nInvesting' },
-  'professional-equity-research-analyst-program': { theme: 'research', title: 'Equity\nResearch' },
-  'nism-xv-research-analyst-exam-prep': { theme: 'nism', title: 'NISM XV\nExam Prep' },
-};
+const heroArtwork = Object.fromEntries(courses.map(c=>[c.slug,{theme:c.theme,title:c.boardTitle}]));
 
 export default function CourseHeroVisual({ slug, outline }) {
-  const item = heroArtwork[slug] ?? heroArtwork['smart-investing-fundamentals'];
+  const item = heroArtwork[slug] ?? heroArtwork[courses[0].slug];
   const titleLines = item.title.split('\n');
   return <aside className={`course-hero-visual course-hero-visual--${item.theme}`} aria-label={`${titleLines.join(' ')} course visual`}>
     <div className="course-hero-board">
       <span>SMISHA ACADEMY</span>
-      {slug === 'smart-investing-fundamentals' ? <SmartInvestingBoardTitle slug={slug} title={item.title} /> : <CourseBoardTitle slug={slug} title={item.title} outline={outline} />}
+      {outline ? <CourseBoardTitle slug={slug} title={item.title} outline={outline} /> : <strong>{titleLines.map(line=><span key={line}>{line}</span>)}</strong>}
       <i />
     </div>
   </aside>;
