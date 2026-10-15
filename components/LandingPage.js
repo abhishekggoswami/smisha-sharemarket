@@ -30,54 +30,37 @@ export default function LandingPage() {
     const selectAll = (selector) => [...root.querySelectorAll(selector)];
     const cleanups = [];
 
-    const mapSlot = select('.academy-map-slot');
-    if (mapSlot) {
-      const mapRoot = createRoot(mapSlot);
-      mapRoot.render(<AcademyMap />);
-      cleanups.push(() => mapRoot.unmount());
-    }
-
-    const fibersSlot = select('.hero-fibers-slot');
-    if (fibersSlot) {
-      const fibersRoot = createRoot(fibersSlot);
-      fibersRoot.render(<GhostFibers className="hero-fibers-canvas" {...GHOST_FIBERS_PROPS} />);
-      cleanups.push(() => fibersRoot.unmount());
-    }
-
-    const marketCandlesSlot = select('.market-candles-slot');
-    if (marketCandlesSlot) {
-      const marketCandlesRoot = createRoot(marketCandlesSlot);
-      marketCandlesRoot.render(<MarketCandles className="market-candles-canvas" />);
-      cleanups.push(() => marketCandlesRoot.unmount());
-    }
-
-    const courseCarouselSlot = select('.home-courses-slot');
-    if (courseCarouselSlot) {
-      const courseCarouselRoot = createRoot(courseCarouselSlot);
-      courseCarouselRoot.render(<HomeCourseCarousel />);
-      cleanups.push(() => courseCarouselRoot.unmount());
-    }
-
-    const academyGallerySlot = select('.academy-gallery-slot');
-    if (academyGallerySlot) {
-      const academyGalleryRoot = createRoot(academyGallerySlot);
-      academyGalleryRoot.render(<AcademyAccordionGallery />);
-      cleanups.push(() => academyGalleryRoot.unmount());
-    }
-
-    const eventGallerySlot = select('.event-gallery-slot');
-    if (eventGallerySlot) {
-      const eventGalleryRoot = createRoot(eventGallerySlot);
-      eventGalleryRoot.render(<EventGallery />);
-      cleanups.push(() => eventGalleryRoot.unmount());
-    }
-
-    const indiaTestimonialsSlot = select('.india-testimonials-slot');
-    if (indiaTestimonialsSlot) {
-      const indiaTestimonialsRoot = createRoot(indiaTestimonialsSlot);
-      indiaTestimonialsRoot.render(<IndiaMapTestimonials />);
-      cleanups.push(() => indiaTestimonialsRoot.unmount());
-    }
+    // Preserve every component and animation, but initialize below-fold React
+    // islands only as visitors approach them rather than all on page load.
+    const lazyIslands = new Map();
+    const islandObserver = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (!entry.isIntersecting) return;
+        const mount = lazyIslands.get(entry.target);
+        if (mount) { lazyIslands.delete(entry.target); islandObserver.unobserve(entry.target); mount(); }
+      });
+    }, { rootMargin: '650px 0px' });
+    cleanups.push(() => islandObserver.disconnect());
+    const mountIsland = (selector, view, immediate = false) => {
+      const slot = select(selector);
+      if (!slot) return;
+      let mountedRoot = null;
+      const mount = () => {
+        if (mountedRoot || !slot.isConnected) return;
+        mountedRoot = createRoot(slot);
+        mountedRoot.render(view);
+      };
+      if (immediate) mount();
+      else { const anchor = slot.parentElement || slot; lazyIslands.set(anchor, mount); islandObserver.observe(anchor); }
+      cleanups.push(() => mountedRoot?.unmount());
+    };
+    mountIsland('.academy-map-slot', <AcademyMap />);
+    mountIsland('.hero-fibers-slot', <GhostFibers className="hero-fibers-canvas" {...GHOST_FIBERS_PROPS} />, true);
+    mountIsland('.market-candles-slot', <MarketCandles className="market-candles-canvas" />);
+    mountIsland('.home-courses-slot', <HomeCourseCarousel />);
+    mountIsland('.academy-gallery-slot', <AcademyAccordionGallery />);
+    mountIsland('.event-gallery-slot', <EventGallery />);
+    mountIsland('.india-testimonials-slot', <IndiaMapTestimonials />);
 
     const menuButton = select('.menu-button');
     const primaryNavigation = select('#primary-navigation');
