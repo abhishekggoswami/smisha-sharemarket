@@ -451,3 +451,35 @@
   .india-review-card, .india-review-card--compact, .india-review-card--standard, .india-review-card--feature { height: auto; max-width: none; min-height: 0; transform: none; }
   .india-review-card:nth-of-type(2n + 1) { transform: none; }
 }
+
+
+/* Responsive production safeguards: readable controls, consistent tap targets,
+   and safe handling of unusually long titles without changing desktop design. */
+@media (max-width: 1024px) {
+  main, section, article, aside, .course-shell { min-width: 0; }
+  h1, h2, h3, h4, p, li, blockquote { overflow-wrap: break-word; }
+  img, video, canvas { max-width: 100%; }
+  input, textarea, select { max-width: 100%; min-width: 0; }
+}
+@media (max-width: 767px) {
+  input:not([type="checkbox"]):not([type="radio"]), textarea, select {
+    font-size: max(16px, 1em);
+  }
+  .knowledge-tabs button,
+  .knowledge-reader-actions button,
+  .knowledge-reader-pagination button,
+  .knowledge-shelf-button {
+    min-height: 40px;
+  }
+  .knowledge-reader-pagination { flex-wrap: wrap; }
+  .knowledge-controls { grid-template-columns: minmax(0, 1fr); }
+  .knowledge-controls > label { min-width: 0; }
+  .knowledge-reader-heading-grid { min-width: 0; flex-wrap: wrap; }
+  .knowledge-reader-actions { flex-wrap: wrap; max-width: 100%; }
+}
+@media (max-width: 390px) {
+  .knowledge-tabs { gap: 7px; }
+  .knowledge-tabs button { padding-inline: 11px; }
+  .knowledge-resource-copy { padding: 19px; }
+  .knowledge-reader-toolbar { flex-wrap: wrap; }
+}

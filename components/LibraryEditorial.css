@@ -229,3 +229,9 @@
 @media(max-width:1050px){.knowledge-library .knowledge-section.knowledge-feature,.knowledge-library .knowledge-recommend{gap:40px;padding:65px 32px}.knowledge-library .knowledge-recommend{grid-template-columns:1fr 1.1fr}.knowledge-library .knowledge-recommend form.contact-enquiry-form{padding:30px}}
 @media(max-width:850px){.knowledge-library .knowledge-recommend{grid-template-columns:1fr}.knowledge-library .knowledge-recommend>div:first-child{max-width:100%}.knowledge-library .knowledge-recommend form.contact-enquiry-form{max-width:100%}}
 @media(max-width:760px){.knowledge-library .knowledge-section.knowledge-feature,.knowledge-library .knowledge-recommend{padding:55px 22px;gap:35px}.knowledge-library .knowledge-recommend .contact-form-heading h2{font-size:29px}.knowledge-library .knowledge-recommend form.contact-enquiry-form{padding:27px 23px}.knowledge-library .knowledge-recommend .contact-form-fields{grid-template-columns:1fr;gap:23px}.knowledge-library .knowledge-recommend .contact-form-wide{grid-column:auto}.knowledge-library .knowledge-path-top>.knowledge-icon{width:50px;height:50px;padding:11px}.knowledge-library .knowledge-recommend .contact-form-submit .btn-kbd{margin-left:8px}}
+
+/* Keep bookmark and reader icon controls usable on narrow touch screens. */
+@media (max-width: 767px) {
+  .knowledge-library .knowledge-bookmark { width: 42px; height: 42px; top: 10px; right: 10px; }
+  .flip-icon-button, .flip-toast button { min-width: 40px; min-height: 40px; }
+}
