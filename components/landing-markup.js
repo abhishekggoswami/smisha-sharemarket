@@ -13,7 +13,7 @@ export const landingMarkup = String.raw`
             <a href="https://t.me/smishasharemarket" aria-label="Telegram"><i class="fa-brands fa-telegram"></i></a>
             <a href="https://in.linkedin.com/company/smishasharemarket" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
             <a href="https://www.youtube.com/@smishasharemarket" aria-label="YouTube"><i class="fa-brands fa-youtube"></i></a>
-            <a href="https://api.whatsapp.com/send/?phone=917420001687&text=Hello%2C%0D%0AI+want+to+Start+Trading+Journey%21&type=phone_number&app_absent=0" aria-label="WhatsApp"><i class="fa-brands fa-whatsapp"></i></a>
+            <a href="https://wa.me/919595150577" target="_blank" rel="noreferrer" aria-label="WhatsApp"><i class="fa-brands fa-whatsapp"></i></a>
           </div>
         </div>
       </div>
@@ -51,7 +51,7 @@ export const landingMarkup = String.raw`
             </div>
             <div class="keynote-actions">
               <p class="keynote-description">Live market classes, expert mentorship, and risk-first training for Pune learners who want to understand the market, make better decisions, and build lasting confidence.</p>
-              <a href="#contact" class="keynote-button"><i class="fa-regular fa-calendar-days keynote-calendar-icon" aria-hidden="true"></i><span>Get your free consultation</span><i class="fa-solid fa-arrow-right" aria-hidden="true"></i></a>
+              <a href="/contact" class="keynote-button"><i class="fa-regular fa-calendar-days keynote-calendar-icon" aria-hidden="true"></i><span>Get your free consultation</span><i class="fa-solid fa-arrow-right" aria-hidden="true"></i></a>
               <p class="keynote-note"><i class="fa-solid fa-circle-check" aria-hidden="true"></i> Pune-based. Live, online, and offline learning.</p>
             </div>
           </div>
@@ -217,7 +217,7 @@ export const landingMarkup = String.raw`
               <h2 id="faq-title"><strong>Your questions,</strong><span>answered with clarity.</span></h2>
               <p>Practical details for learners ready to take their first confident step into the market.</p>
             </div>
-            <a class="faq-all-link" href="#contact">Ask our team <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></a>
+            <a class="faq-all-link" href="/contact">Ask our team <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></a>
           </div>
           <div class="faq-layout">
             <div class="faq-list">
@@ -256,14 +256,14 @@ export const landingMarkup = String.raw`
                 <a class="socialcontainer social-instagram" href="https://www.instagram.com/smisha_share_market?stkn=c2ltZjM4NHI0NWtl" target="_blank" rel="noreferrer" aria-label="Instagram"><span class="social-icon social-icon-primary"><i class="fa-brands fa-instagram" aria-hidden="true"></i></span><span class="social-icon social-icon-reveal"><i class="fa-brands fa-instagram" aria-hidden="true"></i></span></a>
                 <a class="socialcontainer social-linkedin" href="https://www.linkedin.com/company/smishasharemarket/" target="_blank" rel="noreferrer" aria-label="LinkedIn"><span class="social-icon social-icon-primary"><i class="fa-brands fa-linkedin-in" aria-hidden="true"></i></span><span class="social-icon social-icon-reveal"><i class="fa-brands fa-linkedin-in" aria-hidden="true"></i></span></a>
                 <a class="socialcontainer social-youtube" href="https://youtube.com/@smishasharemarket?si=qjirOFVlyB8LjEW_" target="_blank" rel="noreferrer" aria-label="YouTube"><span class="social-icon social-icon-primary"><i class="fa-brands fa-youtube" aria-hidden="true"></i></span><span class="social-icon social-icon-reveal"><i class="fa-brands fa-youtube" aria-hidden="true"></i></span></a>
-                <a class="socialcontainer social-whatsapp" href="https://wa.link/gi2b8d" target="_blank" rel="noreferrer" aria-label="WhatsApp"><span class="social-icon social-icon-primary"><i class="fa-brands fa-whatsapp" aria-hidden="true"></i></span><span class="social-icon social-icon-reveal"><i class="fa-brands fa-whatsapp" aria-hidden="true"></i></span></a>
+                <a class="socialcontainer social-whatsapp" href="https://wa.me/919595150577" target="_blank" rel="noreferrer" aria-label="WhatsApp"><span class="social-icon social-icon-primary"><i class="fa-brands fa-whatsapp" aria-hidden="true"></i></span><span class="social-icon social-icon-reveal"><i class="fa-brands fa-whatsapp" aria-hidden="true"></i></span></a>
               </div>
             </section>
             <section class="footer-links"><h2>Academy</h2><a href="/about">About Us</a><a href="#services">Our Programs</a><a href="#stories">Student Stories</a><a href="#process">How It Works</a><a href="#book-demo">Book a Demo</a></section>
             <section class="footer-links"><h2>Learning Paths</h2><a href="#services">Equity Trading</a><a href="#services">Technical Analysis</a><a href="#services">Risk Management</a><a href="#services">Trading Psychology</a><a href="#faq">FAQs</a></section>
             <section class="footer-newsletter"><h2>Newsletter</h2><p>Get market-learning tips and academy updates.</p><div class="newsletter-input"><input type="email" aria-label="Email address" placeholder="Enter your email" /><button type="button" aria-label="Subscribe"><i class="fa-solid fa-arrow-right"></i></button></div><small><i class="fa-regular fa-bell" aria-hidden="true"></i> No spam—just useful trading insights.</small></section>
           </div>
-          <div class="footer-bottom"><p>© 2026 Smisha Share Market Classes. All rights reserved.</p><div><a href="#top">Terms &amp; Conditions</a><a href="#top">Privacy Policy</a><a href="#top">Legal</a></div></div>
+          <div class="footer-bottom"><p>© 2026 Smisha Share Market Classes. All rights reserved.</p><div><a href="/terms-and-conditions">Terms &amp; Conditions</a><a href="/privacy-policy">Privacy Policy</a><a href="/legal">Legal</a></div></div>
         </footer>
       </section>
 </main>

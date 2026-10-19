@@ -189,7 +189,7 @@ export default function AboutPage() {
               into practical market knowledge, disciplined habits, and the
               confidence to act with intention.
             </p>
-            <a className="course-primary-button" href="#contact">
+            <a className="course-primary-button" href="/contact">
               Talk to our team <i className="fa-solid fa-phone" />
             </a>
           </div>

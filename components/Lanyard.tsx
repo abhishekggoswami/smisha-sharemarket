@@ -186,7 +186,7 @@ const RING_RADIUS = 0.095;
 const RING_TUBE = 0.0135;
 const EYELET_RADIUS = 0.036;
 const CLAMP_BODY = 0.15;
-const FACE_WIDTH = 1024;
+const FACE_WIDTH = 1536;
 
 const FINISHES: Record<string, FinishLook> = {
   glossy: { roughness: 0.42, metalness: 0, clearcoat: 1, clearcoatRoughness: 0.06, foil: 0, anisotropy: 0 },
@@ -743,20 +743,24 @@ const solvePin = (body: Body, grab: Grab, target: THREE.Vector3) => {
 const placeHanging = (sim: Simulation, layout: CardLayout, intro: boolean) => {
   const { nodes, previous, velocities, body, anchor } = sim;
   nodes[0].copy(anchor);
+  // Start an intro pass directly below its anchor.  The previous horizontal
+  // start put the whole card beyond the right edge of a contact-page canvas
+  // before physics could pull it into view.  A shortened vertical strap keeps
+  // every frame visible while still giving the pass a clear downward drop.
+  const initialSegment = intro ? sim.rest * 0.22 : sim.rest;
   for (let i = 1; i <= JOINTS; i++) {
     nodes[i].copy(nodes[i - 1]);
-    if (intro) nodes[i].x += sim.rest;
-    else nodes[i].y -= sim.rest;
+    nodes[i].y -= initialSegment;
   }
   body.quaternion.identity();
-  if (intro) body.quaternion.setFromAxisAngle(new THREE.Vector3(0, 0, 1), Math.PI / 2);
+  if (intro) body.quaternion.setFromAxisAngle(new THREE.Vector3(0, 0, 1), -0.09);
   body.hang.set(0, layout.hangY, 0);
   const offset = scratch.a.copy(body.hang).applyQuaternion(body.quaternion);
   body.position.copy(nodes[JOINTS]).sub(offset);
   body.previous.copy(body.position);
   body.previousQuaternion.copy(body.quaternion);
-  body.velocity.set(0, 0, 0);
-  body.angular.set(0, 0, 0);
+  body.velocity.set(0, intro ? -0.16 : 0, 0);
+  body.angular.set(0, 0, intro ? -0.42 : 0);
   for (let i = 0; i <= JOINTS; i++) {
     previous[i].copy(nodes[i]);
     velocities[i].set(0, 0, 0);

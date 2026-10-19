@@ -17,7 +17,7 @@ body { margin: 0; color: var(--ink); font-family: "DM Sans", Arial, sans-serif; 
 .topbar-socials a { align-items: center; background: rgba(12,45,115,.10); border: 1px solid rgba(12,45,115,.16); border-radius: 50%; color: var(--green); display: inline-flex; height: 23px; justify-content: center; text-decoration: none; transition: background .2s ease, transform .2s ease; width: 23px; }
 .topbar-socials a:hover { background: var(--green); color: var(--lime); transform: translateY(-2px); }
 .topbar-socials i { font-size: 11px; }
-.site-header { align-items: center; background: rgba(15, 43, 70, .96); color: #fff; display: flex; gap: clamp(18px, 2.4vw, 36px); height: 82px; justify-content: space-between; padding: 0 max(32px, calc((100vw - 1290px) / 2)); position: relative; z-index: 3; }
+.site-header { align-items: center; background: rgba(15, 43, 70, .96); color: #fff; display: flex; gap: clamp(18px, 2.4vw, 36px); height: 82px; justify-content: space-between; padding: 0 max(32px, calc((100vw - 1290px) / 2)); position: relative; z-index: 60; }
 .brand { align-items: center; color: #fff; display: inline-flex; font-size: 24px; font-weight: 700; gap: 10px; letter-spacing: -.7px; text-decoration: none; white-space: nowrap; }
 .brand-name small { color: #4bc8ff; display: inline-block; font-size: 14px; letter-spacing: .6px; margin-left: 4px; }
 .brand-logo { height: 58px; object-fit: contain; width: 58px; }
@@ -443,7 +443,8 @@ h1 strong, h1 span { display: block; } h1 strong { font-weight: 700; } h1 span {
 .footer-socials .social-linkedin .social-icon { background: #316ff6; }
 .footer-socials .social-youtube .social-icon { background: #e62117; }
 .footer-socials .social-whatsapp .social-icon { background: linear-gradient(135deg, #2a6095, #123a62); }
-.whatsapp-float { align-items: center; background: var(--lime); border: 1px solid rgba(255,255,255,.55); border-radius: 999px; bottom: 22px; box-shadow: 0 14px 32px rgba(7, 26, 74, .28); color: var(--green); display: flex; font-size: 13px; font-weight: 800; gap: 9px; min-height: 52px; padding: 0 19px; position: fixed; right: 22px; text-decoration: none; transition: transform .2s ease, box-shadow .2s ease; z-index: 100; }
+.whatsapp-float { align-items: center; background: var(--lime); border: 1px solid rgba(255,255,255,.55); border-radius: 999px; bottom: 22px; box-shadow: 0 14px 32px rgba(7, 26, 74, .28); color: var(--green); display: flex; font-size: 13px; font-weight: 800; gap: 9px; min-height: 52px; padding: 0 19px; position: fixed; right: 22px; text-decoration: none; transition: bottom .24s ease, transform .2s ease, box-shadow .2s ease; z-index: 100; }
+.whatsapp-float--above-footer { bottom: 100px; }
 .whatsapp-float i { font-size: 22px; }
 .whatsapp-float:hover { box-shadow: 0 18px 38px rgba(7, 26, 74, .38); transform: translateY(-3px); }
 .whatsapp-float:focus-visible { outline: 3px solid #fff; outline-offset: 3px; }
@@ -452,6 +453,7 @@ h1 strong, h1 span { display: block; } h1 strong { font-weight: 700; } h1 span {
   .footer-socials.social-login-icons .socialcontainer, .footer-socials.social-login-icons .social-icon { height: 42px; width: 42px; }
   .footer-socials.social-login-icons .socialcontainer:hover .social-icon, .footer-socials.social-login-icons .socialcontainer:focus-visible .social-icon { transform: translateY(-42px); }
   .whatsapp-float { bottom: 16px; min-height: 48px; padding: 0 16px; right: 16px; }
+  .whatsapp-float--above-footer { bottom: 82px; }
 }
 .footer-links h2, .footer-newsletter h2 { color: #fff; font-size: 20px; margin: 9px 0 25px; }
 .footer-links { display: flex; flex-direction: column; gap: 15px; }
@@ -723,7 +725,7 @@ h1 strong, h1 span { display: block; } h1 strong { font-weight: 700; } h1 span {
     position: absolute;
     right: 20px;
     top: 82px;
-    z-index: 20;
+    z-index: 70;
   }
   .desktop-nav.is-open a { border-radius: 9px; padding: 13px 15px; }
   .desktop-nav.is-open a:hover, .desktop-nav.is-open a:focus-visible { background: rgba(18,128,238,.14); }
@@ -986,7 +988,7 @@ h1 strong, h1 span { display: block; } h1 strong { font-weight: 700; } h1 span {
     position: absolute;
     right: 16px;
     top: 82px;
-    z-index: 20;
+    z-index: 70;
   }
   .desktop-nav.is-open a { border-radius: 9px; padding: 13px 15px; }
   .desktop-nav.is-open a:hover, .desktop-nav.is-open a:focus-visible { background: rgba(18,128,238,.14); }
@@ -4618,6 +4620,29 @@ body { font-size: 17px; letter-spacing: -.006em; }
 .contact-lanyard-stage { height: 555px; left: 0; pointer-events: none; position: absolute; right: auto; top: 0; width: 100vw; z-index: 30; }
 .contact-page-content { position: relative; z-index: 1; }
 
+/* Legal information pages ------------------------------------------------- */
+.legal-page-shell { background: #f7fbff; }
+.legal-page-hero { background: linear-gradient(122deg, #061b4b, #0c3a87 58%, #1261b2); color: #fff; padding: clamp(92px, 11vw, 150px) max(24px, calc((100vw - 1120px) / 2)) clamp(74px, 8vw, 108px); position: relative; overflow: hidden; }
+.legal-page-hero::after { border: 1px solid rgba(116, 223, 255, .28); border-radius: 50%; content: ''; height: min(48vw, 620px); position: absolute; right: -12vw; top: -25vw; width: min(48vw, 620px); }
+.legal-page-hero > * { max-width: 760px; position: relative; z-index: 1; }
+.legal-page-hero .section-label { color: #65d9ff; margin-bottom: 15px; }
+.legal-page-hero h1 { font-size: clamp(42px, 5.4vw, 72px); letter-spacing: -3px; line-height: .98; margin: 0; }
+.legal-page-hero > p:last-child { color: #d8ebff; font-size: clamp(17px, 1.6vw, 20px); line-height: 1.6; margin: 25px 0 0; }
+.legal-page-content { display: grid; gap: 0; margin: 0 auto; max-width: 970px; padding: clamp(48px, 7vw, 90px) 24px; }
+.legal-page-content article { border-bottom: 1px solid #d7e5f4; display: grid; gap: clamp(18px, 4vw, 52px); grid-template-columns: 46px 1fr; padding: clamp(25px, 4vw, 42px) 0; }
+.legal-page-content article:first-child { padding-top: 0; }
+.legal-page-content article > span { color: #1a74d1; font-size: 12px; font-weight: 800; letter-spacing: 1.6px; padding-top: 7px; }
+.legal-page-content h2 { color: #092b68; font-size: clamp(25px, 3vw, 36px); letter-spacing: -1.4px; margin: 0; }
+.legal-page-content p { color: #496582; font-size: 17px; line-height: 1.7; margin: 11px 0 0; max-width: 700px; }
+
+@media (max-width: 640px) {
+  .legal-page-hero { padding: 72px 24px 62px; }
+  .legal-page-hero h1 { letter-spacing: -2px; }
+  .legal-page-content { padding: 46px 24px 60px; }
+  .legal-page-content article { gap: 13px; grid-template-columns: 34px 1fr; }
+  .legal-page-content p { font-size: 16px; }
+}
+
 @media (min-width: 861px) and (max-width: 1120px) {
   .contact-page-hero { min-height: 530px; }
   .contact-page-hero-copy { padding-right: 330px; }
@@ -4743,11 +4768,43 @@ body { font-size: 17px; letter-spacing: -.006em; }
    this canvas for its camera framing, so fixed heights made the card grow too
    large on wide displays and spill unpredictably on smaller screens. */
 .contact-page-hero {
-  --lanyard-stage-height: clamp(570px, 34vw, 660px);
-  overflow: visible;
+  --lanyard-stage-height: clamp(620px, 38vw, 680px);
+  min-height: var(--lanyard-stage-height);
+  overflow: hidden;
 }
 .contact-page-content { --lanyard-clearance: clamp(220px, 14vw, 280px); }
 .contact-lanyard-stage { height: var(--lanyard-stage-height); }
+/* The contact pass uses a bounded, CSS-driven drop rather than a physics
+   canvas.  This makes its complete strap and card visible from the first
+   animation frame on every viewport. */
+.contact-id-drop {
+  --id-drop-x: 0px;
+  align-items: center;
+  animation: contact-id-drop-in .72s cubic-bezier(.18, .85, .28, 1) both;
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  right: clamp(48px, 10vw, 168px);
+  top: 18px;
+  width: clamp(196px, 19vw, 282px);
+}
+.contact-id-strap {
+  background: linear-gradient(90deg, #06183e, #248ad8 46%, #071a43 100%);
+  border-left: 1px solid rgba(125, 226, 255, .75);
+  border-right: 1px solid rgba(3, 20, 62, .86);
+  box-shadow: 0 2px 9px rgba(0, 0, 0, .27);
+  height: clamp(98px, 10vw, 142px);
+  position: relative;
+  width: clamp(27px, 2.3vw, 36px);
+}
+.contact-id-strap::after { background: repeating-linear-gradient(0deg, transparent 0 8px, rgba(126, 224, 255, .28) 9px 10px); content: ''; inset: 0; position: absolute; }
+.contact-id-clasp { background: linear-gradient(135deg, #fff4af, #bd8116 52%, #f5ce58); border: 1px solid #775008; border-radius: 6px; box-shadow: 0 4px 7px rgba(0, 0, 0, .25); height: 28px; margin-top: -1px; position: relative; width: 58px; z-index: 1; }
+.contact-id-clasp::after { border: 3px solid #d9a72d; border-bottom: 0; border-radius: 12px 12px 0 0; content: ''; height: 18px; left: 50%; position: absolute; top: -17px; transform: translateX(-50%); width: 22px; }
+.contact-id-clasp i { background: #113c85; border: 2px solid #f6dc80; border-radius: 50%; height: 10px; left: 50%; position: absolute; top: 8px; transform: translateX(-50%); width: 10px; }
+.contact-id-card { background: #e9f7ff; border: 3px solid rgba(255, 255, 255, .86); border-radius: 18px; box-shadow: 0 20px 32px rgba(1, 13, 50, .45), 0 0 0 1px rgba(74, 205, 255, .65); margin-top: -1px; overflow: hidden; position: relative; transform: rotate(1.2deg); width: 100%; }
+.contact-id-card img { display: block; height: auto; width: 100%; }
+.contact-id-sheen { background: linear-gradient(118deg, transparent 20%, rgba(255, 255, 255, .42) 44%, transparent 62%); inset: 0; mix-blend-mode: screen; opacity: .65; pointer-events: none; position: absolute; }
+@keyframes contact-id-drop-in { 0% { opacity: .35; transform: translate(var(--id-drop-x), -42px) rotate(-2deg); } 68% { opacity: 1; transform: translate(var(--id-drop-x), 7px) rotate(.7deg); } 100% { opacity: 1; transform: translate(var(--id-drop-x), 0) rotate(0); } }
 .contact-page-content {
   align-items: center;
   background: #eef5ff;
@@ -4780,15 +4837,29 @@ body { font-size: 17px; letter-spacing: -.006em; }
 .contact-page-details--after-form .contact-location-note { margin: 0; min-height: 92px; }
 
 @media (min-width: 861px) and (max-width: 1120px) {
-  .contact-page-hero { --lanyard-stage-height: clamp(500px, 52vw, 585px); }
+  .contact-page-hero { --lanyard-stage-height: clamp(580px, 60vw, 650px); }
   .contact-page-content { --lanyard-clearance: clamp(205px, 22vw, 250px); }
   .contact-page-content { padding-top: var(--lanyard-clearance); }
 }
 
 @media (max-width: 860px) {
-  .contact-page-hero { --lanyard-stage-height: clamp(490px, 72vw, 570px); overflow: visible; }
+  .contact-page-hero {
+    --lanyard-stage-height: clamp(420px, 94vw, 550px);
+    min-height: 0;
+    overflow: hidden;
+    padding-bottom: calc(var(--lanyard-stage-height) + 28px);
+  }
   .contact-page-content { --lanyard-clearance: clamp(190px, 28vw, 240px); }
+  .contact-lanyard-stage {
+    bottom: 0;
+    height: var(--lanyard-stage-height);
+    left: 20px;
+    right: 20px;
+    top: auto;
+    width: auto;
+  }
   .contact-page-content { gap: 60px; padding-top: var(--lanyard-clearance); }
+  .contact-id-drop { --id-drop-x: -50%; left: 50%; right: auto; top: 16px; width: clamp(185px, 45vw, 252px); }
   .contact-enquiry-form, .contact-enquiry-success { max-width: 680px; }
   .contact-page-details--after-form { grid-template-columns: repeat(2, minmax(0, 1fr)); max-width: 680px; }
   .contact-page-details--after-form .contact-location-note { grid-column: 1 / -1; }
@@ -4802,6 +4873,30 @@ body { font-size: 17px; letter-spacing: -.006em; }
   .contact-page-details--after-form { grid-template-columns: 1fr; padding: 27px 23px; }
   .contact-page-details--after-form .contact-location-note { grid-column: auto; }
   .contact-page-details--after-form .contact-details-list a:first-child { padding-top: 14px; }
+}
+
+/* Phone contact hero: reserve a dedicated, bounded area for the animated
+   student pass so it cannot cover the copy or escape the viewport. */
+@media (max-width: 640px) {
+  .contact-page-hero {
+    --lanyard-stage-height: clamp(370px, 104vw, 450px);
+    overflow: hidden;
+    padding-bottom: calc(var(--lanyard-stage-height) + 24px);
+  }
+  .contact-lanyard-stage {
+    bottom: 0;
+    height: var(--lanyard-stage-height);
+    left: 16px;
+    right: 16px;
+    top: auto;
+    width: auto;
+  }
+  .contact-page-content {
+    --lanyard-clearance: 0px;
+    padding-top: 64px;
+  }
+  .contact-id-drop { top: 12px; width: clamp(180px, 58vw, 236px); }
+  .contact-id-strap { height: 104px; }
 }
 
 /* Aurora gives the enquiry area a gentle market-blue atmosphere while the
@@ -5131,7 +5226,9 @@ body { font-size: 17px; letter-spacing: -.006em; }
   .about-trust-stats strong { font-size: 46px; }
   .about-trust-stats span { font-size: 9px; margin-top: 9px; }
   .about-workshop-slideshow { flex-direction: column; gap: 7px; height: 590px; perspective: none; }
-  .about-workshop-panel { min-height: 68px; }
+  /* A tapped panel replaces the previous panel in the same frame on phones.
+     This prevents two tall images from briefly competing for the small screen. */
+  .about-workshop-panel { min-height: 68px; transition: border-color .2s ease, box-shadow .2s ease, flex-grow 0s; }
   .about-workshop-panel.is-active { flex-grow: 7.6; }
   .about-workshop-media { width: 100%; }
   .about-workshop-caption { bottom: 17px; font-size: 16px; left: 18px; }

@@ -1,10 +1,11 @@
 'use client';
+import { useState } from 'react';
 import {openLead} from './LeadCapture';
 const footerSocialLinks = [
   ['Instagram', 'https://www.instagram.com/smisha_share_market?stkn=c2ltZjM4NHI0NWtl', 'instagram', 'fa-instagram'],
   ['LinkedIn', 'https://www.linkedin.com/company/smishasharemarket/', 'linkedin', 'fa-linkedin-in'],
   ['YouTube', 'https://youtube.com/@smishasharemarket?si=qjirOFVlyB8LjEW_', 'youtube', 'fa-youtube'],
-  ['WhatsApp', 'https://wa.link/gi2b8d', 'whatsapp', 'fa-whatsapp'],
+  ['WhatsApp', 'https://wa.me/919595150577', 'whatsapp', 'fa-whatsapp'],
 ];
 
 function FooterSocialLinks() {
@@ -17,10 +18,19 @@ export function SiteCTA({ label = 'READY TO START YOUR TRADING JOURNEY?', childr
   return <section className="course-cta"><p>{label}</p><h2>{children}</h2><a href="#contact">Book Your Free Demo <i className="fa-solid fa-arrow-right" aria-hidden="true" /></a></section>;
 }
 
+const frequentlyAskedQuestions = [
+  ['Are your stock market courses suitable for beginners?', 'Yes. We begin with clear fundamentals and build step by step, so you can learn with confidence even if you are completely new to the market.'],
+  ['Do you provide live market sessions?', 'Yes. Our learning experience includes practical chart discussions and live-market guidance to help you connect concepts with real trading situations.'],
+  ['Which markets and strategies can I learn?', 'You can learn equity, derivatives, forex, and crypto concepts along with technical analysis, risk management, and trading psychology.'],
+  ['Are the classes available online and offline?', 'Yes. Smisha Share Market offers flexible learning options so you can choose the format that best fits your schedule and learning style.'],
+  ['Will I receive mentorship after joining?', 'Yes. You receive continued guidance, doubt support, and practical feedback to help you improve your market understanding and build disciplined trading habits.'],
+];
+
 export function SiteFAQ() {
+  const [openQuestion, setOpenQuestion] = useState(null);
   return <section className="faq-section" id="faq" aria-labelledby="shared-faq-title">
     <div className="faq-heading"><div><p className="section-kicker">Frequently Asked, Clearly Answered</p><h2 id="shared-faq-title"><strong>Everything You Need To Know</strong><span>Before Getting Started</span></h2></div><a className="faq-all-link" href="#contact">All Questions Answered <i className="fa-solid fa-arrow-right" aria-hidden="true" /></a></div>
-    <div className="faq-layout"><div className="faq-list"><details className="faq-item"><summary>Are your stock market courses suitable for beginners?</summary><p>Yes. We begin with clear fundamentals and build step by step, so you can learn with confidence even if you are completely new to the market.</p></details><details className="faq-item"><summary>Do you provide live market sessions?</summary><p>Yes. Our learning experience includes practical chart discussions and live-market guidance to help you connect concepts with real trading situations.</p></details><details className="faq-item"><summary>Which markets and strategies can I learn?</summary><p>You can learn equity, derivatives, forex, and crypto concepts along with technical analysis, risk management, and trading psychology.</p></details><details className="faq-item"><summary>Are the classes available online and offline?</summary><p>Yes. Smisha Share Market offers flexible learning options so you can choose the format that best fits your schedule and learning style.</p></details><details className="faq-item"><summary>Will I receive mentorship after joining?</summary><p>Yes. You receive continued guidance, doubt support, and practical feedback to help you improve your market understanding and build disciplined trading habits.</p></details></div><aside className="faq-help-card"><span className="faq-help-icon" aria-hidden="true"><i className="fa-solid fa-question" /></span><h3>Don&apos;t Worry — We&apos;ve Got Answers!</h3><p>Need help choosing the right course or have a question that isn&apos;t listed here? Our team is ready to guide you.</p><a href="#contact">Ask a Question <i className="fa-solid fa-arrow-right" aria-hidden="true" /></a></aside></div>
+    <div className="faq-layout"><div className="faq-list">{frequentlyAskedQuestions.map(([question, answer], index) => <details className="faq-item" key={question} open={openQuestion === index}><summary onClick={(event) => { event.preventDefault(); setOpenQuestion(current => current === index ? null : index); }}>{question}</summary><p>{answer}</p></details>)}</div><aside className="faq-help-card"><span className="faq-help-icon" aria-hidden="true"><i className="fa-solid fa-question" /></span><h3>Don&apos;t Worry — We&apos;ve Got Answers!</h3><p>Need help choosing the right course or have a question that isn&apos;t listed here? Our team is ready to guide you.</p><a href="#contact">Ask a Question <i className="fa-solid fa-arrow-right" aria-hidden="true" /></a></aside></div>
   </section>;
 }
 
@@ -107,9 +117,9 @@ export function SiteFooter({ hideContactStrip = false }) {
       <p>© 2026 Smisha Share Market Classes. All rights reserved.</p>
 
       <div>
-        <a href="/">Terms &amp; Conditions</a>
-        <a href="/">Privacy Policy</a>
-        <a href="/">Legal</a>
+        <a href="/terms-and-conditions">Terms &amp; Conditions</a>
+        <a href="/privacy-policy">Privacy Policy</a>
+        <a href="/legal">Legal</a>
       </div>
     </div>
   </footer>;

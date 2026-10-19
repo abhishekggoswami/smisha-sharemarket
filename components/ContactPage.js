@@ -1,6 +1,5 @@
 'use client';
 
-import dynamic from 'next/dynamic';
 import { useEffect, useRef, useState } from 'react';
 import { gsap } from 'gsap';
 import AcademyMap from './AcademyMap';
@@ -8,11 +7,6 @@ import SiteHeader from './SiteHeader';
 import { SiteFooter } from './SharedSiteSections';
 import TextPressure from './TextPressure';
 import {sendLead} from './LeadCapture';
-
-// Three.js is only needed for the interactive pass. Loading it after the
-// contact shell has painted keeps the page responsive without changing the
-// final card treatment.
-const Lanyard = dynamic(() => import('./Lanyard'), { ssr: false });
 
 function ContactBackgroundSlideshow() {
   const slideshowRef = useRef(null);
@@ -89,8 +83,15 @@ export default function ContactPage() {
     <section className="contact-page-hero" aria-labelledby="contact-page-title">
       <video className="contact-hero-video" src="/assets/contact/contact-market-background.mp4" autoPlay muted loop playsInline preload="metadata" aria-hidden="true" />
       <div className="contact-page-hero-copy"><p className="course-kicker"><i className="fa-solid fa-id-card" /> Your Smisha journey</p><h1 id="contact-page-title"><span><TextPressure text="Become a Smisha" /></span><strong><TextPressure text="Academy student." minWeight={700} /></strong></h1><p>Start with a conversation. Our team will help you choose a practical path through courses, workshops, and market education.</p></div>
-      <aside className="contact-lanyard-stage" aria-label="Smisha Academy student ID card. Drag to interact or tap to turn it over.">
-        <Lanyard frontImage="/assets/contact/smisha-student-id-front.svg?v=5" backImage="/assets/contact/smisha-student-id-back.svg" strapImage="/assets/contact/smisha-lanyard-strap.svg" imageFit="cover" cardColor="#f8fbff" orientation="portrait" finish="glossy" cornerRadius={0.3} size={0.47} anchor="contact" strapLength={0.5} strapColor="#0b2f75" strapWidth={0.65} metal="silver" gravity={1} damping={0.34} elasticity={0.58} breeze={0.72} maxPixelRatio={1.35} maxFrameRate={36} interactive intro />
+      <aside className="contact-lanyard-stage" aria-label="Smisha Academy student ID card">
+        <div className="contact-id-drop" aria-hidden="true">
+          <div className="contact-id-strap" />
+          <div className="contact-id-clasp"><i /></div>
+          <div className="contact-id-card">
+            <img src="/assets/contact/smisha-student-id-front.svg?v=8" alt="" decoding="sync" fetchPriority="high" />
+            <span className="contact-id-sheen" />
+          </div>
+        </div>
       </aside>
     </section>
     <section className="contact-page-content" id="contact-details" aria-labelledby="contact-details-title">
