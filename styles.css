@@ -4767,6 +4767,7 @@ body { font-size: 17px; letter-spacing: -.006em; }
 .contact-id-card img { display: block; height: auto; width: 100%; }
 .contact-id-sheen { background: linear-gradient(118deg, transparent 20%, rgba(255, 255, 255, .42) 44%, transparent 62%); inset: 0; mix-blend-mode: screen; opacity: .65; pointer-events: none; position: absolute; }
 @keyframes contact-id-drop-in { 0% { opacity: .35; transform: translate(var(--id-drop-x), -42px) rotate(-2deg); } 68% { opacity: 1; transform: translate(var(--id-drop-x), 7px) rotate(.7deg); } 100% { opacity: 1; transform: translate(var(--id-drop-x), 0) rotate(0); } }
+
 .contact-page-content {
   align-items: center;
   background: #eef5ff;
