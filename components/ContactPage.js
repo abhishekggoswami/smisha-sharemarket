@@ -12,16 +12,56 @@ import Lanyard from './Lanyard';
 function ContactBackgroundSlideshow() {
   const slideshowRef = useRef(null);
   const [isVisible, setIsVisible] = useState(false);
+  const [isScrolling, setIsScrolling] = useState(false);
 
   useEffect(() => {
     const slideshow = slideshowRef.current;
     if (!slideshow || !('IntersectionObserver' in window)) return undefined;
     const observer = new IntersectionObserver(([entry]) => setIsVisible(entry.isIntersecting), { rootMargin: '160px 0px' });
     observer.observe(slideshow);
-    return () => observer.disconnect();
+    let scrolling = false;
+    let resumeTimer;
+    const pauseWhileScrolling = () => {
+      if (!scrolling) {
+        scrolling = true;
+        setIsScrolling(true);
+      }
+      window.clearTimeout(resumeTimer);
+      resumeTimer = window.setTimeout(() => {
+        scrolling = false;
+        setIsScrolling(false);
+      }, 120);
+    };
+    window.addEventListener('scroll', pauseWhileScrolling, { passive: true });
+    return () => {
+      observer.disconnect();
+      window.removeEventListener('scroll', pauseWhileScrolling);
+      window.clearTimeout(resumeTimer);
+    };
   }, []);
 
-  return <div ref={slideshowRef} className={`contact-form-slideshow${isVisible ? ' is-active' : ''}`} aria-hidden="true"><span /><span /></div>;
+  return <div ref={slideshowRef} className={`contact-form-slideshow${isVisible ? ' is-active' : ''}${isScrolling ? ' is-scrolling' : ''}`} aria-hidden="true"><span /><span /></div>;
+}
+
+/* The pass is deliberately a desktop-only interaction.  Mounting the WebGL
+   scene only after the desktop media query matches keeps phone heroes clear
+   and avoids spending GPU time on an element that is not shown there. */
+function DesktopContactLanyard() {
+  const [showLanyard, setShowLanyard] = useState(false);
+
+  useEffect(() => {
+    const query = window.matchMedia('(min-width: 768px)');
+    const update = () => setShowLanyard(query.matches);
+    update();
+    query.addEventListener('change', update);
+    return () => query.removeEventListener('change', update);
+  }, []);
+
+  if (!showLanyard) return null;
+
+  return <aside className="contact-lanyard-stage" aria-label="Smisha Academy student ID card">
+    <Lanyard frontImage="/assets/contact/smisha-student-id-front.svg?v=10" backImage="/assets/contact/smisha-student-id-back.svg" strapImage="/assets/contact/smisha-lanyard-strap.svg" imageFit="cover" cardColor="#eaf7ff" orientation="portrait" finish="glossy" cornerRadius={0.42} size={0.34} anchor="contact" strapLength={0.4} strapColor="#103b8f" strapWidth={0.72} metal="gold" gravity={2.15} damping={0.66} elasticity={0.3} breeze={0.24} maxPixelRatio={1.25} maxFrameRate={45} interactive intro />
+  </aside>;
 }
 
 function ContactEnquiryForm() {
@@ -84,9 +124,7 @@ export default function ContactPage() {
     <section className="contact-page-hero" aria-labelledby="contact-page-title">
       <video className="contact-hero-video" src="/assets/contact/contact-market-background.mp4" autoPlay muted loop playsInline preload="metadata" aria-hidden="true" />
       <div className="contact-page-hero-copy"><p className="course-kicker"><i className="fa-solid fa-id-card" /> Your Smisha journey</p><h1 id="contact-page-title"><span><TextPressure text="Become a Smisha" /></span><strong><TextPressure text="Academy student." minWeight={700} /></strong></h1><p>Start with a conversation. Our team will help you choose a practical path through courses, workshops, and market education.</p></div>
-      <aside className="contact-lanyard-stage" aria-label="Smisha Academy student ID card">
-        <Lanyard frontImage="/assets/contact/smisha-student-id-front.svg?v=10" backImage="/assets/contact/smisha-student-id-back.svg" strapImage="/assets/contact/smisha-lanyard-strap.svg" imageFit="cover" cardColor="#eaf7ff" orientation="portrait" finish="glossy" cornerRadius={0.42} size={0.34} anchor="contact" strapLength={0.4} verticalOffset={0.1} strapColor="#103b8f" strapWidth={0.72} metal="gold" gravity={2.15} damping={0.66} elasticity={0.3} breeze={0.24} maxPixelRatio={2} maxFrameRate={60} interactive intro />
-      </aside>
+      <DesktopContactLanyard />
     </section>
     <section className="contact-page-content" id="contact-details" aria-labelledby="contact-details-title">
       <ContactBackgroundSlideshow />

@@ -5239,6 +5239,7 @@ body { font-size: 17px; letter-spacing: -.006em; }
 .contact-form-slideshow span:first-child { background-image: linear-gradient(112deg, rgba(225, 238, 250, .81), rgba(220, 237, 249, .71)), url('/assets/contact/contact-form-market.jpg'); }
 .contact-form-slideshow span:last-child { animation: contact-form-crossfade 16s ease-in-out infinite; animation-play-state: paused; background-image: linear-gradient(112deg, rgba(231, 242, 251, .79), rgba(220, 237, 249, .67)), url('/assets/contact/contact-form-calculator.jpg'); }
 .contact-form-slideshow.is-active span:last-child { animation-play-state: running; }
+.contact-form-slideshow.is-scrolling span:last-child { animation-play-state: paused; }
 @keyframes contact-form-crossfade {
   0%, 42% { opacity: 0; transform: scale(1); }
   50%, 92% { opacity: 1; transform: scale(1.035); }
@@ -5956,4 +5957,47 @@ body { font-size: 17px; letter-spacing: -.006em; }
 
 @media (prefers-reduced-motion: reduce) {
   .footer-ring { animation: none; }
+}
+
+/* Contact pass ------------------------------------------------------------
+   Keep the lanyard attached to the desktop navigation composition.  Its
+   canvas intentionally outlives the blue hero so the pass can sway into the
+   enquiry area when it is pulled, instead of being cropped at the section
+   edge. */
+@media (min-width: 768px) {
+  .contact-page-hero {
+    --lanyard-stage-height: clamp(640px, 52vw, 760px);
+    min-height: clamp(570px, 44vw, 640px);
+    overflow: visible;
+    padding-bottom: 112px;
+  }
+  .contact-lanyard-stage {
+    bottom: auto;
+    height: var(--lanyard-stage-height);
+    left: 0;
+    right: auto;
+    top: 0;
+    transform: none;
+    width: 100vw;
+  }
+  .contact-page-content {
+    --lanyard-clearance: clamp(210px, 18vw, 286px);
+    padding-top: var(--lanyard-clearance);
+  }
+}
+
+/* Phone contact pages use the compact content hero only.  The lanyard is not
+   mounted at this breakpoint; these resets also remove the old empty space
+   that was reserved for it. */
+@media (max-width: 767px) {
+  .contact-lanyard-stage { display: none; }
+  .contact-page-hero {
+    min-height: 0;
+    overflow: hidden;
+    padding: 66px 20px 73px;
+  }
+  .contact-page-content {
+    --lanyard-clearance: 0px;
+    padding-top: 64px;
+  }
 }

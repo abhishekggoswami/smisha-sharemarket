@@ -174,7 +174,7 @@ const CARD_SIZES: Record<string, [number, number]> = {
 };
 /* This aligns the pass with the Contact navigation link without relying on
    fixed page pixels, so the same composition survives viewport changes. */
-const ANCHORS: Record<string, number> = { left: 0.27, center: 0.5, right: 0.73, contact: 0.43 };
+const ANCHORS: Record<string, number> = { left: 0.27, center: 0.5, right: 0.73, contact: 0.62 };
 const THICKNESS = 0.018;
 const BEVEL = 0.007;
 const JOINTS = 4;
@@ -1065,6 +1065,8 @@ const Lanyard = ({
     let alive = true;
     let placed = false;
     let hovering = false;
+    let scrolling = false;
+    let scrollResumeTimer = 0;
     let press: Press | null = null;
     let imageToken = 0;
     const reducedMotion = window.matchMedia?.('(prefers-reduced-motion: reduce)').matches ?? false;
@@ -1319,7 +1321,7 @@ const Lanyard = ({
 
     const tick = (now: number) => {
       raf = 0;
-      if (!alive || document.hidden) return;
+      if (!alive || document.hidden || scrolling) return;
       const maxFrameRate = clamp(settingsRef.current!.maxFrameRate, 24, 60);
       const frameInterval = 1000 / maxFrameRate;
       if (now - last < frameInterval) {
@@ -1342,7 +1344,7 @@ const Lanyard = ({
     };
 
     const start = () => {
-      if (raf || !visible || !alive) return;
+      if (raf || !visible || !alive || scrolling) return;
       sim.calm = 0;
       last = performance.now();
       raf = requestAnimationFrame(tick);
@@ -1436,12 +1438,27 @@ const Lanyard = ({
       start();
     };
 
+    /* Scrolling is compositor-friendly until a large animated canvas competes
+       for the same frame budget. Freeze the decorative simulation while a
+       scroll is in progress, then continue its physics from the same state. */
+    const pauseForScroll = () => {
+      scrolling = true;
+      cancelAnimationFrame(raf);
+      raf = 0;
+      window.clearTimeout(scrollResumeTimer);
+      scrollResumeTimer = window.setTimeout(() => {
+        scrolling = false;
+        start();
+      }, 120);
+    };
+
     /* The canvas does not intercept page controls. Global pointer tracking
        claims an interaction only after a raycast confirms the card itself. */
     window.addEventListener('pointerdown', onPointerDown, { capture: true });
     window.addEventListener('pointermove', onPointerMove, { capture: true, passive: false });
     window.addEventListener('pointerup', onPointerUp, { capture: true });
     window.addEventListener('pointercancel', onPointerUp, { capture: true });
+    window.addEventListener('scroll', pauseForScroll, { passive: true });
 
     const resize = () => {
       view.width = Math.max(1, container.clientWidth);
@@ -1480,6 +1497,8 @@ const Lanyard = ({
       window.removeEventListener('pointermove', onPointerMove, { capture: true });
       window.removeEventListener('pointerup', onPointerUp, { capture: true });
       window.removeEventListener('pointercancel', onPointerUp, { capture: true });
+      window.removeEventListener('scroll', pauseForScroll);
+      window.clearTimeout(scrollResumeTimer);
       [bodyMesh, frontMesh, backMesh, ring, clampMesh, eyelet, band].forEach(mesh => mesh.geometry?.dispose());
       [frontMaterial, backMaterial, edgeMaterial, metalMaterial, bandMaterial].forEach(material => material.dispose());
       [frontTexture, backTexture, strapTexture, grain, weave].forEach(texture => texture.dispose());
