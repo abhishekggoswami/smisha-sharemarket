@@ -67,7 +67,7 @@ export default function ContactPage() {
       timeline = gsap.timeline({ defaults: { ease: 'power3.out' } });
       timeline
         .fromTo(map, { autoAlpha: 0, scale: compactMotion ? 1.018 : 1.035 }, { autoAlpha: 1, duration: compactMotion ? .65 : .85, scale: 1 })
-        .fromTo(card, { autoAlpha: 0, y: compactMotion ? 18 : 28 }, { autoAlpha: 1, duration: .58, y: 0 }, '-=.38')
+        .fromTo(card, { autoAlpha: 0 }, { autoAlpha: 1, duration: .58 }, '-=.38')
         .fromTo(actions, { autoAlpha: 0, y: 10 }, { autoAlpha: 1, duration: .38, stagger: .09, y: 0 }, '-=.2');
     }, { rootMargin: '120px 0px', threshold: .14 });
 

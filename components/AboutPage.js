@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import SiteHeader from "./SiteHeader";
 import { SiteFooter } from "./SharedSiteSections";
 import { pastWorkshops } from "../lib/workshops";
@@ -87,6 +87,8 @@ const trustStats = [
 function PastWorkshopSlideshow() {
   const photos = pastWorkshops[0]?.photos ?? [];
   const [activePhoto, setActivePhoto] = useState(0);
+  const previewsRef = useRef(null);
+  const lastPreviewInteraction = useRef(0);
 
   useEffect(() => {
     if (
@@ -95,15 +97,49 @@ function PastWorkshopSlideshow() {
     )
       return undefined;
     const timer = window.setInterval(() => {
-      if (!document.hidden)
+      if (!document.hidden && (!window.matchMedia("(max-width: 640px)").matches || Date.now() - lastPreviewInteraction.current >= 4800))
         setActivePhoto((current) => (current + 1) % photos.length);
-    }, 3000);
+    }, window.matchMedia("(max-width: 640px)").matches ? 5000 : 3000);
     return () => window.clearInterval(timer);
-  }, [photos.length]);
+  }, [activePhoto, photos.length]);
+
+  useEffect(() => {
+    const previews = previewsRef.current;
+    const selected = previews?.children[activePhoto];
+    if (!previews || !selected || !previews.clientWidth) return;
+    const start = selected.offsetLeft;
+    const end = start + selected.offsetWidth;
+    let left = previews.scrollLeft;
+    if (start < left) left = start;
+    else if (end > left + previews.clientWidth) left = end - previews.clientWidth;
+    else return;
+    previews.scrollTo({ left, behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth" });
+  }, [activePhoto]);
 
   if (!photos.length) return null;
 
-  return (
+  return <>
+    <div className="about-workshop-mobile-gallery" aria-label="Highlights from Smisha past workshops">
+      <figure className="about-workshop-mobile-feature">
+        <img src={photos[activePhoto].src} alt={photos[activePhoto].alt} decoding="async" />
+        <figcaption>{photos[activePhoto].alt}</figcaption>
+      </figure>
+      <div className="about-workshop-mobile-previews" role="group" aria-label="Choose a workshop photo" ref={previewsRef} onPointerDown={() => { lastPreviewInteraction.current = Date.now(); }}>
+        {photos.map((photo, index) => (
+          <button
+            key={photo.src}
+            type="button"
+            className={`about-workshop-mobile-preview${index === activePhoto ? " is-active" : ""}`}
+            aria-label={`Show photo ${index + 1}: ${photo.alt}`}
+            aria-pressed={index === activePhoto}
+            onFocus={() => { lastPreviewInteraction.current = Date.now(); }}
+            onClick={() => setActivePhoto(index)}
+          >
+            <img src={photo.src} alt="" decoding="async" loading="lazy" />
+          </button>
+        ))}
+      </div>
+    </div>
     <div
       className="about-workshop-slideshow"
       role="list"
@@ -138,7 +174,7 @@ function PastWorkshopSlideshow() {
         </button>
       ))}
     </div>
-  );
+  </>;
 }
 
 export default function AboutPage() {

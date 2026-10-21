@@ -100,6 +100,13 @@
   min-height: 540px;
   object-fit: cover;
   object-position: center;
+}
+
+.event-gallery-feature > img {
+  animation: event-gallery-zoom 4.8s linear both;
+}
+
+.event-gallery-feature > video {
   animation: event-gallery-reveal .42s ease both;
 }
 
@@ -230,6 +237,11 @@
   to { opacity: 1; transform: scale(1); }
 }
 
+@keyframes event-gallery-zoom {
+  from { transform: scale(1); }
+  to { transform: scale(1.07); }
+}
+
 @media (max-width: 920px) {
   .event-gallery-heading { align-items: start; flex-direction: column; gap: 18px; }
   .event-gallery-heading > p { max-width: 650px; }
@@ -259,6 +271,7 @@
 
 /* Nationwide learner map: geographic paths are sourced from the local,
    attributed OpenStreetMap-derived dataset in public/assets/maps. */
+.india-testimonials-slot:empty { min-height: 1px; }
 .india-testimonials-section { isolation: isolate; overflow: hidden; padding: clamp(76px, 8vw, 112px) clamp(24px, 5vw, 80px); position: relative; background: radial-gradient(circle at 12% 75%, rgba(33, 145, 255, .16), transparent 29rem), radial-gradient(circle at 88% 17%, rgba(87, 207, 255, .12), transparent 27rem), linear-gradient(140deg, #061a4a 0%, #0b2e70 49%, #08245d 100%); }
 .india-testimonials-section::before { background-image: linear-gradient(rgba(111, 196, 255, .055) 1px, transparent 1px), linear-gradient(90deg, rgba(111, 196, 255, .055) 1px, transparent 1px); background-size: 46px 46px; content: ''; inset: 0; pointer-events: none; position: absolute; z-index: -1; }
 .india-testimonials-inner { margin: 0 auto; max-width: 1380px; }
@@ -297,7 +310,8 @@
 .india-marker-pulse { animation: india-marker-pulse 2.2s ease-out infinite; fill: rgba(90, 218, 255, .12); stroke: rgba(143, 238, 255, .85); stroke-width: 1.5; transform-box: fill-box; transform-origin: center; }
 .india-map-attribution { bottom: 7px; color: rgba(194, 227, 255, .72); font-size: .65rem; left: 12%; position: absolute; text-decoration-color: rgba(194, 227, 255, .4); z-index: 2; }
 .india-map-attribution:hover { color: #fff; }
-.india-map-loading { align-items: center; color: #b9defe; display: flex; font-size: .92rem; justify-content: center; min-height: 465px; }
+.india-map-loading { align-items: center; color: #b9defe; display: flex; flex-direction: column; font-size: .92rem; gap: 12px; justify-content: center; min-height: 0; text-align: center; }
+.india-map-loading button { background: #e9f7ff; border: 0; border-radius: 6px; color: #0c347d; cursor: pointer; font: inherit; font-weight: 700; padding: 10px 16px; }
 @keyframes india-marker-pulse { 0% { opacity: .85; transform: scale(.25); } 75%, 100% { opacity: 0; transform: scale(1.25); } }
 @keyframes india-review-in { from { opacity: 0; transform: translateY(14px) scale(.97); } to { opacity: 1; transform: translateY(0) scale(1); } }
 @media (max-width: 1060px) { .india-review-map-layout { gap: 20px; grid-template-columns: minmax(190px, 250px) minmax(310px, 500px) minmax(190px, 250px); } .india-review-card { padding: 14px; } .india-map-panel { min-height: 455px; } .india-state-map { min-height: 425px; } }
@@ -439,6 +453,7 @@
 
 @media (max-width: 620px) {
   .india-review-card--mobile-active { grid-column: 1 / -1; margin-inline: auto; max-width: 390px; }
+  .india-testimonials-section:not(.is-visible) .india-state-map { opacity: 1; transform: none; }
 }
 
 @media (max-width: 560px) {
@@ -448,7 +463,7 @@
   .india-review-map-layout { display: flex; flex-direction: column; gap: 13px; }
   .india-map-panel { height: 390px; order: -1; width: 100%; }
   .india-state-map { height: 390px; }
-  .india-review-card, .india-review-card--compact, .india-review-card--standard, .india-review-card--feature { height: auto; max-width: none; min-height: 0; transform: none; }
+  .india-review-card, .india-review-card--compact, .india-review-card--standard, .india-review-card--feature { flex: 0 0 auto; height: auto; margin-inline: auto; max-width: 390px; min-height: 164px; transform: none; width: 100%; }
   .india-review-card:nth-of-type(2n + 1) { transform: none; }
 }
 

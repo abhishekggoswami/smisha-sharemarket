@@ -33,15 +33,15 @@ export default function LandingPage() {
     // Preserve every component and animation, but initialize below-fold React
     // islands only as visitors approach them rather than all on page load.
     const lazyIslands = new Map();
-    const islandObserver = new IntersectionObserver(entries => {
+    const islandObserver = 'IntersectionObserver' in window ? new IntersectionObserver(entries => {
       entries.forEach(entry => {
         if (!entry.isIntersecting) return;
         const mount = lazyIslands.get(entry.target);
         if (mount) { lazyIslands.delete(entry.target); islandObserver.unobserve(entry.target); mount(); }
       });
-    }, { rootMargin: '650px 0px' });
-    cleanups.push(() => islandObserver.disconnect());
-    const mountIsland = (selector, view, immediate = false) => {
+    }, { rootMargin: '650px 0px' }) : null;
+    cleanups.push(() => islandObserver?.disconnect());
+    const mountIsland = (selector, view, immediate = false, observeSlot = false) => {
       const slot = select(selector);
       if (!slot) return;
       let mountedRoot = null;
@@ -50,8 +50,8 @@ export default function LandingPage() {
         mountedRoot = createRoot(slot);
         mountedRoot.render(view);
       };
-      if (immediate) mount();
-      else { const anchor = slot.parentElement || slot; lazyIslands.set(anchor, mount); islandObserver.observe(anchor); }
+      if (immediate || !islandObserver) mount();
+      else { const anchor = observeSlot ? slot : (slot.parentElement || slot); lazyIslands.set(anchor, mount); islandObserver.observe(anchor); }
       cleanups.push(() => mountedRoot?.unmount());
     };
     mountIsland('.academy-map-slot', <AcademyMap />);
@@ -60,7 +60,7 @@ export default function LandingPage() {
     mountIsland('.home-courses-slot', <HomeCourseCarousel />);
     mountIsland('.academy-gallery-slot', <AcademyAccordionGallery />);
     mountIsland('.event-gallery-slot', <EventGallery />);
-    mountIsland('.india-testimonials-slot', <IndiaMapTestimonials />);
+    mountIsland('.india-testimonials-slot', <IndiaMapTestimonials />, false, true);
 
     const menuButton = select('.menu-button');
     const primaryNavigation = select('#primary-navigation');
@@ -118,22 +118,53 @@ export default function LandingPage() {
     const motionQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
     const storyViewport = select('.stories-viewport');
     const track = select('[data-carousel-track]');
-    if (track && storyViewport && !motionQuery.matches) {
-      const slides = [...track.children];
-      const dots = selectAll('.story-progress span');
-      let index = 0;
+    const slides = track ? [...track.children] : [];
+    const dots = selectAll('.story-progress span');
+    const phoneStoryQuery = window.matchMedia('(max-width: 640px)');
+    let index = 0;
+    let slideAnimation = 0;
+    let lastStoryInteraction = -Infinity;
 
+    if (storyViewport && slides.length) {
+      const syncPhoneStory = () => {
+        if (!phoneStoryQuery.matches) return;
+        const viewportRect = storyViewport.getBoundingClientRect();
+        const center = viewportRect.left + viewportRect.width / 2;
+        index = slides.reduce((closest, slide, slideIndex) => {
+          const rect = slide.getBoundingClientRect();
+          const distance = Math.abs(rect.left + rect.width / 2 - center);
+          return distance < closest.distance ? { index: slideIndex, distance } : closest;
+        }, { index: 0, distance: Infinity }).index;
+        dots.forEach((dot, dotIndex) => dot.classList.toggle('active', dotIndex === index));
+      };
+      const onStoryPointerDown = () => {
+        if (!phoneStoryQuery.matches) return;
+        lastStoryInteraction = window.performance.now();
+        window.cancelAnimationFrame(slideAnimation);
+      };
+      storyViewport.addEventListener('scroll', syncPhoneStory, { passive: true });
+      storyViewport.addEventListener('pointerdown', onStoryPointerDown, { passive: true });
+      cleanups.push(() => {
+        storyViewport.removeEventListener('scroll', syncPhoneStory);
+        storyViewport.removeEventListener('pointerdown', onStoryPointerDown);
+      });
+    }
+
+    if (track && storyViewport && !motionQuery.matches) {
       // Use the viewport's native scrolling instead of translating a cloned
       // slide. The old clone/reset cycle could leave this section between
       // slides, which looked like an empty student-stories panel.
       track.style.transform = 'none';
       track.style.transition = 'none';
-      let slideAnimation = 0;
       const easeOutQuint = (progress) => 1 - ((1 - progress) ** 5);
       const animateStoryScroll = (destination, smooth) => {
         window.cancelAnimationFrame(slideAnimation);
         if (!smooth || window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
           storyViewport.scrollLeft = destination;
+          return;
+        }
+        if (phoneStoryQuery.matches) {
+          storyViewport.scrollTo({ left: destination, behavior: 'smooth' });
           return;
         }
         const start = storyViewport.scrollLeft;
@@ -155,7 +186,10 @@ export default function LandingPage() {
         dots.forEach((dot, dotIndex) => dot.classList.toggle('active', dotIndex === index));
       };
       const onResize = () => showSlide(index, false);
-      const interval = window.setInterval(() => showSlide((index + 1) % slides.length), 5600);
+      const interval = window.setInterval(() => {
+        if (phoneStoryQuery.matches && window.performance.now() - lastStoryInteraction < 5600) return;
+        showSlide((index + 1) % slides.length);
+      }, 5600);
 
       showSlide(0, false);
       window.addEventListener('resize', onResize);

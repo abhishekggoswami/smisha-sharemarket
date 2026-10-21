@@ -53,16 +53,16 @@ export default function EventGallery() {
 
   useEffect(() => {
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return undefined;
-    const timer = window.setInterval(() => {
+    const timer = window.setTimeout(() => {
       setActiveIndex((current) => (current + 1) % eventImages.length);
     }, 4800);
-    return () => window.clearInterval(timer);
-  }, []);
+    return () => window.clearTimeout(timer);
+  }, [activeIndex]);
 
   return (
     <div className="event-gallery-showcase">
       <article className="event-gallery-feature" aria-live="polite">
-        <img decoding="async" loading="lazy" src={active.image} alt={active.alt} fetchPriority="high" />
+        <img key={active.image} decoding="async" loading="lazy" src={active.image} alt={active.alt} fetchPriority="high" />
         <div className="event-gallery-feature-shade" aria-hidden="true" />
         <div className="event-gallery-feature-copy">
           <span>{active.label}</span>

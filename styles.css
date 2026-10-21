@@ -1336,46 +1336,6 @@ h1 strong, h1 span { display: block; } h1 strong { font-weight: 700; } h1 span {
 @media (max-width: 640px) { .service-course-art.course-art::after { height: 100%; right: -8%; width: 58%; }.service-course-art .course-art-caption { border-width: 3px; min-height: 61%; padding: 13px 14px; top: 10%; width: 62%; }.service-course-art .course-art-caption strong::after { font-size: clamp(16px, 6.4vw, 24px); } }
 @media (prefers-reduced-motion: reduce) { .course-instructor-art::before, .course-instructor-art::after, .course-whiteboard, .course-card-instructor, .course-card-instructor::before, .service-course-art.course-art::before, .service-course-art.course-art::after, .service-course-art .course-art-caption { animation: none; } }
 
-/* Give the contact address the full banner width on phones. */
-@media (max-width: 640px) {
-  .footer-contact-strip a {
-    display: grid;
-    grid-template-columns: 44px minmax(0, 1fr);
-    align-items: center;
-    gap: 10px 12px;
-    width: 100%;
-  }
-
-  .footer-contact-strip a > span:last-child {
-    display: contents;
-  }
-
-  .footer-contact-strip .footer-mail-icon {
-    grid-column: 1;
-    grid-row: 1;
-    width: 44px;
-    height: 44px;
-    font-size: 21px;
-  }
-
-  .footer-contact-strip a small {
-    grid-column: 2;
-    grid-row: 1;
-    margin: 0;
-    font-size: 14px;
-    line-height: 1.4;
-  }
-
-  .footer-contact-strip .footer-email-address {
-    grid-column: 1 / -1;
-    min-width: 0;
-    max-width: 100%;
-    font-size: clamp(13px, 3.5vw, 16px);
-    line-height: 1.5;
-    overflow-wrap: anywhere;
-  }
-}
-
 /* Keep the stacked hero metrics clear of the following section. */
 @media (max-width: 1024px) {
   .page-shell .below-hero::before {
@@ -2988,12 +2948,14 @@ body { background: var(--theme-deep); color: var(--theme-ink); }
   }
 }
 @media (max-width: 640px) {
-  .stories-viewport { padding-left: 16px; }
-  .stories-track { gap: 16px; }
+  .stories-viewport { padding-left: 8vw; }
+  .stories-track { gap: 16px; padding-right: 8vw; }
   .story-slide {
     border-radius: 24px;
+    box-shadow: none;
     flex-basis: 84vw;
     padding: 18px;
+    scroll-snap-align: center;
   }
 }
 
@@ -5138,6 +5100,7 @@ body { font-size: 17px; letter-spacing: -.006em; }
 .about-trust-stats strong, .about-trust-stats span { display: block; }
 .about-trust-stats strong { color: #fff; font-size: clamp(42px, 5vw, 72px); letter-spacing: -.08em; line-height: .9; text-shadow: 0 10px 28px rgba(0, 0, 0, .2); }
 .about-trust-stats span { color: #9cddff; font-size: clamp(9px, 1vw, 12px); font-weight: 850; letter-spacing: .14em; line-height: 1.4; margin-top: 13px; text-transform: uppercase; }
+.about-workshop-mobile-gallery { display: none; }
 .about-workshop-slideshow { display: flex; gap: 9px; height: clamp(285px, 33vw, 440px); max-width: 100%; perspective: 1400px; width: 100%; }
 .about-workshop-panel { appearance: none; background: #081c49; border: 1px solid rgba(31, 104, 192, .2); border-radius: 18px; box-shadow: 0 16px 30px -21px rgba(1, 22, 68, .72); cursor: pointer; flex: 1 1 0; min-width: 0; overflow: hidden; padding: 0; position: relative; text-align: left; transform-origin: center; transition: border-color .3s ease, box-shadow .3s ease, flex-grow .62s cubic-bezier(.22, .61, .36, 1); }
 .about-workshop-panel.is-active { border-color: rgba(75, 200, 255, .62); box-shadow: 0 25px 42px -21px rgba(5, 54, 129, .5); flex-grow: 7.6; }
@@ -5225,13 +5188,16 @@ body { font-size: 17px; letter-spacing: -.006em; }
   .about-trust-stats { gap: 28px 12px; grid-template-columns: repeat(2, minmax(0, 1fr)); margin: 34px auto; }
   .about-trust-stats strong { font-size: 46px; }
   .about-trust-stats span { font-size: 9px; margin-top: 9px; }
-  .about-workshop-slideshow { flex-direction: column; gap: 7px; height: 590px; perspective: none; }
-  /* A tapped panel replaces the previous panel in the same frame on phones.
-     This prevents two tall images from briefly competing for the small screen. */
-  .about-workshop-panel { min-height: 68px; transition: border-color .2s ease, box-shadow .2s ease, flex-grow 0s; }
-  .about-workshop-panel.is-active { flex-grow: 7.6; }
-  .about-workshop-media { width: 100%; }
-  .about-workshop-caption { bottom: 17px; font-size: 16px; left: 18px; }
+  .about-workshop-slideshow { display: none; }
+  .about-workshop-mobile-gallery { display: block; min-width: 0; }
+  .about-workshop-mobile-feature { aspect-ratio: 16 / 9; background: #0a285c; border-radius: 16px; box-shadow: 0 16px 32px rgba(7, 40, 96, .18); margin: 0; overflow: hidden; position: relative; }
+  .about-workshop-mobile-feature img { display: block; height: 100%; object-fit: contain; width: 100%; }
+  .about-workshop-mobile-feature figcaption { background: linear-gradient(transparent, rgba(3, 20, 57, .88)); bottom: 0; color: #fff; font-size: 13px; font-weight: 700; left: 0; line-height: 1.3; padding: 35px 16px 14px; position: absolute; right: 0; text-shadow: 0 1px 8px rgba(0, 0, 0, .6); }
+  .about-workshop-mobile-previews { display: flex; gap: 8px; margin-top: 10px; overflow-x: auto; padding: 3px 2px 8px; position: relative; scroll-snap-type: x proximity; -webkit-overflow-scrolling: touch; }
+  .about-workshop-mobile-preview { appearance: none; background: #0a285c; border: 2px solid transparent; border-radius: 10px; cursor: pointer; flex: 0 0 82px; height: 58px; overflow: hidden; padding: 0; scroll-snap-align: start; }
+  .about-workshop-mobile-preview img { display: block; height: 100%; object-fit: cover; width: 100%; }
+  .about-workshop-mobile-preview.is-active { border-color: #1478ef; }
+  .about-workshop-mobile-preview:focus-visible { outline: 3px solid #1478ef; outline-offset: 2px; }
   .about-associations { padding-bottom: 56px; padding-top: 56px; }
   .about-associations-logos { gap: 12px; margin-top: 28px; }
   .about-association-logo { border-radius: 14px; min-height: 102px; padding: 18px 12px; }
@@ -5617,6 +5583,69 @@ body { font-size: 17px; letter-spacing: -.006em; }
   .landing-page > .site-header .brand-tagline { font-size: 7px; }
 }
 
+/* Use the same edge-to-edge navigation on every phone-sized page. */
+@media (max-width: 767px) {
+  .site-header.course-header,
+  .landing-page > .site-header {
+    background: linear-gradient(120deg, #071a51 0%, #0c347d 62%, #1359bb 100%);
+    border: 0;
+    border-radius: 0;
+    box-shadow: 0 4px 16px rgba(5, 36, 98, .16);
+    height: 74px;
+    margin: 0;
+    padding: 0 20px;
+    width: 100%;
+  }
+  .site-header.course-header .brand-logo,
+  .landing-page > .site-header .brand-logo { height: 38px; width: auto; }
+  .site-header.course-header .brand-tagline,
+  .landing-page > .site-header .brand-tagline { font-size: 7px; }
+  .site-header.course-header .menu-button,
+  .landing-page > .site-header .menu-button {
+    background: transparent;
+    border-radius: 0;
+    gap: 5px;
+    height: 44px;
+    width: 44px;
+  }
+  .site-header.course-header .menu-button::before,
+  .site-header.course-header .menu-button span,
+  .landing-page > .site-header .menu-button::before,
+  .landing-page > .site-header .menu-button span {
+    background: #fff;
+    border-radius: 2px;
+    height: 3px;
+    width: 28px;
+  }
+  .site-header.course-header .menu-button::before { content: ''; display: block; }
+  .site-header.course-header .menu-button span:last-child { margin-left: 0; }
+  .site-header.course-header .menu-button.is-open::before { display: none; }
+  .site-header.course-header .menu-button.is-open span:first-child { transform: translateY(4px) rotate(45deg); }
+  .site-header.course-header .menu-button.is-open span:last-child { transform: translateY(-4px) rotate(-45deg); }
+  .site-header.course-header .menu-button:focus-visible { outline: 2px solid #9be9ff; outline-offset: 2px; }
+  .site-header.course-header .desktop-nav.is-open,
+  .landing-page > .site-header .desktop-nav.is-open {
+    align-items: stretch;
+    background: #0a2864;
+    border: 0;
+    border-radius: 0;
+    gap: 0;
+    left: 0;
+    margin: 0;
+    max-height: calc(100dvh - 74px);
+    overflow-y: auto;
+    padding: 10px 20px;
+    right: 0;
+    top: 100%;
+  }
+  .site-header.course-header .desktop-nav.is-open a { border-radius: 0; }
+  .site-header.course-header .desktop-nav.is-open a.active {
+    background: rgba(75, 200, 255, .09);
+    color: #8ddcff;
+  }
+  .site-header.course-header .desktop-nav.is-open a.active::after { content: none; }
+}
+
 /* Premium physical calculator for the Calculators-page hero. */
 .calculators-hero { min-height: 600px; }
 .hero-3d-calculator {
@@ -5808,4 +5837,122 @@ body { font-size: 17px; letter-spacing: -.006em; }
   .landing-page .page-shell .keynote-stage { height: 175px; margin-right: 0; }
   .landing-page .page-shell .keynote-description { font-size: 14px; }
   .landing-page .page-shell .keynote-button { font-size: 13px; padding-inline: 15px; }
+}
+
+/* Blend the speaker into the phone hero behind the copy. */
+@media (max-width: 767px) {
+  .landing-page .page-shell .keynote-hero-inner {
+    grid-template-areas:
+      "kicker kicker"
+      "heading heading"
+      "actions actions"
+      "trust trust";
+  }
+  .landing-page .page-shell .keynote-title-mobile { width: 52%; }
+  .landing-page .page-shell .keynote-stage {
+    height: clamp(275px, 90vw, 390px);
+    margin: 0;
+    pointer-events: none;
+    position: absolute;
+    right: 0;
+    top: 58px;
+    width: min(82%, 340px);
+    z-index: 1;
+  }
+  .landing-page .page-shell .keynote-stage .keynote-speaker--one { display: none; }
+  .landing-page .page-shell .keynote-stage .keynote-speaker--two {
+    animation: none;
+    display: block;
+    filter: none;
+    -webkit-mask-image: linear-gradient(to bottom, transparent 0%, #000 8%, #000 58%, transparent 96%);
+    mask-image: linear-gradient(to bottom, transparent 0%, #000 8%, #000 58%, transparent 96%);
+    opacity: .25;
+  }
+}
+
+/* Keep the shared contact strip in the footer's flow on smaller screens. */
+@media (max-width: 1024px) {
+  .site-footer { padding-top: 24px; }
+  .footer-contact-strip {
+    align-items: center;
+    background: linear-gradient(108deg, #58a7ff 0%, #76d6ff 55%, #a192ff 100%);
+    flex-direction: row;
+    gap: 24px;
+    padding: 24px 28px;
+    transform: none;
+  }
+  .footer-contact-strip p { font-size: clamp(20px, 2.6vw, 23px); line-height: 1.2; }
+  .footer-contact-strip a { align-items: center; flex: 0 1 auto; gap: 12px; line-height: 1.3; }
+  .footer-contact-strip a > span:last-child { display: block; }
+  .footer-contact-strip a small { font-size: 13px; line-height: 1.3; margin-bottom: 4px; }
+  .footer-email-address { display: block; overflow-wrap: anywhere; }
+  .footer-main { padding-top: 32px; }
+}
+
+@media (max-width: 640px) {
+  .site-footer { padding-top: 20px; }
+  .footer-contact-strip { align-items: flex-start; border-radius: 16px; flex-direction: column; gap: 18px; padding: 24px 20px; }
+  .footer-contact-strip p { font-size: clamp(20px, 5.5vw, 23px); letter-spacing: -.035em; max-width: 20ch; }
+  .footer-contact-strip a { font-size: 14px; width: 100%; }
+  .footer-contact-strip .footer-mail-icon { font-size: 19px; height: 44px; width: 44px; }
+  .footer-contact-strip a small { font-size: 13px; }
+  .footer-main { padding-top: 30px; }
+}
+
+@media (max-width: 1024px) {
+  .whatsapp-float--above-footer { display: none; }
+}
+
+@media (min-width: 621px) and (max-width: 1024px) {
+  .home-map-frame, .contact-location-map-section .home-map-frame {
+    height: 570px;
+    min-height: 570px;
+  }
+  .home-map-overlay, .contact-location-map-section .home-map-overlay {
+    left: auto;
+    max-width: none;
+    right: 24px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: min(42%, 340px);
+  }
+}
+
+/* Keep the invitation over the map while allowing room for longer phone copy. */
+@media (max-width: 620px) {
+  .home-map-frame, .contact-location-map-section .home-map-frame {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-rows: minmax(400px, 1fr) auto;
+    height: auto;
+    min-height: 620px;
+    padding: 0 16px 64px;
+  }
+  .home-map-frame::after { background: linear-gradient(180deg, rgba(7, 26, 74, .05), rgba(7, 26, 74, .25)); }
+  .home-map-frame > .academy-map-slot,
+  .contact-location-map-section .home-map-frame > .academy-map {
+    height: 100% !important;
+    inset: 0;
+    min-height: 0;
+    position: absolute;
+    width: 100%;
+  }
+  .home-map-overlay, .contact-location-map-section .home-map-overlay {
+    bottom: auto;
+    grid-row: 2;
+    left: auto;
+    margin: 0;
+    max-width: none;
+    padding: 24px;
+    position: relative;
+    right: auto;
+    top: auto;
+    transform: none;
+  }
+  .home-map-overlay > a { justify-content: center; width: 100%; }
+  .home-map-actions a { min-height: 46px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .footer-ring { animation: none; }
 }

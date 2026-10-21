@@ -8,7 +8,7 @@ export default function SiteHeader({ active = '', demoHref = '/#contact' }) {
   useEffect(() => {
     const footer = document.querySelector('.site-footer');
     if (!footer || !('IntersectionObserver' in window)) return undefined;
-    const observer = new IntersectionObserver(([entry]) => setFooterVisible(entry.isIntersecting), { threshold: 0.08 });
+    const observer = new IntersectionObserver(([entry]) => setFooterVisible(entry.isIntersecting), { rootMargin: '0px 0px 120px 0px', threshold: 0 });
     observer.observe(footer);
     return () => observer.disconnect();
   }, []);

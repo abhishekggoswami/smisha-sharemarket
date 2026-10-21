@@ -71,6 +71,8 @@ function GoogleReviewCard({ location, zone, active }) {
 export default function IndiaMapTestimonials() {
   const sectionRef = useRef(null);
   const [features, setFeatures] = useState([]);
+  const [mapError, setMapError] = useState(false);
+  const [mapAttempt, setMapAttempt] = useState(0);
   const [activeIndex, setActiveIndex] = useState(0);
   const [cards, setCards] = useState([{ index: 0, zone: CARD_ZONES[0] }]);
   const [visited, setVisited] = useState([0]);
@@ -93,9 +95,16 @@ export default function IndiaMapTestimonials() {
 
   useEffect(() => {
     let current = true;
-    fetch('/assets/maps/india-states.geojson').then((response) => (response.ok ? response.json() : Promise.reject())).then((data) => current && setFeatures(data.features || [])).catch(() => current && setFeatures([]));
+    setMapError(false);
+    fetch('/assets/maps/india-states.geojson')
+      .then((response) => (response.ok ? response.json() : Promise.reject()))
+      .then((data) => {
+        if (!Array.isArray(data.features) || !data.features.length) throw new Error('Map data is unavailable');
+        if (current) setFeatures(data.features);
+      })
+      .catch(() => { if (current) setMapError(true); });
     return () => { current = false; };
-  }, []);
+  }, [mapAttempt]);
   useEffect(() => {
     const media = window.matchMedia('(prefers-reduced-motion: reduce)'); const update = () => setReduceMotion(media.matches);
     update(); media.addEventListener?.('change', update); return () => media.removeEventListener?.('change', update);
@@ -108,7 +117,7 @@ export default function IndiaMapTestimonials() {
   useEffect(() => {
     const section = sectionRef.current;
     if (!section || !('IntersectionObserver' in window)) { setInView(true); return undefined; }
-    const observer = new IntersectionObserver(([entry]) => setInView(entry.isIntersecting), { threshold: .18 }); observer.observe(section);
+    const observer = new IntersectionObserver(([entry]) => setInView(entry.isIntersecting), { threshold: 0 }); observer.observe(section);
     return () => observer.disconnect();
   }, []);
   useEffect(() => {
@@ -137,7 +146,7 @@ export default function IndiaMapTestimonials() {
             if (!visited.includes(index)) return null;
             const [x, y] = projection([location.longitude, location.latitude]); const isActive = index === activeIndex;
             return <g className={`india-map-marker${isActive ? ' is-active' : ''}`} key={location.id} role="button" tabIndex={0} aria-label={`Show ${location.studentName}'s ${location.city} review`} aria-pressed={isActive} onClick={() => activate(index)} onKeyDown={(event) => { if (event.key === 'Enter' || event.key === ' ') { event.preventDefault(); activate(index); } }}><title>{location.city}, {location.state}</title>{isActive && <circle className="india-marker-pulse" cx={x} cy={y} r="16" />}<circle className="india-marker-core" cx={x} cy={y} r={isActive ? 7.5 : 4.5} /></g>;
-          })}</g></svg> : <div className="india-map-loading" aria-live="polite">Loading India map…</div>}
+          })}</g></svg> : <div className="india-map-loading" aria-live="polite">{mapError ? <><span>India map could not be loaded.</span><button type="button" onClick={() => setMapAttempt((attempt) => attempt + 1)}>Try again</button></> : 'Loading India map…'}</div>}
           <a className="india-map-attribution" href="https://www.openstreetmap.org/copyright" target="_blank" rel="noreferrer">Map data © OpenStreetMap contributors</a>
         </div>
         {visibleCards.map((card) => <GoogleReviewCard key={learnerLocations[card.index].id} location={learnerLocations[card.index]} zone={card.zone} active={card.index === activeIndex} />)}
