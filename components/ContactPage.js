@@ -7,6 +7,7 @@ import SiteHeader from './SiteHeader';
 import { SiteFooter } from './SharedSiteSections';
 import TextPressure from './TextPressure';
 import {sendLead} from './LeadCapture';
+import Lanyard from './Lanyard';
 
 function ContactBackgroundSlideshow() {
   const slideshowRef = useRef(null);
@@ -84,14 +85,7 @@ export default function ContactPage() {
       <video className="contact-hero-video" src="/assets/contact/contact-market-background.mp4" autoPlay muted loop playsInline preload="metadata" aria-hidden="true" />
       <div className="contact-page-hero-copy"><p className="course-kicker"><i className="fa-solid fa-id-card" /> Your Smisha journey</p><h1 id="contact-page-title"><span><TextPressure text="Become a Smisha" /></span><strong><TextPressure text="Academy student." minWeight={700} /></strong></h1><p>Start with a conversation. Our team will help you choose a practical path through courses, workshops, and market education.</p></div>
       <aside className="contact-lanyard-stage" aria-label="Smisha Academy student ID card">
-        <div className="contact-id-drop" aria-hidden="true">
-          <div className="contact-id-strap" />
-          <div className="contact-id-clasp"><i /></div>
-          <div className="contact-id-card">
-            <img src="/assets/contact/smisha-student-id-front.svg?v=8" alt="" decoding="sync" fetchPriority="high" />
-            <span className="contact-id-sheen" />
-          </div>
-        </div>
+        <Lanyard frontImage="/assets/contact/smisha-student-id-front.svg?v=10" backImage="/assets/contact/smisha-student-id-back.svg" strapImage="/assets/contact/smisha-lanyard-strap.svg" imageFit="cover" cardColor="#eaf7ff" orientation="portrait" finish="glossy" cornerRadius={0.42} size={0.34} anchor="contact" strapLength={0.4} verticalOffset={0.1} strapColor="#103b8f" strapWidth={0.72} metal="gold" gravity={2.15} damping={0.66} elasticity={0.3} breeze={0.24} maxPixelRatio={2} maxFrameRate={60} interactive intro />
       </aside>
     </section>
     <section className="contact-page-content" id="contact-details" aria-labelledby="contact-details-title">

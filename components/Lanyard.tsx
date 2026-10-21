@@ -29,6 +29,7 @@ export interface LanyardProps {
   size?: number;
   anchor?: Anchor;
   strapLength?: number;
+  verticalOffset?: number;
   strapImage?: string;
   strapColor?: string;
   strapWidth?: number;
@@ -56,6 +57,7 @@ interface Settings {
   size: number;
   anchor: Anchor;
   strapLength: number;
+  verticalOffset: number;
   strapImage?: string;
   strapColor: string;
   strapWidth: number;
@@ -172,7 +174,7 @@ const CARD_SIZES: Record<string, [number, number]> = {
 };
 /* This aligns the pass with the Contact navigation link without relying on
    fixed page pixels, so the same composition survives viewport changes. */
-const ANCHORS: Record<string, number> = { left: 0.27, center: 0.5, right: 0.73, contact: 0.62 };
+const ANCHORS: Record<string, number> = { left: 0.27, center: 0.5, right: 0.73, contact: 0.43 };
 const THICKNESS = 0.018;
 const BEVEL = 0.007;
 const JOINTS = 4;
@@ -499,6 +501,9 @@ const makeCanvasTexture = (canvas: HTMLCanvasElement, anisotropy: number) => {
   const texture = new THREE.CanvasTexture(canvas);
   texture.colorSpace = THREE.SRGBColorSpace;
   texture.anisotropy = anisotropy;
+  texture.magFilter = THREE.LinearFilter;
+  texture.minFilter = THREE.LinearMipmapLinearFilter;
+  texture.generateMipmaps = true;
   return texture;
 };
 
@@ -888,6 +893,7 @@ const Lanyard = ({
   size = 0.6,
   anchor = 'center',
   strapLength = 0.5,
+  verticalOffset = 0,
   strapImage,
   strapColor = '#111111',
   strapWidth = 0.65,
@@ -918,6 +924,7 @@ const Lanyard = ({
     size,
     anchor,
     strapLength,
+    verticalOffset,
     strapImage,
     strapColor,
     strapWidth,
@@ -1108,7 +1115,9 @@ const Lanyard = ({
       foilUniforms.foilTop.value.set(0.5, 4.5, 8).normalize().transformDirection(camera.matrixWorldInverse);
       const anchorX = ((ANCHORS[s.anchor] ?? 0.5) - 0.5) * viewWidth;
       const anchorY = viewHeight / 2 + 0.2;
-      const cardTop = viewHeight / 2 - viewHeight * mix(0.12, 0.42, clamp(s.strapLength, 0, 1));
+      // World Y increases upward.  A positive offset must therefore raise the
+      // pass; the earlier sign placed the card lower inside the contact hero.
+      const cardTop = viewHeight / 2 - viewHeight * mix(0.12, 0.42, clamp(s.strapLength, 0, 1)) + viewHeight * clamp(s.verticalOffset, -0.25, 0.25);
       const hangTop = cardTop + (layout.hangY - layout.height / 2);
       sim.anchor.set(anchorX, anchorY, 0);
       configureSimulation(sim, layout, anchorY - hangTop);
@@ -1134,7 +1143,7 @@ const Lanyard = ({
         ring.position.set(0, layout.ringY, 0);
         applied.framingKey = '';
       }
-      const framingKey = `${layoutKey}|${s.size}|${s.anchor}|${s.strapLength}|${view.width}|${view.height}`;
+      const framingKey = `${layoutKey}|${s.size}|${s.anchor}|${s.strapLength}|${s.verticalOffset}|${view.width}|${view.height}`;
       if (framingKey !== applied.framingKey) {
         frameView();
         if (!placed) {
