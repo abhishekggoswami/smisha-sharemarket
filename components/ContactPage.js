@@ -129,6 +129,17 @@ export default function ContactPage() {
     <section className="contact-page-content" id="contact-details" aria-labelledby="contact-details-title">
       <ContactBackgroundSlideshow />
       <ContactEnquiryForm />
+      <aside className="contact-review-qr" aria-labelledby="contact-review-qr-title">
+        <div className="contact-review-qr-copy">
+          <p className="section-label">SHARE YOUR EXPERIENCE</p>
+          <h2 id="contact-review-qr-title">Loved learning with<br /><strong>Smisha Academy?</strong></h2>
+          <p>Your feedback helps future learners find practical, confidence-building market education.</p>
+          <span><i className="fa-solid fa-camera" aria-hidden="true" /> Scan with your phone camera to leave a Google review.</span>
+        </div>
+        <figure className="contact-review-qr-image">
+          <img src="/assets/contact/google-review-qr.jpeg" alt="Google review QR code for Smisha Share Market Institute" loading="lazy" decoding="async" />
+        </figure>
+      </aside>
       <div className="contact-page-details contact-page-details--after-form">
         <div className="contact-details-copy"><p className="section-label">CONNECT WITH US</p><h2 id="contact-details-title">We are here to<br /><strong>help you begin.</strong></h2><p>Share a few details and we will help you find an education path that matches where you are now.</p></div>
         <div className="contact-details-list"><a href="mailto:support@smishasharemarket.com"><i className="fa-regular fa-envelope" aria-hidden="true" /><span><small>EMAIL US</small>support@smishasharemarket.com</span></a><a href="tel:+917420001687"><i className="fa-solid fa-phone" aria-hidden="true" /><span><small>CALL US</small>+91 7420001687</span></a><a href="tel:+917420040030"><i className="fa-solid fa-phone" aria-hidden="true" /><span><small>CALL US</small>+91 7420040030</span></a></div>
