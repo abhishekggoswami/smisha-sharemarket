@@ -307,9 +307,9 @@ if (foilStrength > 0.0) {
 `;
 
 const METALS: Record<string, { color: string; roughness: number }> = {
-  silver: { color: '#d9dce2', roughness: 0.16 },
-  gold: { color: '#e4b965', roughness: 0.2 },
-  graphite: { color: '#4d4f55', roughness: 0.28 }
+  silver: { color: '#FFFFFF', roughness: 0.16 },
+  gold: { color: '#D4AF37', roughness: 0.2 },
+  graphite: { color: '#201A30', roughness: 0.28 }
 };
 
 const clamp = (value: number, min: number, max: number) => Math.min(max, Math.max(min, value));
@@ -886,7 +886,7 @@ const Lanyard = ({
   frontImage,
   backImage,
   imageFit = 'cover',
-  cardColor = '#ffffff',
+  cardColor = '#FFFFFF',
   orientation = 'portrait',
   finish = 'glossy',
   cornerRadius = 0.3,
@@ -895,7 +895,7 @@ const Lanyard = ({
   strapLength = 0.5,
   verticalOffset = 0,
   strapImage,
-  strapColor = '#111111',
+  strapColor = '#4A3B6A',
   strapWidth = 0.65,
   metal = 'silver',
   gravity = 1,

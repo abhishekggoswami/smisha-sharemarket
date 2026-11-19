@@ -13,12 +13,53 @@ const galleryItems = [
 ];
 
 export default function AcademyAccordionGallery() {
+  const galleryRef = useRef(null);
   const panelRefs = useRef([]);
   const mediaRefs = useRef([]);
   const [active, setActive] = useState(2);
+  const [isInView, setIsInView] = useState(false);
+  const [isHovered, setIsHovered] = useState(false);
+  const [isFocused, setIsFocused] = useState(false);
+  const [isPageVisible, setIsPageVisible] = useState(true);
+  const [reducedMotion, setReducedMotion] = useState(false);
 
   useEffect(() => {
-    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const gallery = galleryRef.current;
+    if (!gallery || !('IntersectionObserver' in window)) {
+      setIsInView(true);
+      return undefined;
+    }
+    const observer = new IntersectionObserver(([entry]) => {
+      setIsInView(entry.isIntersecting);
+    }, { threshold: 0.15 });
+    observer.observe(gallery);
+    return () => observer.disconnect();
+  }, []);
+
+  useEffect(() => {
+    const updateVisibility = () => setIsPageVisible(!document.hidden);
+    updateVisibility();
+    document.addEventListener('visibilitychange', updateVisibility);
+    return () => document.removeEventListener('visibilitychange', updateVisibility);
+  }, []);
+
+  useEffect(() => {
+    const preference = window.matchMedia('(prefers-reduced-motion: reduce)');
+    const updatePreference = () => setReducedMotion(preference.matches);
+    updatePreference();
+    preference.addEventListener?.('change', updatePreference);
+    return () => preference.removeEventListener?.('change', updatePreference);
+  }, []);
+
+  useEffect(() => {
+    if (!isInView || isHovered || isFocused || reducedMotion || !isPageVisible) return undefined;
+    const timer = window.setTimeout(() => {
+      setActive((current) => (current + 1) % galleryItems.length);
+    }, 3000);
+    return () => window.clearTimeout(timer);
+  }, [active, isInView, isHovered, isFocused, reducedMotion, isPageVisible]);
+
+  useEffect(() => {
     const panels = panelRefs.current;
     const media = mediaRefs.current;
 
@@ -27,16 +68,16 @@ export default function AcademyAccordionGallery() {
       const isActive = index === active;
       const offset = Math.max(-1.5, Math.min(1.5, active - index)) * 14;
       gsap.to(panel, {
-        duration: reduceMotion ? 0 : 0.62,
-        ease: 'power3.out',
+        duration: reducedMotion ? 0 : 1.15,
+        ease: 'power2.inOut',
         flexGrow: isActive ? 7.6 : 1,
         rotateY: isActive ? 0 : index < active ? 3.5 : -3.5,
         overwrite: true,
       });
       if (media[index]) {
         gsap.to(media[index], {
-          duration: reduceMotion ? 0 : 0.62,
-          ease: 'power3.out',
+          duration: reducedMotion ? 0 : 1.15,
+          ease: 'power2.inOut',
           filter: isActive ? 'grayscale(0) saturate(1)' : 'grayscale(.72) saturate(.75)',
           opacity: isActive ? 1 : .74,
           xPercent: -50,
@@ -47,7 +88,7 @@ export default function AcademyAccordionGallery() {
         });
       }
     });
-  }, [active]);
+  }, [active, reducedMotion]);
 
   const moveFocus = (index, step) => {
     const next = (index + step + galleryItems.length) % galleryItems.length;
@@ -56,7 +97,18 @@ export default function AcademyAccordionGallery() {
   };
 
   return (
-    <div className="academy-accordion" role="list" aria-label="Inside Smisha Share Market Academy">
+    <div
+      ref={galleryRef}
+      className="academy-accordion"
+      role="list"
+      aria-label="Inside Smisha Share Market Academy"
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+      onFocusCapture={() => setIsFocused(true)}
+      onBlurCapture={(event) => {
+        if (!event.currentTarget.contains(event.relatedTarget)) setIsFocused(false);
+      }}
+    >
       {galleryItems.map((item, index) => (
         <button
           className={`academy-accordion-panel${index === active ? ' is-active' : ''}`}

@@ -5,20 +5,12 @@ import { createRoot } from 'react-dom/client';
 import { landingMarkup } from './landing-markup';
 import SiteHeader from './SiteHeader';
 import AcademyMap from './AcademyMap';
-import GhostFibers from './GhostFibers';
-import MarketCandles from './MarketCandles';
 import HomeCourseCarousel from './HomeCourseCarousel';
+import HomeHeroVideoBackground from './HomeHeroVideoBackground';
+import HomeSplitHero from './HomeSplitHero';
+import SplitText from './SplitText';
 import AcademyAccordionGallery from './AcademyAccordionGallery';
-import EventGallery from './EventGallery';
 import IndiaMapTestimonials from './IndiaMapTestimonials';
-
-const GHOST_FIBERS_PROPS = {
-  lineColor: '#3b82e8', glowColor: '#61c8ff', backdropColor: '#dcefff', speed: 0.2, scale: 2, rotation: 0,
-  rotationSpeed: 0.25, layers: 4, waveAmplitude: 0.015, waveFrequency: 3, waveSpeed: 0.15,
-  layerSpeed: 0.08, twist: 0.1, twistFrequency: 5, twistSpeed: 1.2, lineFrequency: 5,
-  lineSpacing: 2, lineSharpness: 16, glowFalloff: 10, glowIntensity: 0.72, brightness: 0.9,
-  blueBoost: 1.08, vignette: 0.34, grain: 0.025, dpr: 1, lightMode: false, fps: 60, paused: false,
-};
 
 export default function LandingPage() {
   const rootRef = useRef(null);
@@ -55,12 +47,99 @@ export default function LandingPage() {
       cleanups.push(() => mountedRoot?.unmount());
     };
     mountIsland('.academy-map-slot', <AcademyMap />);
-    mountIsland('.hero-fibers-slot', <GhostFibers className="hero-fibers-canvas" {...GHOST_FIBERS_PROPS} />, true);
-    mountIsland('.market-candles-slot', <MarketCandles className="market-candles-canvas" />);
+    mountIsland('.home-hero-video-mount', <HomeHeroVideoBackground />, true);
+    mountIsland('.home-split-hero-mount', <HomeSplitHero />, true);
     mountIsland('.home-courses-slot', <HomeCourseCarousel />);
     mountIsland('.academy-gallery-slot', <AcademyAccordionGallery />);
-    mountIsland('.event-gallery-slot', <EventGallery />);
     mountIsland('.india-testimonials-slot', <IndiaMapTestimonials />, false, true);
+    mountIsland('#stories-title', <>
+      <strong><SplitText text="Real students." className="stories-title-text" delay={22} duration={0.62} effect="rise" splitType="words, chars" mask={false} trigger="view" threshold={0.1} /></strong>
+      <span className="stories-title-accent"><SplitText text="Stronger market decisions." className="stories-title-text" delay={22} duration={0.62} effect="rise" splitType="words, chars" mask={false} trigger="view" threshold={0.1} /></span>
+    </>);
+
+    const academyGallery = select('.academy-gallery-section');
+    const academyGalleryTitle = select('#academy-gallery-title');
+    let academyGalleryTitleRoot = null;
+    let galleryObserver = null;
+    let galleryTitleCycle = 0;
+    let galleryWasVisible = false;
+    const renderAcademyGalleryTitle = () => {
+      if (!academyGalleryTitle) return;
+      if (!academyGalleryTitleRoot) academyGalleryTitleRoot = createRoot(academyGalleryTitle);
+      const cycle = galleryTitleCycle;
+      academyGalleryTitleRoot.render(<>
+        <SplitText key={`gallery-first-${cycle}`} text="See the work behind" className="academy-gallery-title-line" delay={22} duration={0.62} effect="rise" splitType="words, chars" staggerFrom="start" mask={false} />
+        <SplitText key={`gallery-second-${cycle}`} text="stronger market decisions." className="academy-gallery-title-line academy-gallery-title-accent" delay={22} duration={0.62} effect="rise" splitType="words, chars" staggerFrom="start" mask={false} />
+      </>);
+    };
+    const observeAcademyGallery = () => {
+      if (!academyGallery || !academyGalleryTitle) return;
+      if (!('IntersectionObserver' in window)) {
+        renderAcademyGalleryTitle();
+        return;
+      }
+      galleryObserver = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.target !== academyGallery) return;
+          academyGallery.classList.toggle('is-visible', entry.isIntersecting);
+          if (entry.isIntersecting && !galleryWasVisible) {
+            galleryWasVisible = true;
+            galleryTitleCycle += 1;
+            renderAcademyGalleryTitle();
+          } else if (!entry.isIntersecting) {
+            galleryWasVisible = false;
+          }
+        });
+      }, { threshold: 0.1, rootMargin: '0px 0px -5% 0px' });
+      galleryObserver.observe(academyGallery);
+    };
+    const galleryLoaderFinished = window.__SMISHA_LOADER_COMPLETE__ || !document.querySelector('.smisha-loader');
+    if (galleryLoaderFinished) observeAcademyGallery();
+    else window.addEventListener('smisha-loader-complete', observeAcademyGallery, { once: true });
+    cleanups.push(() => {
+      window.removeEventListener('smisha-loader-complete', observeAcademyGallery);
+      galleryObserver?.disconnect();
+      academyGalleryTitleRoot?.unmount();
+    });
+
+    const growthSection = select('.market-growth-section');
+    const growthTitle = select('#market-growth-title');
+    let growthTitleRoot = null;
+    let growthObserver = null;
+    const mountGrowthTitle = () => {
+      if (!growthTitle || growthTitleRoot) return;
+      growthTitleRoot = createRoot(growthTitle);
+      growthTitleRoot.render(<>
+        <SplitText text="Learn with confidence." className="market-growth-heading-line" delay={22} duration={0.62} effect="rise" splitType="words, chars" staggerFrom="start" mask={false} trigger="view" threshold={0.1} rootMargin="-100px" />
+        <SplitText text="Grow with discipline." className="market-growth-heading-line market-growth-heading-accent" delay={22} duration={0.62} effect="rise" splitType="words, chars" staggerFrom="start" mask={false} trigger="view" threshold={0.1} rootMargin="-100px" />
+      </>);
+    };
+    const growthMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+    if (growthSection) {
+      const observeGrowthSection = () => {
+        if (growthMotion.matches || !('IntersectionObserver' in window)) {
+          mountGrowthTitle();
+          return;
+        }
+        growthSection.classList.add('market-growth-motion-ready');
+        growthObserver = new IntersectionObserver((entries) => {
+          entries.forEach((entry) => {
+            if (entry.target !== growthSection) return;
+            growthSection.classList.toggle('is-visible', entry.isIntersecting);
+            if (entry.isIntersecting) mountGrowthTitle();
+          });
+        }, { threshold: 0.1, rootMargin: '0px 0px -5% 0px' });
+        growthObserver.observe(growthSection);
+      };
+      const loaderFinished = window.__SMISHA_LOADER_COMPLETE__ || !document.querySelector('.smisha-loader');
+      if (loaderFinished) observeGrowthSection();
+      else window.addEventListener('smisha-loader-complete', observeGrowthSection, { once: true });
+      cleanups.push(() => {
+        window.removeEventListener('smisha-loader-complete', observeGrowthSection);
+        growthObserver?.disconnect();
+      });
+      cleanups.push(() => growthTitleRoot?.unmount());
+    }
 
     const menuButton = select('.menu-button');
     const primaryNavigation = select('#primary-navigation');
@@ -100,19 +179,50 @@ export default function LandingPage() {
       cleanups.push(() => summary?.removeEventListener('click', toggleFaq));
     });
 
-    const processSection = select('.process-section');
-    const processSteps = selectAll('.process-step');
-    if (processSection && processSteps.length && !window.matchMedia('(prefers-reduced-motion: reduce)').matches && 'IntersectionObserver' in window) {
+    // A restrained, scroll-linked depth effect only for the homepage courses section.
+    // Transform the heading and viewport (not the carousel track), so navigation
+    // and card interactions retain their existing horizontal scrolling behavior.
+    const servicesSection = select('#services.services-section');
+    if (servicesSection && 'IntersectionObserver' in window) {
+      const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+      const desktopMotion = window.matchMedia('(min-width: 768px)');
+      let inView = false;
+      let frame = 0;
+      const updateServicesParallax = () => {
+        frame = 0;
+        if (!inView || reducedMotion.matches || !desktopMotion.matches) return;
+        const rect = servicesSection.getBoundingClientRect();
+        const travel = (window.innerHeight + rect.height) / 2;
+        const distanceFromCenter = rect.top + rect.height / 2 - window.innerHeight / 2;
+        const progress = Math.max(-1, Math.min(1, -distanceFromCenter / travel));
+        servicesSection.style.setProperty('--services-parallax-progress', progress.toFixed(4));
+      };
+      const scheduleServicesParallax = () => {
+        if (inView && !frame) frame = window.requestAnimationFrame(updateServicesParallax);
+      };
+      const resetServicesParallax = () => {
+        if (reducedMotion.matches || !desktopMotion.matches) {
+          servicesSection.style.setProperty('--services-parallax-progress', '0');
+        } else scheduleServicesParallax();
+      };
       const observer = new IntersectionObserver((entries) => {
-        if (entries.some((entry) => entry.isIntersecting)) {
-          processSteps.forEach((step, index) => {
-            step.style.animation = `process-step-in .6s ${index * 0.12}s cubic-bezier(.2,.8,.2,1) both`;
-          });
-          observer.disconnect();
-        }
-      }, { threshold: 0.2 });
-      observer.observe(processSection);
-      cleanups.push(() => observer.disconnect());
+        inView = entries.some((entry) => entry.isIntersecting);
+        if (inView) scheduleServicesParallax();
+      }, { rootMargin: '120px 0px' });
+      observer.observe(servicesSection);
+      window.addEventListener('scroll', scheduleServicesParallax, { passive: true });
+      window.addEventListener('resize', resetServicesParallax, { passive: true });
+      reducedMotion.addEventListener('change', resetServicesParallax);
+      desktopMotion.addEventListener('change', resetServicesParallax);
+      cleanups.push(() => {
+        observer.disconnect();
+        window.removeEventListener('scroll', scheduleServicesParallax);
+        window.removeEventListener('resize', resetServicesParallax);
+        reducedMotion.removeEventListener('change', resetServicesParallax);
+        desktopMotion.removeEventListener('change', resetServicesParallax);
+        window.cancelAnimationFrame(frame);
+        servicesSection.style.removeProperty('--services-parallax-progress');
+      });
     }
 
     const motionQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
@@ -124,71 +234,124 @@ export default function LandingPage() {
     let index = 0;
     let slideAnimation = 0;
     let lastStoryInteraction = -Infinity;
+    let storyLoopClone = null;
+    let storyLoopBeforeClone = null;
+    const storyOffset = (slide) => {
+      if (!slide || !track || !storyViewport) return 0;
+      const gutter = window.innerWidth <= 1024
+        ? window.innerWidth * .08
+        : Math.min(250, Math.max(24, window.innerWidth * .13));
+      return Math.max(0, slide.offsetLeft - track.offsetLeft - gutter);
+    };
 
     if (storyViewport && slides.length) {
-      const syncPhoneStory = () => {
-        if (!phoneStoryQuery.matches) return;
+      storyLoopBeforeClone = slides[slides.length - 1].cloneNode(true);
+      storyLoopBeforeClone.dataset.storyClone = 'before';
+      storyLoopBeforeClone.setAttribute('aria-hidden', 'true');
+      storyLoopBeforeClone.inert = true;
+      track.prepend(storyLoopBeforeClone);
+      storyLoopClone = slides[0].cloneNode(true);
+      storyLoopClone.dataset.storyClone = 'true';
+      storyLoopClone.setAttribute('aria-hidden', 'true');
+      storyLoopClone.inert = true;
+      track.append(storyLoopClone);
+
+      const syncStory = () => {
         const viewportRect = storyViewport.getBoundingClientRect();
-        const center = viewportRect.left + viewportRect.width / 2;
-        index = slides.reduce((closest, slide, slideIndex) => {
+        const phoneView = phoneStoryQuery.matches;
+        const anchor = phoneView ? viewportRect.left + viewportRect.width / 2 : viewportRect.left + storyViewport.clientLeft;
+        const candidates = [storyLoopBeforeClone, ...slides, storyLoopClone];
+        const closestIndex = candidates.reduce((closest, slide, slideIndex) => {
           const rect = slide.getBoundingClientRect();
-          const distance = Math.abs(rect.left + rect.width / 2 - center);
+          const point = phoneView ? rect.left + rect.width / 2 : rect.left;
+          const distance = Math.abs(point - anchor);
           return distance < closest.distance ? { index: slideIndex, distance } : closest;
         }, { index: 0, distance: Infinity }).index;
+        if (!storyViewport.classList.contains('is-autoplaying') && (closestIndex === 0 || closestIndex > slides.length)) {
+          const destination = closestIndex === 0 ? slides[slides.length - 1] : slides[0];
+          storyViewport.scrollLeft = storyOffset(destination);
+        }
+        index = closestIndex === 0 ? slides.length - 1 : closestIndex > slides.length ? 0 : closestIndex - 1;
         dots.forEach((dot, dotIndex) => dot.classList.toggle('active', dotIndex === index));
       };
       const onStoryPointerDown = () => {
-        if (!phoneStoryQuery.matches) return;
         lastStoryInteraction = window.performance.now();
         window.cancelAnimationFrame(slideAnimation);
+        storyViewport.classList.remove('is-autoplaying');
       };
-      storyViewport.addEventListener('scroll', syncPhoneStory, { passive: true });
+      storyViewport.addEventListener('scroll', syncStory, { passive: true });
       storyViewport.addEventListener('pointerdown', onStoryPointerDown, { passive: true });
+      storyViewport.addEventListener('wheel', onStoryPointerDown, { passive: true });
       cleanups.push(() => {
-        storyViewport.removeEventListener('scroll', syncPhoneStory);
+        storyViewport.removeEventListener('scroll', syncStory);
         storyViewport.removeEventListener('pointerdown', onStoryPointerDown);
+        storyViewport.removeEventListener('wheel', onStoryPointerDown);
+        storyLoopClone?.remove();
+        storyLoopBeforeClone?.remove();
       });
     }
 
     if (track && storyViewport && !motionQuery.matches) {
-      // Use the viewport's native scrolling instead of translating a cloned
-      // slide. The old clone/reset cycle could leave this section between
-      // slides, which looked like an empty student-stories panel.
       track.style.transform = 'none';
       track.style.transition = 'none';
       const easeOutQuint = (progress) => 1 - ((1 - progress) ** 5);
-      const animateStoryScroll = (destination, smooth) => {
+      const animateStoryScroll = (destination, smooth, onComplete) => {
         window.cancelAnimationFrame(slideAnimation);
-        if (!smooth || window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        if (!smooth) {
           storyViewport.scrollLeft = destination;
-          return;
-        }
-        if (phoneStoryQuery.matches) {
-          storyViewport.scrollTo({ left: destination, behavior: 'smooth' });
+          onComplete?.();
           return;
         }
         const start = storyViewport.scrollLeft;
         const distance = destination - start;
-        const duration = 760;
+        const duration = 680;
         const startedAt = window.performance.now();
+        storyViewport.classList.add('is-autoplaying');
         const step = (now) => {
           const progress = Math.min(1, (now - startedAt) / duration);
           storyViewport.scrollLeft = start + distance * easeOutQuint(progress);
           if (progress < 1) slideAnimation = window.requestAnimationFrame(step);
+          else {
+            onComplete?.();
+            storyViewport.classList.remove('is-autoplaying');
+          }
         };
         slideAnimation = window.requestAnimationFrame(step);
       };
       const showSlide = (nextIndex, smooth = true) => {
-        const slide = slides[nextIndex];
+        const wrappingForward = nextIndex >= slides.length;
+        const wrappingBackward = nextIndex < 0;
+        const wrapping = wrappingForward || wrappingBackward;
+        const destinationIndex = wrappingForward ? 0 : wrappingBackward ? slides.length - 1 : nextIndex;
+        const slide = wrappingForward ? storyLoopClone : wrappingBackward ? storyLoopBeforeClone : slides[destinationIndex];
         if (!slide) return;
-        index = nextIndex;
-        animateStoryScroll(slide.offsetLeft - track.offsetLeft, smooth);
+        index = destinationIndex;
         dots.forEach((dot, dotIndex) => dot.classList.toggle('active', dotIndex === index));
+        animateStoryScroll(storyOffset(slide), smooth, wrapping ? () => {
+          storyViewport.scrollLeft = storyOffset(slides[destinationIndex]);
+          dots.forEach((dot, dotIndex) => dot.classList.toggle('active', dotIndex === destinationIndex));
+        } : undefined);
       };
+      const previousButton = select('[data-story-prev]');
+      const nextButton = select('[data-story-next]');
+      const navigateStory = (direction) => {
+        lastStoryInteraction = window.performance.now();
+        window.cancelAnimationFrame(slideAnimation);
+        storyViewport.classList.remove('is-autoplaying');
+        showSlide(index + direction);
+      };
+      const onPreviousStory = () => navigateStory(-1);
+      const onNextStory = () => navigateStory(1);
+      previousButton?.addEventListener('click', onPreviousStory);
+      nextButton?.addEventListener('click', onNextStory);
+      cleanups.push(() => {
+        previousButton?.removeEventListener('click', onPreviousStory);
+        nextButton?.removeEventListener('click', onNextStory);
+      });
       const onResize = () => showSlide(index, false);
       const interval = window.setInterval(() => {
-        if (phoneStoryQuery.matches && window.performance.now() - lastStoryInteraction < 5600) return;
-        showSlide((index + 1) % slides.length);
+        if (window.performance.now() - lastStoryInteraction < 7000) return;
+        showSlide(index + 1);
       }, 5600);
 
       showSlide(0, false);
@@ -196,6 +359,7 @@ export default function LandingPage() {
       cleanups.push(() => {
         window.clearInterval(interval);
         window.cancelAnimationFrame(slideAnimation);
+        storyViewport.classList.remove('is-autoplaying');
         window.removeEventListener('resize', onResize);
       });
     }
@@ -203,5 +367,5 @@ export default function LandingPage() {
     return () => cleanups.forEach((cleanup) => cleanup());
   }, []);
 
-  return <div className="landing-page"><SiteHeader active="Homepage" demoHref="#contact" /><div ref={rootRef} dangerouslySetInnerHTML={{ __html: landingMarkup }} /></div>;
+  return <div className="landing-page"><SiteHeader active="Homepage" demoHref="#contact" homePattern /><div ref={rootRef} dangerouslySetInnerHTML={{ __html: landingMarkup }} /></div>;
 }

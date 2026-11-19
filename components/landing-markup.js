@@ -19,7 +19,7 @@ export const landingMarkup = String.raw`
       </div>
       <header class="site-header">
         <a class="brand" href="#top" aria-label="Bisco home">
-          <img decoding="async" class="brand-logo" src="/assets/smisha-academy-wordmark-transparent.png" alt="Smisha" />
+          <img decoding="async" class="brand-logo" src="/assets/smisha-logo-dark.png" alt="Smisha Share Market Classes" />
           <span class="brand-tagline">Share Market Academy</span>
         </a>
         <nav class="desktop-nav" id="primary-navigation" aria-label="Primary navigation">
@@ -38,10 +38,14 @@ export const landingMarkup = String.raw`
       </header>
 
       <section class="hero" id="top" aria-labelledby="keynote-title">
-        <div class="hero-fibers-slot" aria-hidden="true"></div>
-        <div class="market-candles-slot" aria-hidden="true"></div>
+        <div class="home-split-hero-mount"></div>
         <div class="keynote-glow keynote-glow-one" aria-hidden="true"></div>
         <div class="keynote-glow keynote-glow-two" aria-hidden="true"></div>
+        <div class="smisha-hero-lightwash" aria-hidden="true"></div>
+        <div class="smisha-hero-architecture" aria-hidden="true"></div>
+        <div class="smisha-hero-bull" aria-hidden="true"></div>
+        <div class="smisha-hero-grid" aria-hidden="true"></div>
+        <div class="smisha-hero-candles" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div>
         <div class="keynote-hero-inner">
           <div class="keynote-copy">
             <div class="keynote-heading">
@@ -65,9 +69,7 @@ export const landingMarkup = String.raw`
             <p>Trusted by <strong>2,500+</strong><br />learners in Pune</p>
           </div>
         </div>
-        <video class="background-video" autoplay muted loop playsinline preload="auto">
-          <source src="/assets/home-hero-background.mp4" type="video/mp4" />
-        </video>
+        <div class="home-hero-video-mount"></div>
         <div class="video-overlay" aria-hidden="true"></div>
         <div class="orbit orbit-left" aria-hidden="true"></div>
         <div class="orbit orbit-right" aria-hidden="true"></div>
@@ -110,15 +112,32 @@ export const landingMarkup = String.raw`
         </div>
       </div>
 
-      <section class="event-gallery-section" aria-labelledby="event-gallery-title">
-        <div class="event-gallery-heading">
-          <div>
-            <p class="section-kicker">Learn with market practitioners</p>
-            <h2 id="event-gallery-title"><strong>Learn from the people who</strong><span>lead the market.</span></h2>
+      <section class="market-growth-section" aria-labelledby="market-growth-title">
+        <div class="market-growth-layout">
+          <div class="market-growth-image">
+            <img src="/assets/financial-growth-tree-v2.png" alt="A leafy tree growing from gold coins, held by a grayscale hand in front of a peach marble panel" loading="lazy" decoding="async" />
+            <img class="market-growth-watermark" src="/assets/smisha-logo-black-transparent.png" alt="" aria-hidden="true" loading="lazy" decoding="async" />
           </div>
-          <p>From packed auditoriums to focused conversations, Smisha brings market knowledge into the real world—where confidence is built through perspective, discipline, and practice.</p>
+          <div class="market-growth-copy">
+            <p class="market-growth-kicker">A better way to learn the market</p>
+            <h2 class="market-growth-heading-slot" id="market-growth-title">
+              <span class="market-growth-heading-line">Learn with confidence.</span>
+              <span class="market-growth-heading-line market-growth-heading-accent">Grow with discipline.</span>
+            </h2>
+            <p class="market-growth-description">For over 10 years, Smisha Share Market has helped Pune learners build practical stock-market skills. Our mentor-led courses connect chart reading and market behavior with risk management and disciplined decision-making—so you can build your knowledge step by step, not chase shortcuts.</p>
+            <div class="market-growth-points">
+              <article class="market-growth-point">
+                <h3>Build a clear foundation</h3>
+                <p>Understand price action, technical analysis, and market structure through guided lessons and practical examples.</p>
+              </article>
+              <article class="market-growth-point">
+                <h3>Make more considered decisions</h3>
+                <p>Learn to plan trades, manage risk, and review your choices with a process designed to build consistency.</p>
+              </article>
+            </div>
+            <a class="market-growth-cta" href="#services">Explore our courses</a>
+          </div>
         </div>
-        <div class="event-gallery-slot"></div>
       </section>
 
       <section class="below-hero" id="about" aria-label="Smisha learning programmes">
@@ -142,8 +161,31 @@ export const landingMarkup = String.raw`
         </section>
 
         <section class="academy-gallery-section" aria-labelledby="academy-gallery-title">
-          <div class="academy-gallery-heading"><div><p class="section-kicker">Inside Smisha</p><h2 id="academy-gallery-title"><strong>See the work behind</strong><span>stronger market decisions.</span></h2></div><p>Focused learning, practical preparation, and a team that stays close to every learner's progress.</p></div>
+          <div class="academy-gallery-heading"><div><p class="section-kicker">Inside Smisha</p><h2 id="academy-gallery-title" class="academy-gallery-title-slot"><span class="academy-gallery-title-line">See the work behind</span><span class="academy-gallery-title-line academy-gallery-title-accent">stronger market decisions.</span></h2></div><p>Focused learning, practical preparation, and a team that stays close to every learner's progress.</p></div>
           <div class="academy-gallery-slot"></div>
+        </section>
+
+        <section class="credibility-section" aria-labelledby="credibility-title">
+          <div class="credibility-inner">
+            <div class="credibility-heading">
+              <p class="credibility-kicker">PUNE’S MARKET EDUCATION</p>
+              <h2 id="credibility-title"><span>Building market confidence through</span><strong>a decade of learning.</strong></h2>
+            </div>
+            <div class="credibility-details">
+              <div class="credibility-intro">
+                <p>For over 10 years, Smisha Share Market has helped Pune learners build practical stock-market skills through structured courses and mentor-led learning.</p>
+                <a href="#services">Explore our courses</a>
+              </div>
+              <article class="credibility-proof">
+                <h3>Experience</h3>
+                <p>A decade of helping learners understand the markets with greater clarity and confidence.</p>
+              </article>
+              <article class="credibility-proof">
+                <h3>Practical by design</h3>
+                <p>Learn chart reading, market behavior, and risk management through a disciplined, step-by-step approach.</p>
+              </article>
+            </div>
+          </div>
         </section>
 
         <section class="stories-section" id="stories" aria-labelledby="stories-title">
@@ -151,62 +193,41 @@ export const landingMarkup = String.raw`
           <div class="stories-viewport" aria-live="polite">
             <div class="stories-track" data-carousel-track>
               <article class="story-slide" data-story="1">
-                <div class="story-thumbnail feedback-video"><a class="student-feedback-frame student-feedback-card feedback-story-card feedback-story-card--yashi" href="https://youtube.com/shorts/TjuVVc2im7Q?si=ZienboG0uouFBPBf" target="_blank" rel="noreferrer" aria-label="Watch Yashi's feedback on YouTube"><div class="feedback-story-copy"><small>STUDENT SUCCESS STORY</small><strong>Yashi</strong><p>Hear it in her own words.</p></div><div class="feedback-story-portrait"><img decoding="async" src="/assets/testimonials/yashi-feedback-v2.webp" alt="Yashi smiling at the camera" loading="lazy" /></div><span class="feedback-story-play"><i class="fa-solid fa-play" aria-hidden="true"></i> Watch feedback</span></a></div>
+                <div class="story-thumbnail feedback-video"><a class="student-feedback-frame student-feedback-card feedback-story-card feedback-story-card--yashi" href="https://youtube.com/shorts/TjuVVc2im7Q?si=ZienboG0uouFBPBf" target="_blank" rel="noreferrer" aria-label="Watch Yashi's feedback on YouTube"><div class="feedback-story-copy"><small>STUDENT SUCCESS STORY</small><strong>Yashi</strong><p>Hear it in her own words.</p></div><div class="feedback-story-portrait"><img decoding="async" src="/assets/testimonials/yashi-feedback-scene-v6.webp" alt="Yashi seated in a bright indoor learning lounge" loading="lazy" /></div><img class="feedback-story-brand" src="/assets/smisha-logo-black-transparent.png" alt="" aria-hidden="true" decoding="async" /><span class="feedback-story-play"><i class="fa-solid fa-play" aria-hidden="true"></i> Watch feedback</span></a></div>
                 <div class="story-testimonial"><p class="story-label">STUDENT FEEDBACK</p><blockquote>Watch Yashi share her learning experience with Smisha Share Market.</blockquote><a href="https://youtube.com/shorts/TjuVVc2im7Q?si=ZienboG0uouFBPBf" class="story-link" target="_blank" rel="noreferrer">Watch on YouTube <span>➜</span></a><div class="story-person"><div><strong>Yashi</strong><span>Smisha Student</span></div><em>Yashi</em></div></div>
               </article>
               <article class="story-slide" data-story="2">
-                <div class="story-thumbnail feedback-video"><a class="student-feedback-frame student-feedback-card feedback-story-card feedback-story-card--anadi" href="https://youtube.com/shorts/R-BCmUC2Xn4?si=bsDnNTGyRAn4IEH5" target="_blank" rel="noreferrer" aria-label="Watch Anadi's feedback on YouTube"><div class="feedback-story-copy"><small>STUDENT SUCCESS STORY</small><strong>Anadi</strong><p>Hear it in his own words.</p></div><div class="feedback-story-portrait"><img decoding="async" src="/assets/testimonials/anadi-feedback-v2.webp" alt="Anadi smiling at the camera" loading="lazy" /></div><span class="feedback-story-play"><i class="fa-solid fa-play" aria-hidden="true"></i> Watch feedback</span></a></div>
+                <div class="story-thumbnail feedback-video"><a class="student-feedback-frame student-feedback-card feedback-story-card feedback-story-card--anadi" href="https://youtube.com/shorts/R-BCmUC2Xn4?si=bsDnNTGyRAn4IEH5" target="_blank" rel="noreferrer" aria-label="Watch Anadi's feedback on YouTube"><div class="feedback-story-copy"><small>STUDENT SUCCESS STORY</small><strong>Anadi</strong><p>Hear it in his own words.</p></div><div class="feedback-story-portrait"><img decoding="async" src="/assets/testimonials/anadi-feedback-scene-v6.webp" alt="Anadi seated in a bright living room" loading="lazy" /></div><img class="feedback-story-brand" src="/assets/smisha-logo-black-transparent.png" alt="" aria-hidden="true" decoding="async" /><span class="feedback-story-play"><i class="fa-solid fa-play" aria-hidden="true"></i> Watch feedback</span></a></div>
                 <div class="story-testimonial"><p class="story-label">STUDENT FEEDBACK</p><blockquote>Watch Anadi share his learning experience with Smisha Share Market.</blockquote><a href="https://youtube.com/shorts/R-BCmUC2Xn4?si=bsDnNTGyRAn4IEH5" class="story-link" target="_blank" rel="noreferrer">Watch on YouTube <span>➜</span></a><div class="story-person"><div><strong>Anadi</strong><span>Smisha Student</span></div><em>Anadi</em></div></div>
               </article>
               <article class="story-slide" data-story="3">
-                <div class="story-thumbnail feedback-video"><a class="student-feedback-frame student-feedback-card feedback-story-card feedback-story-card--amit" href="https://youtube.com/shorts/G7krrQzBoPA?si=W_u_MjEX72NU-xRn" target="_blank" rel="noreferrer" aria-label="Watch Amit's feedback on YouTube"><div class="feedback-story-copy"><small>STUDENT SUCCESS STORY</small><strong>Amit</strong><p>Hear it in his own words.</p></div><div class="feedback-story-portrait"><img decoding="async" src="/assets/testimonials/amit-feedback-v2.webp" alt="Amit smiling at the camera" loading="lazy" /></div><span class="feedback-story-play"><i class="fa-solid fa-play" aria-hidden="true"></i> Watch feedback</span></a></div>
+                <div class="story-thumbnail feedback-video"><a class="student-feedback-frame student-feedback-card feedback-story-card feedback-story-card--amit" href="https://youtube.com/shorts/G7krrQzBoPA?si=W_u_MjEX72NU-xRn" target="_blank" rel="noreferrer" aria-label="Watch Amit's feedback on YouTube"><div class="feedback-story-copy"><small>STUDENT SUCCESS STORY</small><strong>Amit</strong><p>Hear it in his own words.</p></div><div class="feedback-story-portrait"><img decoding="async" src="/assets/testimonials/amit-feedback-scene-v6.webp" alt="Amit seated at a study table" loading="lazy" /></div><img class="feedback-story-brand" src="/assets/smisha-logo-black-transparent.png" alt="" aria-hidden="true" decoding="async" /><span class="feedback-story-play"><i class="fa-solid fa-play" aria-hidden="true"></i> Watch feedback</span></a></div>
                 <div class="story-testimonial"><p class="story-label">STUDENT FEEDBACK</p><blockquote>Watch Amit share his learning experience with Smisha Share Market.</blockquote><a href="https://youtube.com/shorts/G7krrQzBoPA?si=W_u_MjEX72NU-xRn" class="story-link" target="_blank" rel="noreferrer">Watch on YouTube <span>→</span></a><div class="story-person"><div><strong>Amit</strong><span>Smisha Student</span></div><em>Amit</em></div></div>
               </article>
             </div>
           </div>
-          <div class="story-progress" aria-hidden="true"><span class="active"></span><span></span><span></span></div>
+          <div class="story-carousel-controls"><div class="story-progress" aria-hidden="true"><span class="active"></span><span></span><span></span></div><div class="story-arrows"><button type="button" data-story-prev aria-label="Previous learner story"><span aria-hidden="true">‹</span></button><button type="button" data-story-next aria-label="Next learner story"><span aria-hidden="true">›</span></button></div></div>
         </section>
 
         <div class="india-testimonials-slot"></div>
 
-        <section class="process-section" id="process" aria-labelledby="process-title">
-          <div class="process-heading"><p>The Smisha Method</p><h2 id="process-title"><strong>Build your market aura</strong><span>the professional way.</span></h2></div>
-          <div class="process-steps">
-            <article class="process-step"><h3>Step <b>01</b></h3><div><h4>Choose Your Learning Path</h4><p>Tell us your goals and current experience so we can guide you toward the right program.</p></div></article>
-            <article class="process-step"><h3>Step <b>02</b></h3><div><h4>Learn the Market Framework</h4><p>Build strong foundations in technical analysis, risk management, and market psychology.</p></div></article>
-            <article class="process-step"><h3>Step <b>03</b></h3><div><h4>Practice With Live Guidance</h4><p>Apply the concepts on real charts with mentors who help you turn knowledge into skill.</p></div></article>
-            <article class="process-step"><h3>Step <b>04</b></h3><div><h4>Trade With Discipline</h4><p>Follow a repeatable plan, refine your execution, and grow with a clear long-term process.</p></div></article>
+        <section class="final-demo-cta" id="book-demo" aria-labelledby="final-demo-title">
+          <div class="final-demo-card">
+            <div class="final-demo-avatars" aria-hidden="true">
+              <img src="/assets/students/student-1.jpeg" alt="" loading="lazy" decoding="async" />
+              <img src="/assets/students/student-2.jpeg" alt="" loading="lazy" decoding="async" />
+              <img src="/assets/students/student-3.jpeg" alt="" loading="lazy" decoding="async" />
+            </div>
+            <h2 id="final-demo-title">Get tomorrow&apos;s<br />competitive edge today</h2>
+            <p class="final-demo-copy">Start with a free demo and discover a practical learning path built around your market goals.</p>
+            <a class="final-demo-button" href="#contact">Let&apos;s Start a Conversation <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></a>
           </div>
-          <p class="process-contact">Have anything to ask? <a href="#contact">Contact us any time.</a></p>
-        </section>
-
-        <section class="video-cta-section" id="book-demo" aria-labelledby="video-cta-title">
-          <video data-deferred-video="true" class="video-cta-background" autoplay loop muted playsinline aria-hidden="true">
-            <source data-src="/assets/smisha-event-cta.mp4" type="video/mp4" />
-          </video>
-          <div class="video-cta-overlay" aria-hidden="true"></div>
-          <svg class="cta-market-chart" viewBox="0 0 1440 440" preserveAspectRatio="none" aria-hidden="true">
-            <g class="cta-chart-grid"><path d="M0 98H1440M0 198H1440M0 298H1440M0 378H1440" /><path d="M100 0V440M260 0V440M420 0V440M1020 0V440M1180 0V440M1340 0V440" /></g>
-            <path class="cta-chart-trend" d="M55 250 L112 218 L168 237 L224 165 L280 190 L336 132 L392 153 L448 120 L510 143 L568 96 L628 115 L690 82 L750 105 L810 69 L870 86 L932 52 L990 74 L1050 49 L1110 82 L1172 44 L1235 67 L1296 28 L1370 50" />
-            <g class="cta-chart-candles">
-              <g class="market-candle market-candle--up candle-a"><line x1="112" y1="178" x2="112" y2="276" /><rect x="102" y="210" width="20" height="49" /></g>
-              <g class="market-candle market-candle--down candle-b"><line x1="168" y1="194" x2="168" y2="286" /><rect x="158" y="219" width="20" height="45" /></g>
-              <g class="market-candle market-candle--up candle-c"><line x1="224" y1="122" x2="224" y2="258" /><rect x="214" y="153" width="20" height="80" /></g>
-              <g class="market-candle market-candle--down candle-d"><line x1="280" y1="147" x2="280" y2="261" /><rect x="270" y="181" width="20" height="47" /></g>
-              <g class="market-candle market-candle--up candle-e"><line x1="336" y1="100" x2="336" y2="225" /><rect x="326" y="130" width="20" height="61" /></g>
-              <g class="market-candle market-candle--up candle-f"><line x1="1050" y1="38" x2="1050" y2="166" /><rect x="1040" y="67" width="20" height="73" /></g>
-              <g class="market-candle market-candle--down candle-g"><line x1="1110" y1="59" x2="1110" y2="191" /><rect x="1100" y="82" width="20" height="69" /></g>
-              <g class="market-candle market-candle--up candle-h"><line x1="1172" y1="21" x2="1172" y2="150" /><rect x="1162" y="44" width="20" height="77" /></g>
-              <g class="market-candle market-candle--up candle-i"><line x1="1235" y1="38" x2="1235" y2="173" /><rect x="1225" y="67" width="20" height="64" /></g>
-              <g class="market-candle market-candle--down candle-j"><line x1="1296" y1="12" x2="1296" y2="144" /><rect x="1286" y="29" width="20" height="71" /></g>
-            </g>
-            <g class="cta-chart-volume"><rect x="92" y="343" width="22" height="35" /><rect x="148" y="320" width="22" height="58" /><rect x="204" y="332" width="22" height="46" /><rect x="260" y="301" width="22" height="77" /><rect x="316" y="325" width="22" height="53" /><rect x="1028" y="332" width="22" height="46" /><rect x="1088" y="304" width="22" height="74" /><rect x="1150" y="319" width="22" height="59" /><rect x="1213" y="286" width="22" height="92" /><rect x="1275" y="313" width="22" height="65" /></g>
-          </svg>
-          <div class="video-cta-content">
-            <p>Train With Pune's Market Mentors</p>
-            <h2 id="video-cta-title"><strong>Ready to build</strong><span>your winning edge?</span></h2>
-            <p class="video-cta-copy">Book a free demo and see how Smisha can help you learn with focus, confidence, and a real plan.</p>
-            <a class="video-cta-button" href="#contact">Book Your Pune Demo <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></a>
+          <div class="final-demo-partners" aria-label="Market platform partners">
+            <p>Trusted by learners · Connected with leading market platforms</p>
+            <div class="final-demo-logos">
+              <img src="/assets/about/angel-one-logo.webp" alt="Angel One" loading="lazy" decoding="async" />
+              <img src="/assets/about/dhan-logo.webp" alt="Dhan" loading="lazy" decoding="async" />
+            </div>
           </div>
         </section>
 
@@ -250,7 +271,7 @@ export const landingMarkup = String.raw`
           </div>
           <div class="footer-main">
             <section class="footer-brand" aria-label="Smisha Share Market">
-              <a class="footer-logo" href="#top"><img decoding="async" loading="lazy" src="/assets/smisha-academy-logo-transparent.png" alt="Smisha Share Market Academy" /></a>
+              <a class="footer-logo" href="#top"><img decoding="async" loading="lazy" src="/assets/smisha-logo-dark.png" alt="Smisha Share Market Classes" /></a>
               <p>Pune's practical share market academy for knowledge, discipline, and earned market confidence.</p>
               <div class="footer-socials social-login-icons" aria-label="Social media links">
                 <a class="socialcontainer social-instagram" href="https://www.instagram.com/smisha_share_market?stkn=c2ltZjM4NHI0NWtl" target="_blank" rel="noreferrer" aria-label="Instagram"><span class="social-icon social-icon-primary"><i class="fa-brands fa-instagram" aria-hidden="true"></i></span><span class="social-icon social-icon-reveal"><i class="fa-brands fa-instagram" aria-hidden="true"></i></span></a>
@@ -259,7 +280,7 @@ export const landingMarkup = String.raw`
                 <a class="socialcontainer social-whatsapp" href="https://wa.me/919595150577" target="_blank" rel="noreferrer" aria-label="WhatsApp"><span class="social-icon social-icon-primary"><i class="fa-brands fa-whatsapp" aria-hidden="true"></i></span><span class="social-icon social-icon-reveal"><i class="fa-brands fa-whatsapp" aria-hidden="true"></i></span></a>
               </div>
             </section>
-            <section class="footer-links"><h2>Academy</h2><a href="/about">About Us</a><a href="#services">Our Programs</a><a href="#stories">Student Stories</a><a href="#process">How It Works</a><a href="#book-demo">Book a Demo</a></section>
+            <section class="footer-links"><h2>Academy</h2><a href="/about">About Us</a><a href="#services">Our Programs</a><a href="#stories">Student Stories</a><a href="#book-demo">Book a Demo</a></section>
             <section class="footer-links"><h2>Learning Paths</h2><a href="#services">Equity Trading</a><a href="#services">Technical Analysis</a><a href="#services">Risk Management</a><a href="#services">Trading Psychology</a><a href="#faq">FAQs</a></section>
             <section class="footer-newsletter"><h2>Newsletter</h2><p>Get market-learning tips and academy updates.</p><div class="newsletter-input"><input type="email" aria-label="Email address" placeholder="Enter your email" /><button type="button" aria-label="Subscribe"><i class="fa-solid fa-arrow-right"></i></button></div><small><i class="fa-regular fa-bell" aria-hidden="true"></i> No spam—just useful trading insights.</small></section>
           </div>

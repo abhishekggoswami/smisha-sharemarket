@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState } from 'react';
 import CourseCard from './CourseCard';
 import { courses } from '../lib/course-catalog';
-import TextPressure from './TextPressure';
+import SplitText from './SplitText';
 
 
 
@@ -14,6 +14,7 @@ export default function HomeCourseCarousel() {
   const trackRef = useRef(null);
   const [visible, setVisible] = useState(3);
   const [index, setIndex] = useState(0);
+  const [headingCycle, setHeadingCycle] = useState(0);
   const maxIndex = Math.max(0, courses.length - visible);
 
   useEffect(() => {
@@ -35,12 +36,54 @@ export default function HomeCourseCarousel() {
     viewport.scrollTo({ left: card.offsetLeft - track.offsetLeft, behavior: 'smooth' });
   }, [index, visible]);
 
+  useEffect(() => {
+    const section = viewportRef.current?.closest('.services-section');
+    if (!section) return undefined;
+
+    let observer;
+    let wasVisible = false;
+    const beginSectionMotion = () => {
+      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        setHeadingCycle((cycle) => cycle + 1);
+        return;
+      }
+
+      section.classList.add('services-motion-ready');
+      if (!('IntersectionObserver' in window)) {
+        section.classList.add('is-visible');
+        setHeadingCycle((cycle) => cycle + 1);
+        return;
+      }
+
+      observer = new IntersectionObserver(([entry]) => {
+        section.classList.toggle('is-visible', entry.isIntersecting);
+        if (entry.isIntersecting && !wasVisible) {
+          wasVisible = true;
+          setHeadingCycle((cycle) => cycle + 1);
+        } else if (!entry.isIntersecting) {
+          wasVisible = false;
+        }
+      }, { threshold: 0.15, rootMargin: '0px 0px -5% 0px' });
+      observer.observe(section);
+    };
+
+    const loaderFinished = window.__SMISHA_LOADER_COMPLETE__ || !document.querySelector('.smisha-loader');
+    if (loaderFinished) beginSectionMotion();
+    else window.addEventListener('smisha-loader-complete', beginSectionMotion, { once: true });
+
+    return () => {
+      window.removeEventListener('smisha-loader-complete', beginSectionMotion);
+      observer?.disconnect();
+      section.classList.remove('services-motion-ready', 'is-visible');
+    };
+  }, []);
+
   const previous = () => setIndex((current) => current <= 0 ? maxIndex : current - 1);
   const next = () => setIndex((current) => current >= maxIndex ? 0 : current + 1);
 
   return <div className="home-courses-carousel">
     <div className="services-heading">
-      <div><p className="section-kicker">Learn With Smisha</p><h2 id="services-title"><strong><TextPressure text="Explore our courses." minWeight={700} /></strong><span><TextPressure text="Build your market edge." /></span></h2></div>
+      <div><p className="section-kicker">Learn With Smisha</p><h2 id="services-title"><strong>{headingCycle ? <SplitText key={`courses-title-first-${headingCycle}`} text="Explore our courses." className="services-title-line" delay={22} duration={0.62} effect="rise" splitType="words, chars" staggerFrom="start" mask={false} /> : 'Explore our courses.'}</strong><span>{headingCycle ? <SplitText key={`courses-title-second-${headingCycle}`} text="Build your market edge." className="services-title-line" delay={22} duration={0.62} effect="rise" splitType="words, chars" staggerFrom="start" mask={false} /> : 'Build your market edge.'}</span></h2></div>
       <div className="services-actions"><div className="services-carousel-controls" aria-label="Featured course navigation"><button type="button" onClick={previous} disabled={maxIndex===0} aria-label="Show previous courses"><i className="fa-solid fa-arrow-trend-down" aria-hidden="true" /></button><button type="button" onClick={next} disabled={maxIndex===0} aria-label="Show next courses"><i className="fa-solid fa-arrow-trend-up" aria-hidden="true" /></button></div><a className="services-button" href="/courses">Explore courses <b><i className="fa-solid fa-chart-line" aria-hidden="true" /></b></a></div>
     </div>
     <div className="services-carousel-viewport" ref={viewportRef} aria-live="polite">

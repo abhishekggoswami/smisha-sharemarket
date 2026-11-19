@@ -68,7 +68,7 @@ export default function MarketCandles({ className = '' }) {
 
       context.save();
       context.globalAlpha = 0.24;
-      context.strokeStyle = '#5bc9ff';
+      context.strokeStyle = '#A896C9';
       context.lineWidth = 1;
       for (let y = chartTop; y < chartTop + chartHeight; y += chartHeight / 6) {
         context.beginPath();
@@ -89,7 +89,7 @@ export default function MarketCandles({ className = '' }) {
         const x = startX + index * spacing;
         if (x < -spacing || x > width + spacing) return;
         const rising = candle.close <= candle.open;
-        const color = rising ? '#30dea1' : '#ff6573';
+        const color = rising ? '#22C55E' : '#EF4444';
         const y = (value) => chartTop + value * chartHeight;
         const bodyTop = y(Math.min(candle.open, candle.close));
         const bodyBottom = y(Math.max(candle.open, candle.close));

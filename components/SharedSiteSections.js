@@ -60,7 +60,7 @@ export function SiteFooter({ hideContactStrip = false }) {
     <div className="footer-main">
       <section className="footer-brand" aria-label="Smisha Share Market">
         <a className="footer-logo" href="/">
-          <img decoding="async" loading="lazy" src="/assets/smisha-academy-logo-transparent.png" alt="Smisha Share Market Academy" />
+          <img decoding="async" loading="lazy" src="/assets/smisha-logo-dark.png" alt="Smisha Share Market Classes" />
         </a>
 
         <p>
@@ -78,7 +78,7 @@ export function SiteFooter({ hideContactStrip = false }) {
         <a href="/workshops">Workshops</a>
         <a href="/#services">Our Programs</a>
         <a href="/#stories">Student Stories</a>
-        <a href="/#process">How It Works</a>
+        <a href="/#book-demo">Book a Demo</a>
       </section>
 
       <section className="footer-links">

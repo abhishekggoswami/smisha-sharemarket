@@ -61,7 +61,7 @@ void main() {
 
 /* A JavaScript, OGL-backed adaptation of React Bits' Grainient. */
 export default function Grainient({
-  color1 = '#e9f7ff', color2 = '#b6e4ff', color3 = '#7196e8',
+  color1 = '#F7F5FA', color2 = '#FFFFFF', color3 = '#A896C9',
   timeSpeed = .16, warpStrength = .65, warpFrequency = 3.5, warpSpeed = .35,
   warpAmplitude = 36, blendAngle = -22, noiseScale = 1.45, grainAmount = .025,
   grainScale = 1.6, contrast = 1.06, saturation = .78, zoom = 1.04, className = '',

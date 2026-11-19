@@ -60,7 +60,7 @@ function DesktopContactLanyard() {
   if (!showLanyard) return null;
 
   return <aside className="contact-lanyard-stage" aria-label="Smisha Academy student ID card">
-    <Lanyard frontImage="/assets/contact/smisha-student-id-front.svg?v=10" backImage="/assets/contact/smisha-student-id-back.svg" strapImage="/assets/contact/smisha-lanyard-strap.svg" imageFit="cover" cardColor="#eaf7ff" orientation="portrait" finish="glossy" cornerRadius={0.42} size={0.34} anchor="contact" strapLength={0.4} strapColor="#103b8f" strapWidth={0.72} metal="gold" gravity={2.15} damping={0.66} elasticity={0.3} breeze={0.24} maxPixelRatio={1.25} maxFrameRate={45} interactive intro />
+    <Lanyard frontImage="/assets/contact/smisha-student-id-front.svg?v=10" backImage="/assets/contact/smisha-student-id-back.svg" strapImage="/assets/contact/smisha-lanyard-strap.svg" imageFit="cover" cardColor="#FFFFFF" orientation="portrait" finish="glossy" cornerRadius={0.42} size={0.34} anchor="contact" strapLength={0.4} strapColor="#4A3B6A" strapWidth={0.72} metal="gold" gravity={2.15} damping={0.66} elasticity={0.3} breeze={0.24} maxPixelRatio={1.25} maxFrameRate={45} interactive intro />
   </aside>;
 }
 
@@ -82,7 +82,7 @@ function ContactEnquiryForm() {
       <label className="contact-form-wide">How can we help?<textarea required name="message" rows="4" placeholder="Tell us what you would like to learn" /></label>
     </div>
     <label className="contact-form-wide"><input type="checkbox" name="consent" value="yes" required /> I agree to be contacted by Smisha about my enquiry.</label>
-    {error&&<p role="alert" style={{color:'#b42318'}}>{error}</p>}
+    {error&&<p role="alert" style={{color:'#EF4444'}}>{error}</p>}
     <button type="submit" disabled={saving} className="contact-form-submit btn btn-primary"><span className="btn-txt">{saving?'Sending…':'Send enquiry'}</span><kbd className="btn-kbd" aria-hidden="true"><i className="fa-solid fa-arrow-right" /></kbd></button>
     <p className="contact-form-note">No dropdowns, no pressure—just tell us how we can help.</p>
   </form>;

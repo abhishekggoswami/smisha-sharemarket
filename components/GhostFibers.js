@@ -67,12 +67,12 @@ void main() {
 `;
 
 export default function GhostFibers({
-  lineColor = '#140E35', glowColor = '#3437A0', speed = .2, scale = 2, rotation = 0,
+  lineColor = '#A896C9', glowColor = '#F06A3A', speed = .2, scale = 2, rotation = 0,
   rotationSpeed = .25, layers = 4, waveAmplitude = .015, waveFrequency = 3, waveSpeed = .15,
   layerSpeed = .08, twist = .1, twistFrequency = 5, twistSpeed = 1.2, lineFrequency = 5,
   lineSpacing = 2, lineSharpness = 16, glowFalloff = 10, glowIntensity = 1.6, brightness = 2,
   blueBoost = 1.25, vignette = .8, grain = .05, lightMode = false, dpr = 1, fps = 60,
-  paused = false, className = '', backdropColor = '#070a24',
+  paused = false, className = '', backdropColor = '#201A30',
 }) {
   const containerRef = useRef(null);
 

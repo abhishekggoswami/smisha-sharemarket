@@ -451,7 +451,7 @@ export default function CalculatorsPage() {
     if (!bundle.length) return;
     let logo = null;
     try {
-      const response = await fetch("/assets/smisha-academy-logo-transparent.png");
+      const response = await fetch("/assets/smisha-logo-light.png");
       const blob = await response.blob();
       logo = await new Promise((resolve) => {
         const reader = new FileReader();
