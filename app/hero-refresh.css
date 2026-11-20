@@ -254,6 +254,8 @@ body .page-shell .hero::before, body .page-shell .hero::after { content: none; }
   .home-split-hero--intro-waiting .home-split-info-card,
   .home-split-hero--intro-waiting .home-split-gallery-panel { opacity: 0; }
   .home-split-hero--intro-ready .home-split-kicker { animation: home-intro-rise .7s cubic-bezier(.2,.75,.25,1) .08s backwards; }
+  .home-split-hero--intro-ready .home-split-heading-line { animation: home-intro-rise .85s cubic-bezier(.2,.75,.25,1) .22s backwards; }
+  .home-split-hero--intro-ready .home-split-heading-accent { animation-delay: .38s; }
   .home-split-hero--intro-ready .home-split-copy > p:not(.home-split-kicker) { animation: home-intro-rise .75s cubic-bezier(.2,.75,.25,1) .48s backwards; }
   .home-split-hero--intro-ready .home-split-cta { animation: home-intro-rise .75s cubic-bezier(.2,.75,.25,1) .68s backwards; }
   .home-split-hero--intro-ready .home-split-socials { animation: home-intro-rise .75s ease .85s backwards; }
@@ -398,9 +400,8 @@ h1 em,h2 em,h3 em,h4 em { font-family:inherit; }
   .site-header.home-pattern-header .desktop-nav.course-nav.is-open { align-items:stretch; display:flex !important; flex-direction:column; }
 }
 
-/* The homepage headline must be ready underneath the loader's compositor fade.
-   Suppress the inherited global h1 entrance, not its actual styling/content. */
-.home-split-copy h1 { animation: none !important; opacity: 1 !important; transform: none !important; }
+/* Suppress the inherited page-wide h1 animation; the hero reveals its own lines. */
+.home-split-copy h1 { animation: none !important; }
 
 /* Keep the already-rendered mobile hero readable when the preloader lifts. */
 @media (max-width:767px) {
