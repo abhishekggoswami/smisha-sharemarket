@@ -195,8 +195,7 @@ body .page-shell .hero::before, body .page-shell .hero::after { content: none; }
 .landing-page > .site-header.home-pattern-header .home-header-utilities { gap:10px; }
 
 .landing-page .page-shell .hero { min-height:min(700px,calc(100vh - 118px)); background:#121a30 !important; }
-/* Keep the original static hero visible during the tiny hydration window; once
-   the interactive split hero mounts it becomes the sole hero presentation. */
+/* The split hero includes matching static content before its interactive mount. */
 .landing-page .page-shell .hero > *:not(.home-split-hero-mount) { display:none !important; }
 .landing-page .landing-proof-bridge { display:none !important; }
 .home-split-hero-mount { display:block !important; position:relative; }
@@ -396,3 +395,166 @@ h1 em,h2 em,h3 em,h4 em { font-family:inherit; }
 #services #services-title > strong,
 #services #services-title > span { color:#fff; }
 #services .services-heading .section-kicker { color:#FF633D; }
+
+/* Keep the shared editorial typeface while letting each section's original
+   heading colors show through. */
+.landing-page :is(#home-split-title, #market-growth-title, #services-title, #academy-gallery-title, #credibility-title, #stories-title, #india-testimonials-title, #final-demo-title, #faq-title, #home-location-title) {
+  font-family: Georgia, 'Times New Roman', serif;
+  font-weight: 400;
+  letter-spacing: -.035em;
+  line-height: 1.13;
+}
+.landing-page :is(#home-split-title, #market-growth-title, #services-title, #academy-gallery-title, #credibility-title, #stories-title, #india-testimonials-title, #final-demo-title, #faq-title, #home-location-title) :is(strong, span, em, div) {
+  font-family: inherit;
+  font-style: inherit;
+  font-weight: inherit;
+}
+/* Match all homepage section titles to the Students Across India heading. */
+.landing-page :is(#market-growth-title, #services-title, #academy-gallery-title, #credibility-title, #stories-title, #india-testimonials-title, #faq-title, #home-location-title) {
+  font-size: clamp(2.25rem, 3.4vw, 3.55rem);
+}
+@media (max-width: 560px) {
+  .landing-page :is(#market-growth-title, #services-title, #academy-gallery-title, #credibility-title, #stories-title, #india-testimonials-title, #faq-title, #home-location-title) {
+    font-size: clamp(2.1rem, 10vw, 3rem);
+  }
+}
+.landing-page :is(#home-split-title, #market-growth-title, #services-title, #academy-gallery-title, #stories-title, #india-testimonials-title) :is(.split-text-word, .split-text-character) {
+  color: inherit;
+}
+
+/* A single animated backdrop spans both conversion sections. */
+.landing-page .cta-faq-background {
+  background: linear-gradient(120deg, #f7f4e8 0%, #f2eef8 48%, #faf8f1 100%);
+  background-size: 220% 220%;
+  animation: cta-faq-gradient-drift 22s ease-in-out infinite alternate;
+}
+.landing-page .cta-faq-background .final-demo-cta,
+.landing-page .cta-faq-background .faq-section { background: transparent; }
+.landing-page .final-demo-cta {
+  background: linear-gradient(115deg, #f8f7fb 0%, #eeeaf5 52%, #f6f1f2 100%) !important;
+  isolation: isolate;
+  padding-bottom: clamp(110px, 10vw, 150px);
+}
+.final-demo-grainient-slot { inset: 0; pointer-events: none; position: absolute; z-index: -1; }
+.final-demo-grainient { height: 100%; overflow: hidden; position: relative; width: 100%; }
+.final-demo-grainient canvas { display: block; height: 100%; inset: 0; position: absolute; width: 100%; }
+.final-demo-candles { inset: 0; opacity: .20; pointer-events: none; position: absolute; transform: scale(1.35); z-index: 0; }
+.final-demo-candles canvas { display: block; height: 100%; width: 100%; }
+.final-demo-content-slot { position: relative; z-index: 1; }
+.landing-page .home-courses-carousel .services-button {
+  background: #ff5b2e;
+  border: 0;
+  border-radius: 999px;
+  box-shadow: none;
+  color: #fff;
+  font-size: 15px;
+  font-weight: 700;
+  gap: 13px;
+  height: 48px;
+  padding: 0 26px;
+  width: auto;
+}
+.landing-page .home-courses-carousel .services-button:hover { background: #e94d27; color: #fff; transform: translateY(-2px); }
+.landing-page .home-courses-carousel .services-button:focus-visible { outline: 3px solid #fff; outline-offset: 4px; }
+
+/* Progressive, one-time content entrances; without JavaScript all content
+   remains visible, and keyboard focus can always reveal a pending item. */
+@media (prefers-reduced-motion: no-preference) {
+  .landing-page .home-reveal-pending,
+  .landing-page .home-reveal-visible {
+    transition: opacity .75s ease var(--home-reveal-delay, 0ms), transform .85s cubic-bezier(.2,.75,.25,1) var(--home-reveal-delay, 0ms);
+  }
+  .landing-page .home-reveal-pending { opacity: 0; transform: translate3d(0, 28px, 0); }
+  .landing-page .home-reveal-visible,
+  .landing-page .home-reveal-pending:focus-within { opacity: 1; transform: translate3d(0, 0, 0); }
+  .landing-page :is(.credibility-intro, .faq-list) > .home-reveal-pending { transform: translate3d(-24px, 14px, 0); }
+  .landing-page :is(.credibility-proof, .faq-help-card).home-reveal-pending { transform: translate3d(24px, 14px, 0); }
+}
+.landing-page .cta-faq-background .faq-section::before,
+.landing-page .cta-faq-background .faq-section::after { display: none; }
+.landing-page #faq-title { color: #201a30; }
+.landing-page #faq-title > .faq-title-accent { color: #ff6842; }
+.landing-page #faq-title .faq-title-text,
+.landing-page #faq-title .split-text-word,
+.landing-page #faq-title .split-text-character { color: inherit; display: inline-block; }
+@keyframes cta-faq-gradient-drift {
+  0% { background-position: 0% 15%; }
+  50% { background-position: 80% 60%; }
+  100% { background-position: 20% 100%; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .landing-page .cta-faq-background { animation: none; }
+}
+
+/* Orange-glass interaction language for the homepage navigation and links. */
+.landing-page .home-split-cta,
+.landing-page > .site-header.home-pattern-header .appointment {
+  background: linear-gradient(135deg, rgba(255, 158, 97, .96), rgba(246, 91, 45, .96) 62%, rgba(225, 74, 39, .96));
+  border: 1px solid rgba(255, 255, 255, .58);
+  box-shadow: inset 0 1px 1px rgba(255, 255, 255, .65), inset 0 -8px 18px rgba(177, 57, 26, .12), 0 9px 24px rgba(32, 26, 48, .18);
+  color: #201a30;
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
+  transition: background .3s ease, border-color .3s ease, color .3s ease, box-shadow .3s ease, transform .3s ease;
+}
+.landing-page .home-split-cta {
+  background: transparent;
+  border-color: #ff6842;
+  box-shadow: none;
+  color: #fff;
+}
+.landing-page .home-split-cta:is(:hover, :focus-visible),
+.landing-page > .site-header.home-pattern-header .appointment:is(:hover, :focus-visible) {
+  background: linear-gradient(135deg, rgba(255, 182, 120, .98), rgba(255, 110, 58, .98) 60%, rgba(238, 80, 39, .98));
+  border-color: rgba(255, 255, 255, .58);
+  box-shadow: inset 0 1px 1px rgba(255, 255, 255, .8), 0 14px 28px rgba(32, 26, 48, .25);
+  color: #201a30;
+  transform: translateY(-2px);
+}
+.landing-page .home-split-cta > i,
+.landing-page .course-card-arrow i { transition: transform .3s ease; }
+.landing-page .home-split-cta:is(:hover, :focus-visible) > i,
+.landing-page .course-card-top:is(:hover, :focus-visible) .course-card-arrow i { transform: translateX(3px); }
+.landing-page .course-card-top:is(:hover, :focus-visible) .course-card-arrow {
+  background: linear-gradient(135deg, #ffa164, #f2693c 65%, #e75a30);
+  box-shadow: inset 0 1px 2px rgba(255, 255, 255, .75), 0 7px 16px rgba(202, 86, 44, .25);
+  color: #201a30;
+  transform: translateX(3px);
+}
+.landing-page .market-growth-cta {
+  border-radius: 8px;
+  transition: color .25s ease, background .25s ease, box-shadow .25s ease;
+}
+.landing-page .market-growth-cta:is(:hover, :focus-visible) {
+  background: linear-gradient(135deg, rgba(255, 185, 143, .45), rgba(255, 104, 66, .22));
+  box-shadow: 0 0 0 7px rgba(255, 104, 66, .1), inset 0 1px rgba(255, 255, 255, .7);
+  color: #9e3419;
+  text-decoration-color: currentColor;
+}
+.landing-page > .site-header.home-pattern-header .desktop-nav.course-nav a {
+  transition: color .25s ease, text-shadow .25s ease;
+}
+.landing-page > .site-header.home-pattern-header .desktop-nav.course-nav a:is(:hover, :focus-visible) {
+  color: #c84420 !important;
+  text-shadow: 0 3px 14px rgba(255, 104, 66, .2);
+}
+.landing-page > .site-header.home-pattern-header .desktop-nav.course-nav a .home-nav-arrow {
+  display: inline-block;
+  transition: color .25s ease, transform .25s ease;
+}
+.landing-page > .site-header.home-pattern-header .desktop-nav.course-nav a:is(:hover, :focus-visible) .home-nav-arrow {
+  color: #f2693c;
+  transform: translate(3px, -2px);
+}
+.landing-page :is(.home-split-cta, .appointment, .market-growth-cta, .course-card-top, .desktop-nav a):focus-visible {
+  outline: 3px solid #f2693c;
+  outline-offset: 4px;
+}
+@media (prefers-reduced-motion: reduce) {
+  .landing-page :is(.home-split-cta, .appointment, .market-growth-cta, .course-card-arrow, .course-card-arrow i, .home-nav-arrow) { transition: none; }
+  .landing-page :is(.home-split-cta, .appointment):is(:hover, :focus-visible),
+  .landing-page .course-card-top:is(:hover, :focus-visible) .course-card-arrow,
+  .landing-page .course-card-top:is(:hover, :focus-visible) .course-card-arrow i,
+  .landing-page .home-split-cta:is(:hover, :focus-visible) > i,
+  .landing-page > .site-header.home-pattern-header .desktop-nav.course-nav a:is(:hover, :focus-visible) .home-nav-arrow { transform: none; }
+}

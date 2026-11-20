@@ -11,6 +11,9 @@ import HomeSplitHero from './HomeSplitHero';
 import SplitText from './SplitText';
 import AcademyAccordionGallery from './AcademyAccordionGallery';
 import IndiaMapTestimonials from './IndiaMapTestimonials';
+import FinalDemoForm from './FinalDemoForm';
+import MarketGrowthChart from './MarketGrowthChart';
+import Grainient from './Grainient';
 
 export default function LandingPage() {
   const rootRef = useRef(null);
@@ -46,16 +49,99 @@ export default function LandingPage() {
       else { const anchor = observeSlot ? slot : (slot.parentElement || slot); lazyIslands.set(anchor, mount); islandObserver.observe(anchor); }
       cleanups.push(() => mountedRoot?.unmount());
     };
-    mountIsland('.academy-map-slot', <AcademyMap />);
+    // Start the below-the-fold map early instead of waiting for two lazy-load thresholds.
+    mountIsland('.academy-map-slot', <AcademyMap satellite loading="eager" />, true);
     mountIsland('.home-hero-video-mount', <HomeHeroVideoBackground />, true);
     mountIsland('.home-split-hero-mount', <HomeSplitHero />, true);
+    mountIsland('.market-growth-chart', <MarketGrowthChart />, false, true);
     mountIsland('.home-courses-slot', <HomeCourseCarousel />);
     mountIsland('.academy-gallery-slot', <AcademyAccordionGallery />);
     mountIsland('.india-testimonials-slot', <IndiaMapTestimonials />, false, true);
+    mountIsland('.final-demo-grainient-slot', <Grainient className="final-demo-grainient" color1="#f8f7fb" color2="#eae5f3" color3="#f6f0f0" colors={['#f8f7fb', '#f1eef8', '#eae5f3', '#f6f0f0', '#f8f7fb']} flow={0.65} speed={0.35} silk={0.12} grainAmount={0.018} contrast={1} saturation={0.8} interactive={false} clickSwirl={false} intro={false} dpr={1} />);
+    mountIsland('.final-demo-candles', <MarketGrowthChart />, false, true);
+    // Mount the conversion form immediately so the visible CTA is interactive
+    // even when the visitor jumps directly to this section via an anchor.
+    const finalDemoSlot = select('.final-demo-content-slot');
+    if (finalDemoSlot) {
+      const finalDemoRoot = createRoot(finalDemoSlot);
+      const openFallback = (event) => {
+        if (!event.target.closest?.('[data-open-conversation]')) return;
+        event.preventDefault();
+        finalDemoRoot.render(<FinalDemoForm initialOpen />);
+      };
+      finalDemoSlot.addEventListener('click', openFallback);
+      finalDemoRoot.render(<FinalDemoForm />);
+      cleanups.push(() => {
+        finalDemoSlot.removeEventListener('click', openFallback);
+        finalDemoRoot.unmount();
+      });
+    }
     mountIsland('#stories-title', <>
       <strong><SplitText text="Real students." className="stories-title-text" delay={22} duration={0.62} effect="rise" splitType="words, chars" mask={false} trigger="view" threshold={0.1} /></strong>
       <span className="stories-title-accent"><SplitText text="Stronger market decisions." className="stories-title-text" delay={22} duration={0.62} effect="rise" splitType="words, chars" mask={false} trigger="view" threshold={0.1} /></span>
     </>);
+    mountIsland('#faq-title', <>
+      <strong><SplitText text="Your questions," className="faq-title-text" delay={22} duration={0.62} effect="rise" splitType="words, chars" mask={false} trigger="view" threshold={0.1} /></strong>
+      <span className="faq-title-accent"><SplitText text="answered with clarity." className="faq-title-text" delay={22} duration={0.62} effect="rise" splitType="words, chars" mask={false} trigger="view" threshold={0.1} /></span>
+    </>);
+    mountIsland('#credibility-title', <>
+      <span><SplitText text="Building market confidence through" className="credibility-title-text" delay={22} duration={0.62} effect="rise" splitType="words, chars" mask={false} trigger="view" threshold={0.1} /></span>
+      <strong><SplitText text="a decade of learning." className="credibility-title-text" delay={22} duration={0.62} effect="rise" splitType="words, chars" mask={false} trigger="view" threshold={0.1} /></strong>
+    </>);
+
+    // Reveal content as it enters view, including islands mounted later. Leave
+    // the growth section and course cards to their existing motion systems.
+    if ('IntersectionObserver' in window && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      const revealGroups = [
+        ['.feature-card', 80],
+        ['.home-courses-carousel .services-heading .section-kicker, .home-courses-carousel .services-subheading, .home-courses-carousel .services-actions', 80],
+        ['.academy-gallery-heading > div, .academy-gallery-heading > p, .academy-gallery-slot', 100],
+        ['.credibility-heading, .credibility-intro, .credibility-proof', 100],
+        ['.stories-header, .stories-viewport, .story-carousel-controls', 100],
+        ['.india-testimonials-heading .section-kicker, .india-testimonials-heading > p:not(.section-kicker)', 100],
+        ['.faq-heading, .faq-item, .faq-help-card', 75],
+        ['.home-location-section .home-map-overlay > *', 85],
+        ['.final-demo-card, .final-demo-partners', 100],
+        ['.site-footer .footer-contact-strip > p, .site-footer .footer-contact-strip > a, .site-footer .footer-brand, .site-footer .footer-links, .site-footer .footer-newsletter, .site-footer .footer-bottom', 75],
+      ];
+      const seen = new WeakSet();
+      const revealObserver = new IntersectionObserver(entries => {
+        entries.forEach(({ target, isIntersecting }) => {
+          if (!isIntersecting) return;
+          target.classList.remove('home-reveal-pending');
+          target.classList.add('home-reveal-visible');
+          revealObserver.unobserve(target);
+        });
+      }, { threshold: 0.08, rootMargin: '0px 0px -4% 0px' });
+      const scanReveals = () => {
+        revealGroups.forEach(([selector, step]) => {
+          selectAll(selector).forEach((element, index) => {
+            if (seen.has(element)) return;
+            seen.add(element);
+            // Do not hide content already passed on an anchor jump or refresh.
+            if (element.getBoundingClientRect().bottom <= 0) return;
+            element.style.setProperty('--home-reveal-delay', `${Math.min(index % 5 * step, 300)}ms`);
+            element.classList.add('home-reveal-pending');
+            revealObserver.observe(element);
+          });
+        });
+      };
+      let scanFrame = 0;
+      const mutations = new MutationObserver(() => {
+        if (!scanFrame) scanFrame = window.requestAnimationFrame(() => { scanFrame = 0; scanReveals(); });
+      });
+      scanReveals();
+      mutations.observe(root, { childList: true, subtree: true });
+      cleanups.push(() => {
+        mutations.disconnect();
+        revealObserver.disconnect();
+        window.cancelAnimationFrame(scanFrame);
+        selectAll('.home-reveal-pending, .home-reveal-visible').forEach(element => {
+          element.classList.remove('home-reveal-pending', 'home-reveal-visible');
+          element.style.removeProperty('--home-reveal-delay');
+        });
+      });
+    }
 
     const academyGallery = select('.academy-gallery-section');
     const academyGalleryTitle = select('#academy-gallery-title');
@@ -167,17 +253,44 @@ export default function LandingPage() {
     }
 
     const faqItems = selectAll('.faq-item');
+    const faqAnimations = new Map();
+    const faqDesired = new Map(faqItems.map((item) => [item, item.open]));
+    const animateFaq = (item, shouldOpen) => {
+      const summary = item.querySelector('summary');
+      if (!summary || faqDesired.get(item) === shouldOpen) return;
+      faqDesired.set(item, shouldOpen);
+      const startHeight = item.getBoundingClientRect().height;
+      faqAnimations.get(item)?.cancel();
+      faqAnimations.delete(item);
+      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches || !item.animate) {
+        item.open = shouldOpen;
+        return;
+      }
+      if (shouldOpen) item.open = true;
+      const borderHeight = item.offsetHeight - item.clientHeight;
+      const targetHeight = (shouldOpen ? item.scrollHeight : summary.getBoundingClientRect().height) + borderHeight;
+      const animation = item.animate(
+        [{ height: `${startHeight}px` }, { height: `${targetHeight}px` }],
+        { duration: 380, easing: 'cubic-bezier(.22, 1, .36, 1)' },
+      );
+      faqAnimations.set(item, animation);
+      animation.onfinish = () => {
+        item.open = shouldOpen;
+        faqAnimations.delete(item);
+      };
+    };
     faqItems.forEach((item) => {
       const summary = item.querySelector('summary');
       const toggleFaq = (event) => {
         event.preventDefault();
-        const shouldOpen = !item.open;
-        faqItems.forEach((other) => { other.open = false; });
-        item.open = shouldOpen;
+        const shouldOpen = !faqDesired.get(item);
+        faqItems.forEach((other) => { if (other !== item) animateFaq(other, false); });
+        animateFaq(item, shouldOpen);
       };
       summary?.addEventListener('click', toggleFaq);
       cleanups.push(() => summary?.removeEventListener('click', toggleFaq));
     });
+    cleanups.push(() => faqAnimations.forEach((animation) => animation.cancel()));
 
     // A restrained, scroll-linked depth effect only for the homepage courses section.
     // Transform the heading and viewport (not the carousel track), so navigation
@@ -257,6 +370,9 @@ export default function LandingPage() {
       track.append(storyLoopClone);
 
       const syncStory = () => {
+        // Programmatic animation already tracks the active slide. Measuring every
+        // slide during each animation frame forces unnecessary layout work.
+        if (storyViewport.classList.contains('is-autoplaying')) return;
         const viewportRect = storyViewport.getBoundingClientRect();
         const phoneView = phoneStoryQuery.matches;
         const anchor = phoneView ? viewportRect.left + viewportRect.width / 2 : viewportRect.left + storyViewport.clientLeft;
@@ -291,25 +407,25 @@ export default function LandingPage() {
       });
     }
 
-    if (track && storyViewport && !motionQuery.matches) {
+    if (track && storyViewport && slides.length) {
       track.style.transform = 'none';
       track.style.transition = 'none';
-      const easeOutQuint = (progress) => 1 - ((1 - progress) ** 5);
+      const easeInOutCubic = (progress) => progress < .5 ? 4 * progress ** 3 : 1 - ((-2 * progress + 2) ** 3) / 2;
       const animateStoryScroll = (destination, smooth, onComplete) => {
         window.cancelAnimationFrame(slideAnimation);
-        if (!smooth) {
+        if (!smooth || motionQuery.matches) {
           storyViewport.scrollLeft = destination;
           onComplete?.();
           return;
         }
         const start = storyViewport.scrollLeft;
         const distance = destination - start;
-        const duration = 680;
+        const duration = 750;
         const startedAt = window.performance.now();
         storyViewport.classList.add('is-autoplaying');
         const step = (now) => {
           const progress = Math.min(1, (now - startedAt) / duration);
-          storyViewport.scrollLeft = start + distance * easeOutQuint(progress);
+          storyViewport.scrollLeft = start + distance * easeInOutCubic(progress);
           if (progress < 1) slideAnimation = window.requestAnimationFrame(step);
           else {
             onComplete?.();
@@ -350,6 +466,9 @@ export default function LandingPage() {
       });
       const onResize = () => showSlide(index, false);
       const interval = window.setInterval(() => {
+        if (motionQuery.matches || document.hidden) return;
+        const rect = storyViewport.getBoundingClientRect();
+        if (rect.bottom <= 0 || rect.top >= window.innerHeight) return;
         if (window.performance.now() - lastStoryInteraction < 7000) return;
         showSlide(index + 1);
       }, 5600);

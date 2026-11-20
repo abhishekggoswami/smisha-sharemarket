@@ -65,10 +65,12 @@ export default function IndiaMapTestimonials() {
   const [mapError, setMapError] = useState(false);
   const [mapAttempt, setMapAttempt] = useState(0);
   const [activeIndex, setActiveIndex] = useState(0);
-  const [cards, setCards] = useState([{ index: 0, zone: CARD_ZONES[0] }]);
-  const [visited, setVisited] = useState([0]);
+  const [cards, setCards] = useState(() => learnerLocations.map((_, index) => ({ index, zone: CARD_ZONES[index] })));
+  const [visited, setVisited] = useState(() => learnerLocations.map((_, index) => index));
   const [inView, setInView] = useState(false);
   const [reduceMotion, setReduceMotion] = useState(false);
+  const [paused, setPaused] = useState(false);
+  const [pageVisible, setPageVisible] = useState(true);
   const [cardLimit, setCardLimit] = useState(10);
   const active = learnerLocations[activeIndex];
 
@@ -101,6 +103,11 @@ export default function IndiaMapTestimonials() {
     update(); media.addEventListener?.('change', update); return () => media.removeEventListener?.('change', update);
   }, []);
   useEffect(() => {
+    const update = () => setPageVisible(!document.hidden);
+    update(); document.addEventListener('visibilitychange', update);
+    return () => document.removeEventListener('visibilitychange', update);
+  }, []);
+  useEffect(() => {
     const update = () => setCardLimit(window.innerWidth <= 620 ? 1 : window.innerWidth <= 1060 ? 4 : 10);
     update(); window.addEventListener('resize', update);
     return () => window.removeEventListener('resize', update);
@@ -112,10 +119,11 @@ export default function IndiaMapTestimonials() {
     return () => observer.disconnect();
   }, []);
   useEffect(() => {
-    if (!inView) return undefined;
-    const timer = window.setTimeout(() => activate(activeIndex + 1), reduceMotion ? 1100 : 1550);
+    if (!inView || reduceMotion || paused || !pageVisible) return undefined;
+    const delay = visited.length < learnerLocations.length ? 850 : 2200;
+    const timer = window.setTimeout(() => activate(activeIndex + 1), delay);
     return () => window.clearTimeout(timer);
-  }, [activeIndex, activate, inView, reduceMotion]);
+  }, [activeIndex, activate, inView, reduceMotion, paused, pageVisible, visited.length]);
 
   const { projection, paths } = useMemo(() => {
     if (!features.length) return { projection: null, paths: [] };
@@ -133,8 +141,8 @@ export default function IndiaMapTestimonials() {
       <header className="india-testimonials-heading"><p className="section-kicker">STUDENTS ACROSS INDIA</p><h2 id="india-testimonials-title"><SplitText text="Trusted Across India" delay={22} duration={0.62} effect="rise" splitType="words, chars" mask={false} trigger="view" threshold={0.1} /></h2><p>Real learners from different cities sharing their experience with Smisha Share Market Academy.</p></header>
       <div className="india-review-map-layout">
         <div className="india-map-panel" aria-label="India map showing student review locations"><div className="india-map-glow" aria-hidden="true" />
-          {paths.length ? <svg className="india-state-map" viewBox={`0 0 ${MAP_WIDTH} ${MAP_HEIGHT}`} role="img" aria-label="Accurate map of India with state and union territory boundaries"><g className="india-state-paths">{paths.map((path) => <path key={path.id} className={path.id === active.stateId ? 'is-active' : ''} d={path.d} fillRule="evenodd"><title>{path.name}</title></path>)}</g><g className="india-map-markers">{projection && learnerLocations.map((location, index) => {
-            if (!visited.includes(index)) return null;
+          {paths.length ? <svg className="india-state-map" viewBox={`0 0 ${MAP_WIDTH} ${MAP_HEIGHT}`} role="img" aria-label="Accurate map of India with state and union territory boundaries"><defs><linearGradient id="india-map-surface" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stopColor="#756592" /><stop offset="52%" stopColor="#514267" /><stop offset="100%" stopColor="#382d4c" /></linearGradient></defs><g className="india-map-depth" aria-hidden="true" transform="translate(0 13)">{paths.map((path) => <path key={path.id} d={path.d} fillRule="evenodd" />)}</g><g className="india-state-paths">{paths.map((path) => <path key={path.id} className={path.id === active.stateId ? 'is-active' : ''} d={path.d} fillRule="evenodd"><title>{path.name}</title></path>)}</g><g className="india-map-markers">{projection && learnerLocations.map((location, index) => {
+            if (!reduceMotion && !visited.includes(index)) return null;
             const [x, y] = projection([location.longitude, location.latitude]); const isActive = index === activeIndex;
             return <g className={`india-map-marker${isActive ? ' is-active' : ''}`} key={location.id} role="button" tabIndex={0} aria-label={`Show ${location.studentName}'s ${location.city} review`} aria-pressed={isActive} onClick={() => activate(index)} onKeyDown={(event) => { if (event.key === 'Enter' || event.key === ' ') { event.preventDefault(); activate(index); } }}><title>{location.city}, {location.state}</title>{isActive && <circle className="india-marker-pulse" cx={x} cy={y} r="16" />}<circle className="india-marker-core" cx={x} cy={y} r={isActive ? 7.5 : 4.5} /></g>;
           })}</g></svg> : <div className="india-map-loading" aria-live="polite">{mapError ? <><span>India map could not be loaded.</span><button type="button" onClick={() => setMapAttempt((attempt) => attempt + 1)}>Try again</button></> : 'Loading India map…'}</div>}
@@ -142,6 +150,7 @@ export default function IndiaMapTestimonials() {
         </div>
         {visibleCards.map((card) => <GoogleReviewCard key={learnerLocations[card.index].id} location={learnerLocations[card.index]} zone={card.zone} active={card.index === activeIndex} />)}
       </div>
+      {!reduceMotion && <button className="india-reviews-playback" type="button" aria-pressed={paused} onClick={() => setPaused((value) => !value)}><i className={`fa-solid fa-${paused ? 'play' : 'pause'}`} aria-hidden="true" /> {paused ? 'Resume reviews' : 'Pause reviews'}</button>}
     </div>
   </section>;
 }

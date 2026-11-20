@@ -37,8 +37,33 @@ export const landingMarkup = String.raw`
         </div>
       </header>
 
-      <section class="hero" id="top" aria-labelledby="keynote-title">
-        <div class="home-split-hero-mount"></div>
+      <section class="hero" id="top" aria-label="Smisha Share Market Academy">
+        <div class="home-split-hero-mount">
+          <div class="home-split-hero" aria-labelledby="home-split-title">
+            <div class="home-split-video-panel">
+              <video class="home-split-video" autoplay muted loop playsinline preload="auto" aria-hidden="true"><source src="/assets/hero-background.mp4" type="video/mp4" /></video>
+              <div class="home-split-video-wash" aria-hidden="true"></div>
+              <div class="home-split-copy home-split-copy--visible">
+                <p class="home-split-kicker">Pune's share market academy</p>
+                <h1 id="home-split-title"><span class="home-split-heading-line">Learn markets.</span><span class="home-split-heading-line home-split-heading-accent">Trade with clarity.</span></h1>
+                <p>Live market classes, expert mentorship, and risk-first training for decisions you can stand behind.</p>
+                <a class="home-split-cta" href="/contact">Book a free consultation <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></a>
+              </div>
+              <div class="home-split-socials" aria-label="Follow Smisha Share Market">
+                <a href="https://www.facebook.com/SmishaShareMarketClasses" target="_blank" rel="noreferrer" aria-label="Facebook"><i class="fa-brands fa-facebook-f" aria-hidden="true"></i><span>Facebook</span></a>
+                <a href="https://www.instagram.com/smisha_share_market" target="_blank" rel="noreferrer" aria-label="Instagram"><i class="fa-brands fa-instagram" aria-hidden="true"></i><span>Instagram</span></a>
+                <a href="https://www.youtube.com/@smishasharemarket" target="_blank" rel="noreferrer" aria-label="YouTube"><i class="fa-brands fa-youtube" aria-hidden="true"></i><span>YouTube</span></a>
+                <a href="https://in.linkedin.com/company/smishasharemarket" target="_blank" rel="noreferrer" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in" aria-hidden="true"></i><span>LinkedIn</span></a>
+              </div>
+              <div class="home-split-info-card"><span class="home-split-info-number">01.</span><strong class="home-split-info-title">Live Classes</strong><p>Learn directly from live market sessions and real chart discussions.</p></div>
+            </div>
+            <div class="home-split-gallery-panel">
+              <img class="home-split-gallery-image home-split-gallery-image--0" src="/assets/event-gallery/event-stage-portrait.jpg" alt="Sushil Kamboj presenting at a stock market event stage" fetchpriority="high" />
+              <div class="home-split-gallery-wash" aria-hidden="true"></div>
+              <a class="home-split-read-more" href="/courses">Read More <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></a>
+            </div>
+          </div>
+        </div>
         <div class="keynote-glow keynote-glow-one" aria-hidden="true"></div>
         <div class="keynote-glow keynote-glow-two" aria-hidden="true"></div>
         <div class="smisha-hero-lightwash" aria-hidden="true"></div>
@@ -112,7 +137,15 @@ export const landingMarkup = String.raw`
         </div>
       </div>
 
+      <div class="home-brand-interlude" aria-hidden="true">
+        <div class="home-brand-interlude-track">
+          <div class="home-brand-interlude-group"><span>Smisha</span><span class="home-brand-interlude-mark">✳</span><span>Smisha</span><span class="home-brand-interlude-mark">✳</span></div>
+          <div class="home-brand-interlude-group"><span>Smisha</span><span class="home-brand-interlude-mark">✳</span><span>Smisha</span><span class="home-brand-interlude-mark">✳</span></div>
+        </div>
+      </div>
+
       <section class="market-growth-section" aria-labelledby="market-growth-title">
+        <div class="market-growth-chart" aria-hidden="true"></div>
         <div class="market-growth-layout">
           <div class="market-growth-image">
             <img src="/assets/financial-growth-tree-v2.png" alt="A leafy tree growing from gold coins, held by a grayscale hand in front of a peach marble panel" loading="lazy" decoding="async" />
@@ -189,7 +222,7 @@ export const landingMarkup = String.raw`
         </section>
 
         <section class="stories-section" id="stories" aria-labelledby="stories-title">
-          <div class="stories-header"><p class="section-kicker">Pune Learner Stories</p><h2 id="stories-title"><strong>Real students.</strong><span>Stronger market decisions.</span></h2></div>
+          <div class="stories-header"><p class="section-kicker">Pune Learner Stories</p><h2 id="stories-title"><strong>Real students.</strong><span>Stronger market decisions.</span></h2><p class="section-subheading stories-subheading">Hear from learners about their experiences and the confidence they built along the way.</p></div>
           <div class="stories-viewport" aria-live="polite">
             <div class="stories-track" data-carousel-track>
               <article class="story-slide" data-story="1">
@@ -211,31 +244,12 @@ export const landingMarkup = String.raw`
 
         <div class="india-testimonials-slot"></div>
 
-        <section class="final-demo-cta" id="book-demo" aria-labelledby="final-demo-title">
-          <div class="final-demo-card">
-            <div class="final-demo-avatars" aria-hidden="true">
-              <img src="/assets/students/student-1.jpeg" alt="" loading="lazy" decoding="async" />
-              <img src="/assets/students/student-2.jpeg" alt="" loading="lazy" decoding="async" />
-              <img src="/assets/students/student-3.jpeg" alt="" loading="lazy" decoding="async" />
-            </div>
-            <h2 id="final-demo-title">Get tomorrow&apos;s<br />competitive edge today</h2>
-            <p class="final-demo-copy">Start with a free demo and discover a practical learning path built around your market goals.</p>
-            <a class="final-demo-button" href="#contact">Let&apos;s Start a Conversation <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></a>
-          </div>
-          <div class="final-demo-partners" aria-label="Market platform partners">
-            <p>Trusted by learners · Connected with leading market platforms</p>
-            <div class="final-demo-logos">
-              <img src="/assets/about/angel-one-logo.webp" alt="Angel One" loading="lazy" decoding="async" />
-              <img src="/assets/about/dhan-logo.webp" alt="Dhan" loading="lazy" decoding="async" />
-            </div>
-          </div>
-        </section>
-
+        <div class="cta-faq-background">
         <section class="faq-section" id="faq" aria-labelledby="faq-title">
           <div class="faq-heading">
             <div>
               <p class="section-kicker">CLEAR ANSWERS. SMARTER STARTS.</p>
-              <h2 id="faq-title"><strong>Your questions,</strong><span>answered with clarity.</span></h2>
+              <h2 id="faq-title"><strong>Your questions,</strong><span class="faq-title-accent">answered with clarity.</span></h2>
               <p>Practical details for learners ready to take their first confident step into the market.</p>
             </div>
             <a class="faq-all-link" href="/contact">Ask our team <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></a>
@@ -258,10 +272,37 @@ export const landingMarkup = String.raw`
             </aside>
           </div>
         </section>
+        </div>
 
         <section class="home-location-section" aria-labelledby="home-location-title">
           <div class="home-map-frame"><div class="academy-map-slot" style="height:100%;width:100%"></div><div class="home-map-overlay"><p class="section-kicker">Visit Smisha In Pune</p><h2 id="home-location-title"><strong>Learn where market</strong><span>confidence is built.</span></h2><p>Visit the academy, meet the team, and explore practical stock market learning built for real progress.</p><a href="/contact">Plan your visit <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></a></div></div>
         </section>
+
+        <div class="cta-faq-background">
+        <section class="final-demo-cta" id="book-demo" aria-labelledby="final-demo-title">
+          <div class="final-demo-grainient-slot" aria-hidden="true"></div>
+          <div class="final-demo-candles" aria-hidden="true"></div>
+          <div class="final-demo-content-slot">
+          <div class="final-demo-card">
+            <div class="final-demo-avatars" aria-hidden="true">
+              <img src="/assets/students/student-1.jpeg" alt="" loading="lazy" decoding="async" />
+              <img src="/assets/students/student-2.jpeg" alt="" loading="lazy" decoding="async" />
+              <img src="/assets/students/student-3.jpeg" alt="" loading="lazy" decoding="async" />
+            </div>
+            <h2 id="final-demo-title">Get tomorrow&apos;s<br /><span>competitive edge today</span></h2>
+            <p class="final-demo-copy">Start with a free demo and discover a practical learning path built around your market goals.</p>
+            <button class="final-demo-button" type="button" data-open-conversation>Let&apos;s Start a Conversation <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></button>
+          </div>
+          <div class="final-demo-partners" aria-label="Market platform partners">
+            <p>Trusted by learners · Connected with leading market platforms</p>
+            <div class="final-demo-logos">
+              <img src="/assets/about/angel-one-logo.webp" alt="Angel One" loading="lazy" decoding="async" />
+              <img src="/assets/about/dhan-logo.webp" alt="Dhan" loading="lazy" decoding="async" />
+            </div>
+          </div>
+          </div>
+        </section>
+        </div>
 
         <footer class="site-footer" id="contact">
           <div class="footer-contact-strip">

@@ -124,7 +124,7 @@ export default function HomeSplitHero() {
             />
           </h1>
           <p>{textSlide.description}</p>
-          <a className="home-split-cta" href="/contact">Book a free consultation <i className="fa-solid fa-arrow-right" aria-hidden="true" /></a>
+          <a className="home-split-cta" href="/contact" aria-label="Book a free consultation"><span className="glass-button-label" aria-hidden="true"><span>Book a free consultation</span><span>Let’s talk about your goals</span></span><i className="fa-solid fa-arrow-right" aria-hidden="true" /></a>
         </div>
         <div className="home-split-socials" aria-label="Follow Smisha Share Market">
           {socialLinks.map(([name, icon, href]) => <a key={name} href={href} target="_blank" rel="noreferrer" aria-label={name}><i className={`fa-brands ${icon}`} aria-hidden="true" /><span>{name}</span></a>)}

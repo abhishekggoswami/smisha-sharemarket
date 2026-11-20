@@ -1,18 +1,22 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import './SmishaLoader.css';
 
 const DIR = '/assets/smisha-loader';
-const DURATION = 3040;
-const pieces = ['bar-1', 'bar-2', 'bar-3', 'bar-4', 'bull', 'wordmark', 'subtitle', 'tagline'];
+const DURATION = 3500;
+const logoPieces = ['bar-1', 'bar-2', 'bar-3', 'bar-4', 'bull', 'wordmark', 'subtitle', 'tagline'];
+// Decorative price movement, not real market data.
+const chartCloses = [405, 384, 368, 382, 410, 432, 414, 390, 363, 374, 348, 320, 336, 365, 386, 367, 341, 352, 323, 299, 312, 341, 358, 337, 306, 279, 296, 273, 255];
 
 export default function SmishaLoader() {
   const [phase, setPhase] = useState('playing');
+  const previousOverflow = useRef('');
 
   useEffect(() => {
     const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     const originalOverflow = document.body.style.overflow;
+    previousOverflow.current = originalOverflow;
     document.body.style.overflow = 'hidden';
     if (reduced) setPhase('reduced');
     // CSS drives the exit on the compositor; React only removes its invisible overlay.
@@ -28,7 +32,7 @@ export default function SmishaLoader() {
 
   useEffect(() => {
     if (phase === 'done') {
-      document.body.style.overflow = '';
+      document.body.style.overflow = previousOverflow.current;
       window.__SMISHA_LOADER_COMPLETE__ = true;
       window.dispatchEvent(new Event('smisha-loader-complete'));
     }
@@ -38,35 +42,32 @@ export default function SmishaLoader() {
 
   return (
     <div className={`smisha-loader smisha-loader--${phase}`} role="status" aria-label="Loading Smisha Share Market Classes">
-      <div className="smisha-loader__ambient" aria-hidden="true" />
-      <div className="smisha-loader__market" aria-hidden="true">
-        <svg viewBox="0 0 1200 420" preserveAspectRatio="none">
-          <defs>
-            <linearGradient id="smisha-market-line" x1="0" x2="1">
-              <stop stopColor="#ff572d" stopOpacity="0"/>
-              <stop offset=".55" stopColor="#f6b756" stopOpacity=".48"/>
-              <stop offset="1" stopColor="#ff572d" stopOpacity=".1"/>
-            </linearGradient>
-          </defs>
-          <path className="smisha-loader__market-path" d="M0 320 L100 295 L168 303 L245 236 L295 248 L353 190 L413 220 L485 176 L548 196 L605 124 L666 146 L720 108 L784 143 L840 87 L902 103 L960 66 L1025 92 L1090 31 L1200 65" fill="none" stroke="url(#smisha-market-line)" strokeWidth="2"/>
+      <div className="smisha-intro__ambient" aria-hidden="true" />
+      <div className="smisha-intro__grid" aria-hidden="true" />
+      <div className="smisha-intro__topline" aria-hidden="true"><span>SMISHA SHARE MARKET</span><span>PUNE, INDIA</span></div>
+      <div className="smisha-intro__chart" aria-hidden="true">
+        <svg viewBox="0 0 1440 600" preserveAspectRatio="none">
+          {chartCloses.map((close, index) => {
+            const open = index ? chartCloses[index - 1] : 420;
+            const top = Math.min(open, close);
+            const bottom = Math.max(open, close);
+            return <g key={index} className={`smisha-intro__candle ${close < open ? 'is-rising' : 'is-falling'}`} style={{ animationDelay: `${0.12 + index * 0.065}s` }}>
+              <line x1={index * 50 + 20} x2={index * 50 + 20} y1={top - 9 - index % 4 * 3} y2={bottom + 10 + index % 3 * 4} />
+              <rect x={index * 50 + 14} y={top} width="12" height={Math.max(5, bottom - top)} rx="1" />
+            </g>;
+          })}
         </svg>
       </div>
-      <div className="smisha-loader__orbital" aria-hidden="true" />
-      <div className="smisha-loader__art" role="img" aria-label="Smisha Share Market Classes. Learn. Analyse. Grow.">
-        {pieces.map((part) => (
-          <img key={part} className={`smisha-loader__piece smisha-loader__${part}`}
-            src={`${DIR}/${part}.png`} width="1371" height="1148"
-            alt="" draggable="false" decoding="async" />
-        ))}
-        <img className="smisha-loader__final" src={`${DIR}/original-logo.png`}
-          width="1371" height="1148" alt="" draggable="false" decoding="async" />
-        <div className="smisha-loader__shine" aria-hidden="true" />
+      <div className="smisha-intro__center">
+        <div className="smisha-intro__rings" aria-hidden="true"><span /><span /><span /></div>
+        <div className="smisha-intro__logo" role="img" aria-label="Smisha Share Market Classes. Learn. Analyse. Grow.">
+          {logoPieces.map(part => <img key={part} className={`smisha-intro__piece smisha-intro__piece--${part}`} src={`${DIR}/${part}.png`} width="1371" height="1148" alt="" draggable="false" />)}
+          <img className="smisha-intro__logo-static" src={`${DIR}/original-logo.png`} width="1371" height="1148" alt="" draggable="false" />
+          <div className="smisha-intro__light" aria-hidden="true" />
+        </div>
+        <div className="smisha-intro__signature" aria-hidden="true"><span>KNOWLEDGE</span><i /><span>DISCIPLINE</span><i /><span>GROWTH</span></div>
       </div>
-      <div className="smisha-loader__footer" aria-hidden="true">
-        <span className="smisha-loader__footer-line" />
-        <span className="smisha-loader__footer-dot" />
-        <span className="smisha-loader__footer-line" />
-      </div>
+      <div className="smisha-intro__bottom" aria-hidden="true"><span>PREPARING YOUR EXPERIENCE</span><div className="smisha-intro__track"><span /></div><span>EST. IN PUNE</span></div>
       <button type="button" className="smisha-loader__skip" onClick={() => setPhase('done')}>
         Skip intro <span aria-hidden="true">→</span>
       </button>
