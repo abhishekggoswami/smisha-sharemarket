@@ -56,19 +56,28 @@ export default function HomeSplitHero() {
   const [active, setActive] = useState(0);
   const [activeText, setActiveText] = useState(0);
   const [textPhase, setTextPhase] = useState('visible');
+  const [introReady, setIntroReady] = useState(false);
   const textTransitionFrame = useRef();
   const slide = slides[active];
   const textSlide = textSlides[activeText];
 
   useEffect(() => {
-    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return undefined;
-    // Leave enough time for the photo's slow zoom cycle to feel intentional.
-    const timer = window.setInterval(() => setActive(index => (index + 1) % slides.length), 8500);
-    return () => window.clearInterval(timer);
+    const start = () => setIntroReady(true);
+    window.addEventListener('smisha-loader-complete', start, { once: true });
+    if (window.__SMISHA_LOADER_COMPLETE__ || !document.querySelector('.smisha-loader')) start();
+    const safeguard = window.setTimeout(start, 5000);
+    return () => { window.removeEventListener('smisha-loader-complete', start); window.clearTimeout(safeguard); };
   }, []);
 
   useEffect(() => {
-    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return undefined;
+    if (!introReady || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return undefined;
+    // Leave enough time for the photo's slow zoom cycle to feel intentional.
+    const timer = window.setInterval(() => setActive(index => (index + 1) % slides.length), 8500);
+    return () => window.clearInterval(timer);
+  }, [introReady]);
+
+  useEffect(() => {
+    if (!introReady || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return undefined;
 
     let hideTimer;
     let revealTimer;
@@ -88,12 +97,12 @@ export default function HomeSplitHero() {
       window.clearTimeout(revealTimer);
       window.cancelAnimationFrame(textTransitionFrame.current);
     };
-  }, []);
+  }, [introReady]);
 
   const choose = (direction) => setActive(index => (index + direction + slides.length) % slides.length);
 
   return (
-    <section className="home-split-hero" aria-labelledby="home-split-title">
+    <section className={`home-split-hero ${introReady ? 'home-split-hero--intro-ready' : 'home-split-hero--intro-waiting'}`} aria-labelledby="home-split-title">
       <div className="home-split-video-panel">
         <video className="home-split-video" autoPlay muted loop playsInline preload="auto" aria-hidden="true">
           <source src="/assets/hero-background.mp4" type="video/mp4" />
@@ -102,7 +111,7 @@ export default function HomeSplitHero() {
         <div className={`home-split-copy home-split-copy--${textPhase}`}>
           <p className="home-split-kicker">Pune&apos;s share market academy</p>
           <h1 id="home-split-title">
-            <SplitText
+            {introReady ? <SplitText
               text={textSlide.heading[0]}
               className="home-split-heading-line"
               delay={22}
@@ -111,8 +120,8 @@ export default function HomeSplitHero() {
               splitType="words, chars"
               staggerFrom="start"
               mask={false}
-            />
-            <SplitText
+            /> : <span className="home-split-heading-line">{textSlide.heading[0]}</span>}
+            {introReady ? <SplitText
               text={textSlide.heading[1]}
               className="home-split-heading-line home-split-heading-accent"
               delay={22}
@@ -121,7 +130,7 @@ export default function HomeSplitHero() {
               splitType="words, chars"
               staggerFrom="start"
               mask={false}
-            />
+            /> : <span className="home-split-heading-line home-split-heading-accent">{textSlide.heading[1]}</span>}
           </h1>
           <p>{textSlide.description}</p>
           <a className="home-split-cta" href="/contact" aria-label="Book a free consultation"><span className="glass-button-label" aria-hidden="true"><span>Book a free consultation</span><span>Let’s talk about your goals</span></span><i className="fa-solid fa-arrow-right" aria-hidden="true" /></a>

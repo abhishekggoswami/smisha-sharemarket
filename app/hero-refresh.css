@@ -247,6 +247,25 @@ body .page-shell .hero::before, body .page-shell .hero::after { content: none; }
 .home-split-gallery-controls { display:grid; gap:10px; position:absolute; right:clamp(22px,3vw,48px); top:50%; transform:translateY(-50%); }
 .home-split-gallery-controls button { align-items:center; background:#fff; border:0; border-radius:50%; color:#172039; cursor:pointer; display:flex; font-size:14px; height:46px; justify-content:center; transition:background .2s ease,transform .2s ease; width:46px; }
 .home-split-gallery-controls button:hover { background:#f6b756; transform:scale(1.08); }
+/* The hero starts its staged entrance only after the opening loader finishes. */
+@media (prefers-reduced-motion: no-preference) {
+  .home-split-hero--intro-waiting .home-split-copy > *,
+  .home-split-hero--intro-waiting .home-split-socials,
+  .home-split-hero--intro-waiting .home-split-info-card,
+  .home-split-hero--intro-waiting .home-split-gallery-panel { opacity: 0; }
+  .home-split-hero--intro-ready .home-split-kicker { animation: home-intro-rise .7s cubic-bezier(.2,.75,.25,1) .08s backwards; }
+  .home-split-hero--intro-ready .home-split-copy > p:not(.home-split-kicker) { animation: home-intro-rise .75s cubic-bezier(.2,.75,.25,1) .48s backwards; }
+  .home-split-hero--intro-ready .home-split-cta { animation: home-intro-rise .75s cubic-bezier(.2,.75,.25,1) .68s backwards; }
+  .home-split-hero--intro-ready .home-split-socials { animation: home-intro-rise .75s ease .85s backwards; }
+  .home-split-hero--intro-ready .home-split-gallery-panel { animation: home-intro-photo .95s cubic-bezier(.2,.75,.25,1) .12s backwards; }
+  .home-split-hero--intro-ready .home-split-info-card { animation: home-intro-rise .8s cubic-bezier(.2,.75,.25,1) .75s backwards; }
+  .home-split-hero--intro-ready .home-split-gallery-dots,
+  .home-split-hero--intro-ready .home-split-gallery-controls,
+  .home-split-hero--intro-ready .home-split-read-more { animation: home-intro-fade .7s ease .8s backwards; }
+}
+@keyframes home-intro-rise { from { opacity: 0; transform: translateY(26px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes home-intro-photo { from { opacity: 0; clip-path: inset(0 0 0 9%); } to { opacity: 1; clip-path: inset(0); } }
+@keyframes home-intro-fade { from { opacity: 0; } to { opacity: 1; } }
 @keyframes home-split-gallery-zoom {
   0% { opacity:0; transform:scale(1.012) translate(var(--gallery-start-x),var(--gallery-start-y)); }
   12% { opacity:1; }
