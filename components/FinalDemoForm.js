@@ -52,7 +52,7 @@ export default function FinalDemoForm({ initialOpen = false }) {
         <img src="/assets/students/student-2.jpeg" alt="" loading="lazy" decoding="async" />
         <img src="/assets/students/student-3.jpeg" alt="" loading="lazy" decoding="async" />
       </div>
-      <h2 id="final-demo-title">Get tomorrow&apos;s<br /><span>competitive edge today</span></h2>
+      <h2 id="final-demo-title">Get tomorrow&apos;s<br /><span>competitive <em className="heading-gold">edge</em> today</span></h2>
       <p className="final-demo-copy">Start with a free demo and discover a practical learning path built around your market goals.</p>
       <button type="button" className="final-demo-button" ref={introButtonRef} onClick={() => setView('form')}>Let&apos;s Start a Conversation <i className="fa-solid fa-arrow-right" aria-hidden="true" /></button>
     </div>
@@ -65,7 +65,7 @@ export default function FinalDemoForm({ initialOpen = false }) {
   return <div className="final-demo-form-panel">
     <button className="final-demo-back" type="button" onClick={goBack} disabled={status === 'saving'}><i className="fa-solid fa-arrow-left" aria-hidden="true" /> Back</button>
     <p className="final-demo-form-kicker">LET&apos;S START A CONVERSATION</p>
-    <h2 id="final-demo-title">Your next step <span>starts here.</span></h2>
+    <h2 id="final-demo-title">Your <em className="heading-gold">next step</em> starts here.</h2>
     {status === 'success' ? <div className="final-demo-success" role="status"><strong>Thank you for reaching out.</strong><p>Your request has been recorded. The Smisha team will be in touch.</p><button type="button" className="final-demo-button" onClick={goBack}>Done</button></div> : <>
       <p className="final-demo-form-intro">Tell us a little about yourself and we&apos;ll help you find the right learning path.</p>
       <form className="final-demo-form" onSubmit={submit}>

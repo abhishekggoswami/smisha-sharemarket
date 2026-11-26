@@ -116,7 +116,7 @@ export default function Grainient({
     const stopAnimation = createVisibleAnimation(container, now => {
       program.uniforms.uTime.value = now / 1000;
       render();
-    });
+    }, 24);
 
     return () => {
       stopAnimation();

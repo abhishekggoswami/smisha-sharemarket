@@ -8,7 +8,7 @@ const WIDTH = 1600;
 const HEIGHT = 700;
 const PERIOD = 3000;
 
-export default function MarketGrowthChart() {
+export default function MarketGrowthChart({ upColor = '#2B7A7A', downColor = '#D4AF37' }) {
   const canvasRef = useRef(null);
 
   useEffect(() => {
@@ -23,13 +23,14 @@ export default function MarketGrowthChart() {
     let frame = 0;
     let visible = false;
     let lastFrame = 0;
+    let lastDraw = 0;
     let elapsed = 0;
     let tickElapsed = 0;
     let shift = 1;
 
     const resize = () => {
       const bounds = canvas.getBoundingClientRect();
-      const ratio = Math.min(window.devicePixelRatio || 1, 2);
+      const ratio = Math.min(window.devicePixelRatio || 1, 1.5);
       canvas.width = Math.max(1, Math.round(bounds.width * ratio));
       canvas.height = Math.max(1, Math.round(bounds.height * ratio));
       draw();
@@ -40,7 +41,7 @@ export default function MarketGrowthChart() {
       const step = WIDTH / (candles.length - 1);
       candles.forEach((candle, index) => {
         const x = index * step + (1 - shift) * step;
-        context.strokeStyle = context.fillStyle = candle.close <= candle.open ? '#168b65' : '#d94c5a';
+        context.strokeStyle = context.fillStyle = candle.close <= candle.open ? upColor : downColor;
         context.lineWidth = 2;
         context.beginPath();
         context.moveTo(x, candle.high);
@@ -71,7 +72,10 @@ export default function MarketGrowthChart() {
         candles.push({ open: previous, close: previous, high: previous, low: previous });
         shift = 0;
       }
-      draw();
+      if (now - lastDraw >= 1000 / 30) {
+        draw();
+        lastDraw = now;
+      }
       frame = window.requestAnimationFrame(animate);
     };
     const start = () => {
@@ -96,7 +100,7 @@ export default function MarketGrowthChart() {
       document.removeEventListener('visibilitychange', onVisibility);
       motion.removeEventListener?.('change', onMotion);
     };
-  }, []);
+  }, [upColor, downColor]);
 
   return <canvas ref={canvasRef} />;
 }

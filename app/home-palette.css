@@ -1,0 +1,763 @@
+/* Homepage brand palette. Layout, media, and responsive geometry remain unchanged. */
+.landing-page {
+  --brand-purple: #1B5E5E;
+  --brand-purple-deep: #0A2E2E;
+  --brand-purple-soft: #4CB5B5;
+  --brand-orange: #D4AF37;
+  --primary-teal: #1B5E5E;
+  --secondary-teal: #2B7A7A;
+  --muted-teal: #3A9B9B;
+  --teal-accent: #4CB5B5;
+  --deep-teal: #0A2E2E;
+  --deep-teal-raised: #1B5E5E;
+  --gold: #D4AF37;
+  --green: #1B5E5E;
+  --lime: #D4AF37;
+  --text: #0A2E2E;
+  --ink: #0A2E2E;
+  --surface: #fff;
+  --surface-warm: #f5faf8;
+  --surface-mint: #e8f4f1;
+  --theme-deep: #0A2E2E;
+  --theme-action: #1B5E5E;
+  --theme-action-hover: #2B7A7A;
+  background: #fff;
+  color: #0A2E2E;
+}
+/* Light washes make the dark first line legible without hiding the video or photo. */
+.landing-page .home-split-video-wash {
+  background: linear-gradient(110deg, rgba(246,252,250,.97), rgba(225,244,239,.94) 56%, rgba(205,235,228,.88));
+}
+.landing-page .home-split-copy > p:not(.home-split-kicker) { color: #556060; }
+.landing-page .home-split-kicker, .landing-page .home-split-socials a { color: #1B5E5E; }
+.landing-page .home-split-kicker::before { background: #D4AF37; }
+.landing-page .home-split-socials i { background: rgba(255,255,255,.85); color: #1B5E5E; }
+.landing-page .home-split-cta { background: #1B5E5E; border-color: #1B5E5E; color: #fff; }
+.landing-page .home-split-cta:hover { background: #2B7A7A; border-color: #2B7A7A; color: #fff; }
+.landing-page .home-split-gallery-wash { background: linear-gradient(180deg, transparent 50%, rgba(10,46,46,.28)); }
+.landing-page .home-split-gallery-panel::after {
+  background: url('/assets/hero-film-grain.svg') repeat;
+  content: '';
+  inset: 0;
+  mix-blend-mode: soft-light;
+  opacity: .18;
+  pointer-events: none;
+  position: absolute;
+  z-index: 2;
+}
+.landing-page .home-split-gallery-controls { z-index: 3; }
+.landing-page .home-split-gallery-dots button.is-active { background: #D4AF37; border-color: #D4AF37; }
+/* These sections used dark backgrounds with white headings; the new dark headings
+   use softly tinted surfaces so their contrast remains strong. */
+.landing-page .services-section {
+  background: radial-gradient(circle at 82% 8%, rgba(76,181,181,.15), transparent 29rem), linear-gradient(135deg, #f7fcfa, #e5f4f0 62%, #d7ede8);
+}
+.landing-page .services-section::before {
+  background-image: linear-gradient(90deg, rgba(43,122,122,.03), rgba(43,122,122,.15)), url('/assets/course-bull-watermark.webp');
+}
+.landing-page .services-heading .section-kicker, .landing-page .services-subheading { color: #1B5E5E; }
+.landing-page .services-heading .services-carousel-controls button { background: rgba(255,255,255,.75); border-color: rgba(27,94,94,.28); color: #1B5E5E; }
+.landing-page .services-heading .services-carousel-controls button:hover { background: #1B5E5E; color: #fff; }
+.landing-page .credibility-section {
+  background-color: #e4f2ee;
+  background-image: linear-gradient(90deg, rgba(242,250,247,.97), rgba(227,244,239,.94) 53%, rgba(212,237,230,.90)), url('/assets/event-gallery/event-stage-portrait.jpg');
+  color: #0A2E2E;
+}
+.landing-page .credibility-kicker { color: #1B5E5E; }
+.landing-page .credibility-intro p, .landing-page .credibility-proof p { color: #556060; }
+.landing-page .credibility-proof h3 { color: #0A2E2E; }
+.landing-page .credibility-proof { border-color: rgba(27,94,94,.24); }
+.landing-page .credibility-intro a, .landing-page .credibility-intro a:hover { color: #1B5E5E; }
+.landing-page .india-testimonials-section { background: radial-gradient(circle at 12% 75%, rgba(76,181,181,.13), transparent 29rem), linear-gradient(140deg, #f8fcfb, #e3f3ee); }
+.landing-page .india-testimonials-heading p:not(.section-kicker) { color: #556060; }
+.landing-page .india-map-attribution, .landing-page .india-map-loading { color: #1B5E5E; }
+.landing-page .india-map-attribution:hover { color: #0A2E2E; }
+.landing-page .india-review-card { border-color: rgba(27,94,94,.12); box-shadow: 0 15px 35px rgba(10,46,46,.12); }
+/* Deep teal carries the main calls to action; gold remains a small highlight. */
+.landing-page :is(.appointment, .services-button, .faq-all-link, .final-demo-button, .home-map-overlay > a) { background: #1B5E5E; border-color: #1B5E5E; color: #fff; }
+.landing-page :is(.appointment, .services-button, .faq-all-link, .final-demo-button, .home-map-overlay > a):hover { background: #2B7A7A; border-color: #2B7A7A; color: #fff; }
+.landing-page .home-location-section .home-map-overlay.location-reveal-ready {
+  opacity: 0;
+  translate: 0 24px;
+  transition: opacity .65s ease, translate .75s cubic-bezier(.2,.75,.25,1);
+}
+.landing-page .home-location-section .home-map-overlay.is-location-visible,
+.landing-page .home-location-section .home-map-overlay.location-reveal-ready:focus-within { opacity: 1; translate: 0 0; }
+/* Keep the visit invitation compact and its two actions easy to distinguish. */
+.landing-page .home-location-section .home-map-overlay {
+  box-sizing: border-box;
+  padding: clamp(22px, 2.2vw, 30px);
+  width: min(395px, calc(100% - 32px));
+}
+.landing-page .page-shell .home-location-section #home-location-title {
+  font-size: clamp(1.9rem, 2.5vw, 2.45rem) !important;
+  letter-spacing: -.035em !important;
+  line-height: 1.13 !important;
+}
+.landing-page .home-location-section .home-map-overlay > p:not(.section-kicker) {
+  font-size: .92rem;
+  line-height: 1.6;
+  margin: 16px 0 20px;
+}
+.landing-page .home-location-section .home-map-overlay > a {
+  box-sizing: border-box;
+  justify-content: center;
+  min-height: 44px;
+  width: auto;
+}
+.landing-page .home-location-section .home-map-overlay > .home-map-external {
+  background: transparent;
+  border: 1px solid rgba(27, 94, 94, .35);
+  color: #1b5e5e;
+  display: inline-flex;
+  font-size: .82rem;
+  gap: 8px;
+  margin: 10px 0 0;
+  padding: 0 15px;
+  text-decoration: none;
+}
+.landing-page .home-location-section .home-map-overlay > .home-map-external:hover {
+  background: #e7f3ef;
+  border-color: #1b5e5e;
+  color: #0a2e2e;
+}
+@media (max-width: 620px) {
+  .landing-page .home-location-section .home-map-overlay { width: 100%; }
+  .landing-page .page-shell .home-location-section #home-location-title { font-size: clamp(1.8rem, 7.5vw, 2.2rem) !important; }
+  .landing-page .home-location-section .home-map-overlay > a { width: 100%; }
+}
+.landing-page .footer-contact-strip { background: linear-gradient(110deg, #0a302f 0%, #1b6260 35%, #2b817a 58%, #0b3938 85%, #0a302f 100%); background-size: 250% 250%; color: #fff; }
+.landing-page .footer-contact-strip .footer-mail-icon { color: #1b5e5e; }
+@media (prefers-reduced-motion: no-preference) {
+  .landing-page .footer-contact-strip { animation: faq-teal-gradient 12s ease-in-out infinite alternate; }
+}
+.landing-page .footer-contact-strip a { color: #fff; }
+.landing-page .site-footer { background: #0A2E2E; }
+.landing-page .cta-faq-background { background: linear-gradient(120deg, #f8fcfa, #e8f5f1 55%, #f5fbf9); }
+.landing-page > .site-header.home-pattern-header .appointment,
+.landing-page .home-courses-carousel .services-button,
+.landing-page .home-split-cta {
+  background: linear-gradient(135deg, #1B5E5E, #2B7A7A);
+  border-color: #1B5E5E;
+  color: #fff;
+}
+.landing-page > .site-header.home-pattern-header .appointment:is(:hover, :focus-visible),
+.landing-page .home-courses-carousel .services-button:hover,
+.landing-page .home-split-cta:is(:hover, :focus-visible) {
+  background: linear-gradient(135deg, #2B7A7A, #3A9B9B);
+  border-color: #2B7A7A;
+  color: #fff;
+}
+.landing-page .final-demo-cta { background: linear-gradient(115deg, #f8fcfb, #e1f2ed 52%, #eff9f6) !important; }
+/* Consistent homepage text colors, including the split-letter wrappers. */
+.landing-page .page-shell :is(#home-split-title, #market-growth-title, #services-title, #academy-gallery-title, #credibility-title, #stories-title, #india-testimonials-title, #faq-title, #home-location-title, #final-demo-title),
+.landing-page .page-shell :is(#home-split-title, #market-growth-title, #services-title, #academy-gallery-title, #credibility-title, #stories-title, #india-testimonials-title, #faq-title, #home-location-title, #final-demo-title) * {
+  color: #0A2E2E !important;
+}
+.landing-page .page-shell :is(#home-split-title, #market-growth-title, #services-title, #academy-gallery-title, #credibility-title, #stories-title, #india-testimonials-title, #faq-title, #home-location-title, #final-demo-title) * {
+  font-family: inherit !important;
+  font-weight: inherit !important;
+}
+/* Subheadings, paragraphs and course-card copy use the specified muted grey. */
+.landing-page .page-shell :is(.market-growth-section, .services-section, .academy-gallery-section, .credibility-section, .stories-section, .india-testimonials-section, .faq-section, .home-location-section, .final-demo-cta) p {
+  color: #556060 !important;
+}
+.landing-page .page-shell :is(.home-split-copy > p:not(.home-split-kicker), .course-description, .course-subtitle, .story-testimonial blockquote) {
+  color: #556060 !important;
+}
+.landing-page .page-shell :is(.section-kicker, .market-growth-kicker, .credibility-kicker, .home-split-kicker) {
+  color: #0A2E2E !important;
+}
+/* Keep light copy on the remaining dark cards legible. */
+.landing-page .page-shell :is(.faq-item[open], .faq-help-card, .feature-card) p { color: #f1f7f6 !important; }
+.landing-page #services .course-card-arrow,
+.landing-page #services .course-card-arrow i { color: #1B5E5E !important; }
+.landing-page #services .course-card-top:is(:hover, :focus-visible) .course-card-arrow,
+.landing-page #services .course-card-top:is(:hover, :focus-visible) .course-card-arrow i { color: #fff !important; }
+/* Give raised course cards room inside the clipped carousel viewport. */
+.landing-page #services .services-carousel-viewport {
+  box-sizing: border-box;
+  margin-inline: -10px;
+  max-width: none;
+  padding: 14px 10px 28px;
+}
+.landing-page #services .course-card-arrow {
+  padding-bottom: 0;
+  transition: background-color .25s ease, box-shadow .25s ease;
+}
+.landing-page #services .service-card:is(:hover, :focus-within) .course-card-arrow {
+  background: #fbf7e9;
+  box-shadow: inset 0 0 0 1px rgba(212, 175, 55, .55);
+  color: #173f3d !important;
+  transform: none;
+}
+.landing-page #services .service-card:is(:hover, :focus-within) .course-card-arrow i {
+  color: #173f3d !important;
+  transform: translateX(3px);
+}
+@media (prefers-reduced-motion: reduce) {
+  .landing-page #services .service-card:is(:hover, :focus-within) .course-card-arrow i { transform: none; }
+}
+/* The bull artwork is a raster asset; neutralize its old purple tint. */
+.landing-page #services.services-section::before { filter: grayscale(1); }
+.landing-page .page-shell p:is(.section-kicker, .market-growth-kicker, .credibility-kicker, .home-split-kicker) { color: #0A2E2E !important; }
+.landing-page .faq-help-card { background: linear-gradient(145deg, #f8fcfb, #e0f1ed); color: #0A2E2E; }
+.landing-page .faq-help-card h3 { color: #0A2E2E; }
+.landing-page .page-shell .faq-help-card p { color: #556060 !important; }
+/* A gently shifting teal background keeps the guidance card legible. */
+.landing-page .page-shell .faq-help-card { background: #0a3938; isolation: isolate; }
+.landing-page .page-shell .faq-help-card::before {
+  background: linear-gradient(120deg, #0a302f 0%, #1b6260 35%, #247c75 55%, #0b3938 80%, #0a302f 100%);
+  background-size: 250% 250%;
+  content: '';
+  inset: 0;
+  pointer-events: none;
+  position: absolute;
+  z-index: 0;
+}
+.landing-page .page-shell .faq-help-card h3 { color: #fff !important; }
+.landing-page .page-shell .faq-help-card > p:not(.faq-help-eyebrow),
+.landing-page .page-shell .faq-help-card .faq-help-points span { color: #e7f4f0 !important; }
+.landing-page .page-shell .faq-help-card .faq-help-eyebrow { color: #e8c65c !important; }
+.landing-page .page-shell .faq-help-card .faq-help-icon { background: rgba(255,255,255,.12); border-color: rgba(255,255,255,.3); color: #f2d578; }
+.landing-page .page-shell .faq-help-card .faq-help-points i { background: rgba(255,255,255,.14); color: #f2d578; }
+.landing-page .page-shell .faq-help-card > a { background: #fff; color: #0a3d39; }
+.landing-page .page-shell .faq-help-card > a:hover { background: #f3e5ad; color: #0a3d39; }
+@media (prefers-reduced-motion: no-preference) {
+  .landing-page .page-shell .faq-help-card::before { animation: faq-teal-gradient 12s ease-in-out infinite alternate; }
+}
+@keyframes faq-teal-gradient { from { background-position: 0% 45%; } to { background-position: 100% 55%; } }
+.landing-page #services.services-section::before { opacity: .07; }
+.landing-page .page-shell :is(#home-split-title, #market-growth-title, #services-title, #academy-gallery-title, #credibility-title, #stories-title, #india-testimonials-title, #faq-title, #home-location-title, #final-demo-title) { font-family: 'Plus Jakarta Sans', sans-serif !important; }
+/* A deeper teal wash keeps the existing dark and gold hero text legible. */
+.landing-page .home-split-video-wash {
+  background: linear-gradient(112deg, rgba(213, 236, 228, .97) 0%, rgba(191, 225, 215, .95) 52%, rgba(161, 207, 197, .93) 100%);
+}
+/* Keep the moving market video visible, with a deeper teal towards the image. */
+.landing-page .home-split-video-wash {
+  background: linear-gradient(90deg, rgba(229, 246, 240, .72) 0%, rgba(193, 227, 218, .78) 48%, rgba(139, 193, 183, .84) 100%);
+}
+/* Images overlap while fading, then gently zoom throughout their display. */
+.landing-page .home-split-gallery-image {
+  animation: none !important;
+  opacity: 0;
+  transform: scale(1);
+  transition: opacity 1.25s ease-in-out, transform 9s linear;
+}
+.landing-page .home-split-gallery-image.is-active { opacity: 1; }
+.landing-page .home-split-gallery-image.is-active.is-zooming { transform: scale(1.08); }
+@media (prefers-reduced-motion: no-preference) {
+  .landing-page .home-split-gallery-fallback .home-split-gallery-image { animation: fallback-hero-slideshow 27.2s infinite !important; opacity: 0; }
+  .landing-page .home-split-gallery-fallback .home-split-gallery-image--1 { animation-delay: 6.8s !important; }
+  .landing-page .home-split-gallery-fallback .home-split-gallery-image--2 { animation-delay: 13.6s !important; }
+  .landing-page .home-split-gallery-fallback .home-split-gallery-image--3 { animation-delay: 20.4s !important; }
+  @keyframes fallback-hero-slideshow {
+    0% { opacity: 0; transform: scale(1); }
+    4% { opacity: 1; }
+    23% { opacity: 1; }
+    27% { opacity: 0; transform: scale(1.06); }
+    100% { opacity: 0; transform: scale(1); }
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .landing-page .home-split-gallery-image { transition: none; }
+  .landing-page .home-split-gallery-image.is-active.is-zooming { transform: none; }
+}
+/* Match the map section's deep teal while retaining dark, readable heading text. */
+.landing-page #services.services-section {
+  background: linear-gradient(135deg, #0A2E2E 0%, #103F3E 55%, #1B5E5E 100%);
+}
+.landing-page #services .services-heading > div:first-child {
+  background: #f4faf8;
+  border-radius: 10px;
+  box-shadow: 0 0 0 14px #f4faf8;
+}
+/* The course heading sits directly on the teal background. */
+.landing-page #services .services-heading > div:first-child { background: transparent; box-shadow: none; border-radius: 0; }
+.landing-page .page-shell #services #services-title > strong,
+.landing-page .page-shell #services #services-title > strong * { color: #fff !important; }
+.landing-page .page-shell #services .services-subheading { color: #e5f0ed !important; }
+/* One rule leads into left-aligned labels; centered labels are framed on both sides. */
+.landing-page .page-shell p:is(.section-kicker, .market-growth-kicker, .credibility-kicker, .home-split-kicker, .faq-help-eyebrow) {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  color: #D4AF37 !important;
+}
+.landing-page .page-shell p:is(.section-kicker, .market-growth-kicker, .credibility-kicker, .home-split-kicker, .faq-help-eyebrow)::before {
+  content: '';
+  display: block;
+  flex: 0 0 32px;
+  width: 32px;
+  height: 1px;
+  background: rgba(212, 175, 55, .65);
+}
+.landing-page .india-testimonials-heading .section-kicker::after {
+  content: '';
+  display: block;
+  flex: 0 0 32px;
+  width: 32px;
+  height: 1px;
+  background: rgba(212, 175, 55, .65);
+}
+/* Keep the video visible and bring a little more depth to the right edge. */
+.landing-page .home-split-video-wash {
+  background: linear-gradient(90deg, rgba(231, 247, 241, .68) 0%, rgba(187, 224, 213, .77) 48%, rgba(105, 169, 157, .85) 100%);
+}
+.landing-page .home-split-gallery-image { transition-duration: 1s, 7.2s; }
+@media (prefers-reduced-motion: reduce) { .landing-page .home-split-gallery-image { transition: none; } }
+/* The course link stays dark; its gold underline provides a quiet hover cue. */
+.landing-page .market-growth-cta {
+  color: #101010;
+  background: transparent;
+  box-shadow: none;
+  text-decoration: underline;
+  text-decoration-color: rgba(212, 175, 55, .65);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 5px;
+  transition: text-decoration-color .2s ease, text-decoration-thickness .2s ease, text-underline-offset .2s ease;
+}
+.landing-page .market-growth-cta:is(:hover, :focus-visible) {
+  color: #101010;
+  background: transparent;
+  box-shadow: none;
+  text-decoration-color: #D4AF37;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 7px;
+}
+/* Keep gallery photography clear; shade the section's lower edge instead. */
+.landing-page .academy-gallery-section {
+  background: linear-gradient(180deg, #f9fcfb 0%, #f6fbf9 64%, #deeeea 100%);
+}
+.landing-page .academy-accordion-shade { background: none; }
+.landing-page .academy-accordion-caption { text-shadow: 0 1px 4px rgba(0, 0, 0, .9), 0 2px 10px rgba(0, 0, 0, .6); }
+/* Darken the credibility photograph while keeping the text legible. */
+.landing-page .credibility-section {
+  background-color: #0A2E2E;
+  background-image: linear-gradient(105deg, rgba(10, 46, 46, .93) 0%, rgba(14, 61, 59, .88) 52%, rgba(10, 46, 46, .78) 100%), url('/assets/event-gallery/event-stage-portrait.jpg');
+  color: #fff;
+}
+.landing-page .page-shell #credibility-title > span,
+.landing-page .page-shell #credibility-title > span * { color: #fff !important; }
+.landing-page .credibility-proof h3 { color: #fff; }
+.landing-page .page-shell .credibility-section :is(.credibility-intro p, .credibility-proof p) { color: #e0ece9 !important; }
+.landing-page .credibility-proof { border-color: rgba(255, 255, 255, .26); }
+.landing-page .credibility-intro a { color: #D4AF37; }
+.landing-page .credibility-intro a:hover { color: #fff; }
+/* Let the bull watermark fade naturally into the courses background. */
+.landing-page #services.services-section::before {
+  background-image: url('/assets/course-bull-watermark.webp');
+  background-position: left bottom;
+  background-repeat: no-repeat;
+  background-size: auto 100%;
+  opacity: .26;
+  -webkit-mask-image: linear-gradient(to right, #000 0%, rgba(0, 0, 0, .8) 30%, transparent 100%);
+  mask-image: linear-gradient(to right, #000 0%, rgba(0, 0, 0, .8) 30%, transparent 100%);
+}
+/* A light accent at the top of learner stories; feedback cards stay white. */
+.landing-page .stories-section {
+  background: radial-gradient(ellipse 32% 260px at 82% 0%, rgba(76, 181, 181, .12), transparent 100%), #fff;
+}
+.landing-page .stories-section .stories-viewport {
+  padding-block: 16px 24px;
+  clip-path: inset(0 0 0 max(0px, calc(var(--stories-left-gutter) - 16px)));
+}
+.landing-page .stories-section .story-slide {
+  background: #fff;
+  box-shadow: 0 8px 24px rgba(10, 46, 46, .09), 0 1px 4px rgba(10, 46, 46, .06), inset 0 0 0 1px rgba(27, 94, 94, .09);
+}
+/* Learner identity and YouTube thumbnail affordance. */
+.landing-page .stories-section .story-person :is(strong, span, em) { color: #111 !important; }
+.landing-page .stories-section .feedback-story-card .feedback-story-play {
+  width: 68px;
+  height: 48px;
+  border: 0;
+  border-radius: 12px;
+  background: rgba(33, 33, 33, .88);
+  color: #fff;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, .2);
+  transition: background-color .2s ease, transform .2s ease;
+}
+.landing-page .stories-section .feedback-story-card .feedback-story-play i { color: #fff; font-size: 20px; margin-left: 3px; }
+.landing-page .stories-section .feedback-story-card:is(:hover, :focus-visible) .feedback-story-play {
+  background: #ff0000;
+  transform: translate(-50%, -50%) scale(1.06);
+}
+@media (prefers-reduced-motion: reduce) {
+  .landing-page .stories-section .feedback-story-card .feedback-story-play { transition: none; }
+}
+/* Main headings use one or two gold words; the base follows the section background. */
+.landing-page .page-shell :is(#home-split-title, #market-growth-title, #services-title, #academy-gallery-title, #credibility-title, #stories-title, #india-testimonials-title, #faq-title, #home-location-title, #final-demo-title),
+.landing-page .page-shell :is(#home-split-title, #market-growth-title, #services-title, #academy-gallery-title, #credibility-title, #stories-title, #india-testimonials-title, #faq-title, #home-location-title, #final-demo-title) * {
+  color: #101010 !important;
+  font-family: 'Plus Jakarta Sans', sans-serif !important;
+  font-style: normal !important;
+}
+.landing-page .page-shell :is(#services-title, #credibility-title, #india-testimonials-title),
+.landing-page .page-shell :is(#services-title, #credibility-title, #india-testimonials-title) * { color: #fff !important; }
+.landing-page .page-shell :is(#home-split-title, #market-growth-title, #services-title, #academy-gallery-title, #credibility-title, #stories-title, #india-testimonials-title, #faq-title, #home-location-title, #final-demo-title) .heading-gold,
+.landing-page .page-shell :is(#home-split-title, #market-growth-title, #services-title, #academy-gallery-title, #credibility-title, #stories-title, #india-testimonials-title, #faq-title, #home-location-title, #final-demo-title) .heading-gold * {
+  color: #D4AF37 !important;
+  font-family: 'Playfair Display', serif !important;
+  font-style: italic !important;
+}
+.landing-page .page-shell :is(.market-growth-section, .services-section, .academy-gallery-section, .stories-section, .india-testimonials-section, .faq-section, .home-location-section, .final-demo-cta) :is(h3, h4) { color: #101010; }
+.landing-page .page-shell .credibility-section :is(h3, h4) { color: #fff; }
+.landing-page .page-shell .india-testimonials-heading > p:not(.section-kicker) { color: #e0ece9 !important; }
+/* Hero wash transitions into the same deep teal used by the top strip. */
+.landing-page .home-split-video-wash {
+  background: linear-gradient(90deg, rgba(187, 224, 212, .72) 0%, rgba(86, 155, 143, .82) 28%, rgba(27, 94, 88, .90) 55%, rgba(10, 46, 46, .96) 100%);
+}
+.landing-page .page-shell #home-split-title,
+.landing-page .page-shell #home-split-title * { color: #fff !important; }
+.landing-page .page-shell #home-split-title .heading-gold,
+.landing-page .page-shell #home-split-title .heading-gold * { color: #D4AF37 !important; }
+.landing-page .page-shell .home-split-copy > p:not(.home-split-kicker) { color: #eef7f4 !important; }
+/* Align each heading with the label and copy in its existing section. */
+.landing-page .page-shell :is(#home-split-title, #market-growth-title, #services-title, #academy-gallery-title, #credibility-title, #stories-title, #faq-title, #home-location-title) {
+  text-align: left !important;
+}
+.landing-page .page-shell #india-testimonials-title,
+.landing-page .page-shell .final-demo-card #final-demo-title { text-align: center !important; }
+.landing-page .page-shell .final-demo-form-panel #final-demo-title { text-align: left !important; }
+/* Keep both heading phrases aligned and comfortably within the copy column. */
+.landing-page .market-growth-copy #market-growth-title {
+  font-size: clamp(30px, 2.6vw, 40px) !important;
+  text-align: left !important;
+}
+.landing-page .market-growth-heading-slot .market-growth-heading-line { display: block; }
+/* The candles remain in the background, with familiar up/down colors. */
+.landing-page .market-growth-chart { opacity: .09; }
+.landing-page .academy-fallback .academy-accordion-panel { flex: 1 1 0; }
+.landing-page .academy-fallback .academy-accordion-panel.is-active { flex-grow: 7.6; }
+.landing-page .india-fallback-content { align-items: center; display: flex; gap: clamp(24px, 5vw, 80px); justify-content: center; min-height: 560px; }
+.landing-page .india-fallback-content > img { display: block; max-height: 610px; max-width: 540px; width: min(50%, 540px); }
+.landing-page .india-fallback-review { background: white; border-radius: 18px; box-shadow: 0 16px 36px rgba(0,0,0,.2); color: #123b39; max-width: 290px; padding: 24px; }
+.landing-page .india-fallback-review > span { font-size: 12px; font-weight: 700; }
+.landing-page .india-fallback-review > p { color: #d4af37 !important; letter-spacing: 3px; margin: 12px 0; }
+.landing-page .india-fallback-review strong, .landing-page .india-fallback-review small { display: block; }
+.landing-page .india-fallback-review small { color: #556060; margin-top: 5px; }
+.landing-page .india-fallback-review blockquote { font-size: 13px; line-height: 1.55; margin: 16px 0 0; }
+.landing-page .india-fallback-map { object-fit: contain; }
+.landing-page .india-review-initials {
+  align-items: center;
+  background: #e5f1ec;
+  border: 1px solid rgba(27, 94, 94, .18);
+  border-radius: 50%;
+  color: #1b5e5e;
+  display: inline-flex;
+  flex: 0 0 38px;
+  font-size: 11px;
+  font-weight: 800;
+  height: 38px;
+  justify-content: center;
+  width: 38px;
+}
+.landing-page .india-review-card-head > small { color: #647b76; font-size: 9px; }
+@media (max-width: 640px) {
+  .landing-page .india-fallback-content { flex-direction: column; min-height: 0; }
+  .landing-page .india-fallback-content > img { width: min(100%, 400px); }
+  .landing-page .india-fallback-review { max-width: 390px; width: 100%; }
+}
+@media (max-width: 1060px) { .landing-page .india-fallback .india-review-card:nth-of-type(n+5) { display: none; } }
+@media (max-width: 620px) { .landing-page .india-fallback .india-review-card:nth-of-type(n+2) { display: none; } }
+.landing-page .market-growth-section::before {
+  background: url('/assets/pune-skyline-original.png') center calc(100% + 2.1vw) / 100% auto no-repeat;
+  bottom: 0;
+  content: '';
+  inset-inline: 0;
+  mix-blend-mode: multiply;
+  opacity: .08;
+  pointer-events: none;
+  position: absolute;
+  top: 0;
+  z-index: 0;
+}
+.landing-page .market-growth-section.market-growth-motion-ready::before {
+  opacity: 0;
+  transform: translateY(70px);
+  transition: opacity 1.1s ease, transform 1.1s cubic-bezier(.2,.75,.25,1);
+}
+.landing-page .market-growth-section.market-growth-motion-ready.is-visible::before { opacity: .08; transform: translateY(0); }
+.landing-page .market-growth-section + .below-hero { padding-top: 0; }
+.landing-page .market-growth-section + .below-hero::before { display: none; }
+.landing-page .market-growth-section + .below-hero > .services-section { margin-top: 0; overflow: hidden; }
+@media (prefers-reduced-motion: reduce) {
+  .landing-page .market-growth-section.market-growth-motion-ready::before { opacity: .08; transform: none; transition: none; }
+}
+/* A practical three-step roadmap, kept within the existing section. */
+.landing-page .credibility-section {
+  background-color: #0A2E2E;
+  background-image: linear-gradient(90deg, rgba(42, 113, 102, .96) 0%, rgba(27, 94, 88, .95) 42%, rgba(10, 46, 46, .97) 100%), url('/assets/event-gallery/event-stage-portrait.jpg');
+}
+.landing-page .credibility-section::after { background: radial-gradient(ellipse at 12% 2%, rgba(76,181,181,.14), transparent 45%); }
+.landing-page .credibility-heading { max-width: 900px; }
+.landing-page .page-shell .credibility-section .credibility-lead { color: #e1efeb !important; max-width: 640px; font-size: 16px; line-height: 1.65; margin: 20px 0 0; }
+.landing-page .credibility-details { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; margin-top: clamp(32px, 4vw, 52px); }
+.landing-page .credibility-proof.credibility-card {
+  min-width: 0; min-height: 0; padding: 24px; border: 1px solid rgba(226, 245, 239, .20); border-radius: 18px;
+  background: rgba(6, 41, 39, .30); box-shadow: inset 0 1px rgba(255,255,255,.08); backdrop-filter: blur(8px);
+}
+.landing-page .credibility-card-icon {
+  display: inline-flex; align-items: center; justify-content: center; width: 48px; height: 48px; margin-bottom: 20px;
+  border: 1px solid rgba(212,175,55,.55); border-radius: 14px; background: rgba(212,175,55,.1); color: #e9cb6b;
+}
+.landing-page .credibility-card-icon svg { width: 26px; height: 26px; stroke: currentColor; stroke-width: 1.4; stroke-linecap: round; stroke-linejoin: round; }
+.landing-page .credibility-card h3 { font-size: 19px; margin: 0 0 10px; }
+.landing-page .page-shell .credibility-card p { color: #e1efeb !important; font-size: 15px; line-height: 1.6; margin: 0; }
+.landing-page .credibility-roadmap-link { display: inline-flex; align-items: center; gap: 10px; margin-top: 27px; color: #f5df8f; font-size: 14px; font-weight: 700; text-decoration: none; }
+.landing-page .credibility-roadmap-link:hover { color: #fff; }
+.landing-page .credibility-roadmap-link:focus-visible { outline: 2px solid #f5df8f; outline-offset: 5px; }
+@media (max-width: 760px) { .landing-page .credibility-details { grid-template-columns: 1fr; gap: 12px; } .landing-page .credibility-proof.credibility-card { padding: 21px; } }
+/* Compact, recognizable WhatsApp control with a quiet label on hover or focus. */
+.landing-page > .whatsapp-float {
+  display: flex; justify-content: center; width: 48px; height: 48px; min-height: 48px; padding: 0; border: 1px solid rgba(255,255,255,.8);
+  border-radius: 50%; background: #1B5E5E; color: #fff; box-shadow: 0 7px 22px rgba(10,46,46,.24);
+}
+.landing-page > .whatsapp-float i { font-size: 24px; }
+.landing-page > .whatsapp-float::before {
+  content: attr(data-tooltip); position: absolute; right: calc(100% + 10px); top: 50%; transform: translateY(-50%) translateX(4px);
+  padding: 8px 11px; border-radius: 8px; background: #0A2E2E; color: #fff; font-size: 12px; font-weight: 600;
+  white-space: nowrap; opacity: 0; pointer-events: none; transition: opacity .2s ease, transform .2s ease;
+}
+.landing-page > .whatsapp-float:is(:hover, :focus-visible) { background: #2B7A7A; color: #fff; box-shadow: 0 10px 26px rgba(10,46,46,.3); }
+.landing-page > .whatsapp-float:is(:hover, :focus-visible)::before { opacity: 1; transform: translateY(-50%) translateX(0); }
+@media (prefers-reduced-motion: reduce) { .landing-page > .whatsapp-float, .landing-page > .whatsapp-float::before { transition: none; } }
+@media (max-width: 1024px) { .landing-page > .whatsapp-float--above-footer { display: none; } }
+/* Five-step enrollment infographic, with the section's existing background. */
+.landing-page .enrollment-flow-wrap { position: relative; margin-top: 44px; }
+.landing-page .enrollment-flow {
+  position: relative; z-index: 1; list-style: none; padding: 0; margin: 0;
+  display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 74px 24px;
+}
+.landing-page .enrollment-step { position: relative; grid-column: span 2; min-width: 0; }
+.landing-page .enrollment-step:nth-child(1) { grid-column: 1 / 3; grid-row: 1; }
+.landing-page .enrollment-step:nth-child(2) { grid-column: 2 / 4; grid-row: 2; }
+.landing-page .enrollment-step:nth-child(3) { grid-column: 3 / 5; grid-row: 1; }
+.landing-page .enrollment-step:nth-child(4) { grid-column: 4 / 6; grid-row: 2; }
+.landing-page .enrollment-step:nth-child(5) { grid-column: 5 / 7; grid-row: 1; }
+.landing-page .enrollment-tab {
+  position: absolute; z-index: 2; top: -22px; left: 24px; display: flex; align-items: center; gap: 9px;
+  min-height: 42px; padding: 7px 17px; border-radius: 14px 14px 4px 4px;
+  background: #D4AF37; color: #101010; box-shadow: 0 4px 10px rgba(8,35,34,.14);
+}
+.landing-page .enrollment-tab > span { font-size: 16px; font-weight: 800; }
+.landing-page .page-shell .credibility-section .enrollment-tab h3 { color: #101010; font-size: 16px; font-weight: 700; line-height: 1.2; margin: 0; }
+.landing-page .enrollment-card-body {
+  display: flex; align-items: center; gap: 17px; min-height: 130px; height: 100%; padding: 35px 22px 22px;
+  background: #fff; border-radius: 20px; box-shadow: 0 10px 24px rgba(4,33,31,.16);
+}
+.landing-page .enrollment-icon { display: flex; flex: 0 0 48px; width: 48px; height: 48px; align-items: center; justify-content: center; color: #253b39; }
+.landing-page .enrollment-icon svg { display: block; width: 48px; height: 48px; stroke: currentColor; stroke-width: 1.4; stroke-linecap: round; stroke-linejoin: round; }
+.landing-page .page-shell .credibility-section .enrollment-card-body p { color: #556060 !important; font-size: 14px; line-height: 1.55; margin: 0; }
+.landing-page .enrollment-connectors { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; color: rgba(245, 250, 248, .72); pointer-events: none; }
+.landing-page .enrollment-connectors > path { fill: none; stroke: currentColor; stroke-width: 1.5; stroke-dasharray: 2 7; stroke-linecap: round; marker-end: url(#enrollment-arrow); }
+@media (max-width: 800px) {
+  .landing-page .enrollment-flow { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 38px 18px; }
+  .landing-page .enrollment-step:nth-child(n) { grid-column: auto; grid-row: auto; }
+  .landing-page .enrollment-step:last-child { grid-column: 1 / -1; max-width: calc(50% - 9px); width: 100%; justify-self: center; }
+  .landing-page .enrollment-connectors { display: none; }
+}
+@media (max-width: 520px) {
+  .landing-page .enrollment-flow { grid-template-columns: minmax(0, 1fr); gap: 38px; }
+  .landing-page .enrollment-step:last-child { grid-column: auto; max-width: none; }
+  .landing-page .enrollment-step:not(:last-child)::after { content: ''; position: absolute; left: 48px; bottom: -31px; height: 24px; border-left: 2px dotted rgba(255,255,255,.6); }
+  .landing-page .enrollment-card-body { min-height: 110px; }
+}
+/* Center the enrollment introduction and carry the deep teal further left. */
+.landing-page .credibility-section {
+  background-image: linear-gradient(90deg, rgba(42,113,102,.96) 0%, rgba(24,84,77,.97) 28%, rgba(10,46,46,.98) 58%, rgba(6,32,32,.98) 100%), url('/assets/event-gallery/event-stage-portrait.jpg');
+}
+.landing-page .credibility-heading { margin-inline: auto; text-align: center; }
+.landing-page .page-shell #credibility-title { margin-inline: auto; text-align: center !important; }
+.landing-page .page-shell .credibility-section .credibility-lead { margin: 20px auto 0; }
+.landing-page .credibility-heading .credibility-kicker::after {
+  content: ''; display: block; flex: 0 0 32px; width: 32px; height: 1px; background: rgba(212,175,55,.65);
+}
+.landing-page .credibility-roadmap-link { display: flex; width: fit-content; margin: 27px auto 0; }
+/* Reveal is handled by the shared once-per-page observer; hover stays understated. */
+@media (prefers-reduced-motion: no-preference) {
+  .landing-page .enrollment-card-body, .landing-page .enrollment-tab, .landing-page .enrollment-icon {
+    transition: transform .28s cubic-bezier(.22,1,.36,1), box-shadow .28s ease;
+  }
+}
+@media (hover: hover) and (prefers-reduced-motion: no-preference) {
+  .landing-page .enrollment-step:hover .enrollment-card-body { transform: translateY(-5px); box-shadow: 0 17px 32px rgba(3,25,24,.25); }
+  .landing-page .enrollment-step:hover .enrollment-tab { transform: translateY(-5px); box-shadow: 0 8px 16px rgba(3,25,24,.2); }
+  .landing-page .enrollment-step:hover .enrollment-icon { transform: translateY(-2px); }
+}
+/* Each letter casts its own low, softened shadow beneath the moving wordmark. */
+.landing-page .home-brand-interlude { height: clamp(210px, 22vw, 330px); }
+.landing-page .home-brand-interlude-group { color: rgba(27, 94, 94, .12); position: relative; top: -10px; }
+.landing-page .home-brand-interlude-word { display: inline-block; white-space: nowrap; }
+.landing-page .home-brand-letter { display: inline-block; position: relative; }
+.landing-page .home-brand-letter::after {
+  content: attr(data-letter);
+  position: absolute;
+  left: 0;
+  top: 88%;
+  color: rgba(10, 46, 46, .20);
+  font: inherit;
+  letter-spacing: inherit;
+  transform: skewX(-23deg) scaleY(.34);
+  transform-origin: left top;
+  filter: blur(2px);
+  -webkit-mask-image: linear-gradient(to bottom, rgba(0,0,0,.9), rgba(0,0,0,.12) 85%, transparent);
+  mask-image: linear-gradient(to bottom, rgba(0,0,0,.9), rgba(0,0,0,.12) 85%, transparent);
+  pointer-events: none;
+}
+/* A clean, slightly larger WhatsApp button. */
+.landing-page > .whatsapp-float {
+  width: 56px;
+  height: 56px;
+  min-height: 56px;
+  background: #fff;
+  border: 2px solid #1B5E5E;
+  color: #1B5E5E;
+}
+.landing-page > .whatsapp-float i { color: #1B5E5E; font-size: 27px; }
+.landing-page > .whatsapp-float:is(:hover, :focus-visible) { background: #f0f8f5; color: #1B5E5E; border-color: #1B5E5E; }
+/* Contextual, continuous motion for the five enrollment icons. */
+@media (prefers-reduced-motion: no-preference) {
+  .landing-page .enrollment-step:nth-child(1) .enrollment-icon svg path:first-child {
+    animation: enrollment-bulb-glow 3.6s ease-in-out infinite;
+  }
+  .landing-page .enrollment-step:nth-child(2) .enrollment-icon svg circle:first-child {
+    transform-box: fill-box; transform-origin: center;
+    animation: enrollment-target-ring 4s ease-in-out infinite;
+  }
+  .landing-page .enrollment-step:nth-child(2) .enrollment-icon svg circle:nth-of-type(3) {
+    transform-box: fill-box; transform-origin: center;
+    animation: enrollment-target-center 4s ease-in-out infinite;
+  }
+  .landing-page .enrollment-step:nth-child(3) .enrollment-icon svg path:last-child {
+    stroke-dasharray: 18; animation: enrollment-check-draw 4.4s ease-in-out infinite;
+  }
+  .landing-page .enrollment-step:nth-child(4) .enrollment-icon svg path:first-child {
+    transform-box: fill-box; transform-origin: center;
+    animation: enrollment-gem-shine 4.2s ease-in-out infinite;
+  }
+  .landing-page .enrollment-step:nth-child(5) .enrollment-icon svg path:nth-of-type(2) {
+    stroke-dasharray: 45; animation: enrollment-chart-line 5s ease-in-out infinite;
+  }
+  .landing-page .enrollment-step:nth-child(5) .enrollment-icon svg path:last-child {
+    transform-box: fill-box; transform-origin: center bottom;
+    animation: enrollment-chart-bar 5s ease-in-out infinite;
+  }
+}
+@keyframes enrollment-bulb-glow {
+  0%, 100% { fill-opacity: .22; filter: drop-shadow(0 0 0 rgba(212,175,55,0)); }
+  45%, 60% { fill-opacity: .68; filter: drop-shadow(0 0 4px rgba(212,175,55,.55)); }
+}
+@keyframes enrollment-target-ring {
+  0%, 100% { transform: scale(1); opacity: 1; }
+  45% { transform: scale(1.09); opacity: .65; }
+  65% { transform: scale(1); opacity: 1; }
+}
+@keyframes enrollment-target-center {
+  0%, 100% { transform: scale(1); fill-opacity: .4; }
+  48% { transform: scale(1.2); fill-opacity: .75; }
+  68% { transform: scale(1); fill-opacity: .4; }
+}
+@keyframes enrollment-check-draw {
+  0%, 12% { stroke-dashoffset: 18; opacity: .4; }
+  40%, 80% { stroke-dashoffset: 0; opacity: 1; }
+  100% { stroke-dashoffset: 0; opacity: .4; }
+}
+@keyframes enrollment-gem-shine {
+  0%, 100% { fill-opacity: .18; transform: scale(1); }
+  45% { fill-opacity: .65; transform: scale(1.055); }
+  70% { fill-opacity: .3; transform: scale(1); }
+}
+@keyframes enrollment-chart-line {
+  0%, 10% { stroke-dashoffset: 45; }
+  48%, 80% { stroke-dashoffset: 0; }
+  100% { stroke-dashoffset: 0; }
+}
+@keyframes enrollment-chart-bar {
+  0%, 12% { transform: scaleY(.3); fill-opacity: .25; }
+  48%, 82% { transform: scaleY(1); fill-opacity: .6; }
+  100% { transform: scaleY(1); fill-opacity: .35; }
+}
+
+/* A single land silhouette gives the interactive map a clean, solid edge. */
+.landing-page .india-map-panel { padding-bottom: 0; }
+.landing-page .india-testimonials-section .india-state-map--refined { opacity: 1; transform: none; }
+.landing-page .india-map-glow {
+  background: radial-gradient(ellipse, rgba(58, 155, 140, .17), transparent 68%);
+  inset: 6% -4% 15%;
+  filter: blur(22px);
+}
+.landing-page .india-map-silhouette {
+  fill: url(#india-map-surface);
+  stroke: #8bb7a7;
+  stroke-width: 1.3;
+  stroke-linejoin: round;
+  filter: drop-shadow(0 12px 16px rgba(0, 20, 19, .32));
+}
+.landing-page .india-state-map--refined .india-state-paths path {
+  fill: transparent;
+  stroke: rgba(190, 219, 202, .36);
+  stroke-width: .7;
+  stroke-linejoin: round;
+  filter: none;
+  transition: fill .5s ease, stroke .5s ease;
+}
+.landing-page .india-state-map--refined .india-state-paths path.is-active {
+  fill: #d4af37;
+  stroke: #f4dc8f;
+  stroke-width: 1.2;
+  filter: none;
+}
+.landing-page .india-state-map--refined .india-state-paths path.is-maritime {
+  fill: none;
+  stroke: rgba(190, 219, 202, .24);
+  stroke-width: .8;
+  stroke-dasharray: 2 5;
+}
+.landing-page .india-map-ocean-labels text {
+  fill: rgba(209, 230, 222, .4);
+  font: 9px 'Plus Jakarta Sans', sans-serif;
+  letter-spacing: 2px;
+  text-anchor: middle;
+}
+.landing-page .india-marker-hit { fill: transparent; pointer-events: all; }
+.landing-page .india-marker-ring {
+  fill: rgba(9, 44, 41, .8);
+  stroke: rgba(211, 235, 222, .55);
+  stroke-width: 1;
+  pointer-events: none;
+}
+.landing-page .india-state-map--refined .india-marker-core,
+.landing-page .india-state-map--refined .india-map-marker:not(.is-active) .india-marker-core {
+  fill: #e5f1ea;
+  stroke: none;
+  opacity: 1;
+  filter: none;
+  pointer-events: none;
+}
+.landing-page .india-state-map--refined .india-map-marker.is-active .india-marker-core { fill: #f4d571; }
+.landing-page .india-map-marker:is(.is-active, :hover, :focus-visible) .india-marker-ring { stroke: #f4d571; stroke-width: 2; }
+.landing-page .india-state-map--refined .india-marker-pulse { fill: none; stroke: #f4d571; stroke-width: 1; pointer-events: none; }
+.landing-page .india-active-city { pointer-events: none; }
+.landing-page .india-active-city rect { fill: #0a2e2e; stroke: rgba(212, 175, 55, .7); stroke-width: 1; }
+.landing-page .india-active-city text { fill: #fff; font: 600 12px 'Plus Jakarta Sans', sans-serif; text-anchor: middle; }
+.landing-page .india-map-attribution { bottom: 5px; color: #b4c9c1; font-size: 9px; left: 50%; transform: translateX(-50%); white-space: nowrap; }
+.landing-page .india-map-attribution:hover { color: #fff; }
+@media (prefers-reduced-motion: reduce) {
+  .landing-page .india-state-map--refined .india-state-paths path { transition: none; }
+}
+
+.landing-page .india-model-stage { position: relative; width: 100%; opacity: 1 !important; transform: none !important; }
+.india-model-canvas, .india-model-fallback, .india-model-pins { position: absolute; inset: 0; height: 100%; width: 100%; }
+.india-model-canvas { display: block; opacity: 0; pointer-events: none; }
+.india-model-stage.is-rendered .india-model-canvas { opacity: 1; }
+.landing-page .india-model-fallback .india-state-map { height: 100%; min-height: 0; width: 100%; }
+.india-model-pins { pointer-events: none; }
+.india-model-pin { align-items: center; background: none; border: 0; border-radius: 50%; cursor: pointer; display: flex; height: 36px; justify-content: center; padding: 0; pointer-events: auto; position: absolute; transform: translate(-50%, -50%); width: 36px; }
+.india-model-pin-dot { background: #e6f3e8; border: 3px solid #174d44; border-radius: 50%; box-shadow: 0 2px 5px rgba(0,0,0,.3); height: 12px; width: 12px; }
+.india-model-pin.is-active .india-model-pin-dot { background: #f8d76a; border-color: #163e34; box-shadow: 0 0 0 3px rgba(250,230,150,.38), 0 3px 8px rgba(0,0,0,.4); height: 15px; width: 15px; }
+.india-model-pin-label { background: #0a2e2e; border: 1px solid rgba(212,175,55,.6); border-radius: 7px; bottom: 33px; color: #fff; font: 600 11px 'Plus Jakarta Sans',sans-serif; left: 50%; padding: 6px 10px; pointer-events: none; position: absolute; transform: translateX(-50%); white-space: nowrap; }
+.india-model-pin:is(:hover, :focus-visible) { outline: 2px solid #f5d77b; outline-offset: 0; }
+.landing-page .india-map-credit { color: rgba(224,236,231,.55); display: block; font-size: 9px; margin: 18px auto 0; text-align: center; text-decoration: none; width: fit-content; }
+.landing-page .india-map-credit:hover { color: #fff; text-decoration: underline; }

@@ -25,13 +25,14 @@ export default function SplitText({
   threshold = 0.1,
   rootMargin = '0px',
   onLetterAnimationComplete,
+  highlightWords = '',
   tag: Tag = 'span',
 }) {
   const ref = useRef(null);
 
   useGSAP(() => {
     const element = ref.current;
-    if (!element || !text || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return undefined;
+    if (!element || !text) return undefined;
 
     const split = new GSAPSplitText(element, {
       type: splitType,
@@ -40,6 +41,9 @@ export default function SplitText({
       charsClass: 'split-text-character',
       reduceWhiteSpace: false,
     });
+    const highlighted = new Set(String(highlightWords).split(',').filter(Boolean).map(Number));
+    split.words?.forEach((word, index) => { if (highlighted.has(index)) word.classList.add('heading-gold'); });
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return () => split.revert();
     const pieces = split.chars;
     const reveal = effect === 'blur'
       ? { opacity: 0, filter: 'blur(10px)' }
@@ -87,7 +91,7 @@ export default function SplitText({
       split.revert();
     };
   }, {
-    dependencies: [text, delay, duration, effect, splitType, staggerFrom, mask, trigger, threshold, rootMargin, onLetterAnimationComplete],
+    dependencies: [text, delay, duration, effect, splitType, staggerFrom, mask, trigger, threshold, rootMargin, onLetterAnimationComplete, highlightWords],
     scope: ref,
     revertOnUpdate: true,
   });

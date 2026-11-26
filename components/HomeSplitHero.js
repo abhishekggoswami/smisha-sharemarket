@@ -5,28 +5,36 @@ import SplitText from './SplitText';
 
 const slides = [
   {
-    image: '/assets/event-gallery/event-stage-portrait.jpg',
+    image: '/assets/home-hero/business-news.webp',
     number: '01.',
     label: 'Live Classes',
     description: 'Learn directly from live market sessions and real chart discussions.',
     href: '/courses',
-    alt: 'Sushil Kamboj presenting at a stock market event stage',
+    alt: 'A person reading the business section of a newspaper',
   },
   {
-    image: '/assets/event-gallery/event-stage-audience.jpg',
+    image: '/assets/home-hero/market-quotes.webp',
     number: '02.',
     label: 'Mentorship',
     description: 'Get guided support to build stronger market decisions.',
     href: '/about',
-    alt: 'A stock market session in front of a live audience',
+    alt: 'Stock market prices and charts displayed on a tablet',
   },
   {
-    image: '/assets/event-gallery/event-auditorium.jpg',
+    image: '/assets/home-hero/buy-sell.webp',
     number: '03.',
     label: 'Workshops',
     description: 'Build perspective through practical sessions with market educators.',
     href: '/workshops',
-    alt: 'Learners attending a financial education event',
+    alt: 'A hand holding cards marked buy and sell',
+  },
+  {
+    image: '/assets/home-hero/trading-workspace.webp',
+    number: '04.',
+    label: 'Market Skills',
+    description: 'Explore practical tools for understanding and analysing the markets.',
+    href: '/courses',
+    alt: 'Trading charts and a calculator on a desk',
   },
 ];
 
@@ -72,9 +80,9 @@ export default function HomeSplitHero() {
   useEffect(() => {
     if (!introReady || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return undefined;
     // Leave enough time for the photo's slow zoom cycle to feel intentional.
-    const timer = window.setInterval(() => setActive(index => (index + 1) % slides.length), 8500);
-    return () => window.clearInterval(timer);
-  }, [introReady]);
+    const timer = window.setTimeout(() => setActive(index => (index + 1) % slides.length), 6800);
+    return () => window.clearTimeout(timer);
+  }, [introReady, active]);
 
   useEffect(() => {
     if (!introReady || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return undefined;
@@ -123,6 +131,7 @@ export default function HomeSplitHero() {
             /> : <span className="home-split-heading-line">{textSlide.heading[0]}</span>}
             {introReady ? <SplitText
               text={textSlide.heading[1]}
+              highlightWords="1,2"
               className="home-split-heading-line home-split-heading-accent"
               delay={22}
               duration={0.62}
@@ -130,7 +139,7 @@ export default function HomeSplitHero() {
               splitType="words, chars"
               staggerFrom="start"
               mask={false}
-            /> : <span className="home-split-heading-line home-split-heading-accent">{textSlide.heading[1]}</span>}
+            /> : <span className="home-split-heading-line home-split-heading-accent">{textSlide.heading[1].split(' ')[0]} <em className="heading-gold">{textSlide.heading[1].split(' ').slice(1).join(' ')}</em></span>}
           </h1>
           <p>{textSlide.description}</p>
           <a className="home-split-cta" href="/contact" aria-label="Book a free consultation"><span className="glass-button-label" aria-hidden="true"><span>Book a free consultation</span><span>Let’s talk about your goals</span></span><i className="fa-solid fa-arrow-right" aria-hidden="true" /></a>
@@ -145,14 +154,21 @@ export default function HomeSplitHero() {
         </div>
       </div>
       <div className="home-split-gallery-panel">
-        <img key={slide.image} className={`home-split-gallery-image home-split-gallery-image--${active}`} src={slide.image} alt={slide.alt} fetchPriority="high" />
+        {slides.map((item, index) => <img
+          key={item.image}
+          className={`home-split-gallery-image home-split-gallery-image--${index}${index === active ? ` is-active${introReady ? ' is-zooming' : ''}` : ''}`}
+          src={item.image}
+          alt={index === active ? item.alt : ''}
+          aria-hidden={index !== active}
+          fetchPriority={index === 0 ? 'high' : 'low'}
+        />)}
         <div className="home-split-gallery-wash" aria-hidden="true" />
-        <div className="home-split-gallery-dots" role="group" aria-label="Choose a workshop photo">
-          {slides.map((item, index) => <button key={item.image} type="button" className={index === active ? 'is-active' : ''} aria-label={`Show ${item.label} photo`} aria-pressed={index === active} onClick={() => setActive(index)} />)}
+        <div className="home-split-gallery-dots" role="group" aria-label="Choose a market image">
+          {slides.map((item, index) => <button key={item.image} type="button" className={index === active ? 'is-active' : ''} aria-label={`Show ${item.label} image`} aria-pressed={index === active} onClick={() => setActive(index)} />)}
         </div>
         <div className="home-split-gallery-controls">
-          <button type="button" onClick={() => choose(-1)} aria-label="Show previous workshop photo"><i className="fa-solid fa-arrow-left" aria-hidden="true" /></button>
-          <button type="button" onClick={() => choose(1)} aria-label="Show next workshop photo"><i className="fa-solid fa-arrow-right" aria-hidden="true" /></button>
+          <button type="button" onClick={() => choose(-1)} aria-label="Show previous market image"><i className="fa-solid fa-arrow-left" aria-hidden="true" /></button>
+          <button type="button" onClick={() => choose(1)} aria-label="Show next market image"><i className="fa-solid fa-arrow-right" aria-hidden="true" /></button>
         </div>
         <a className="home-split-read-more" href={slide.href}>Read More <i className="fa-solid fa-arrow-right" aria-hidden="true" /></a>
       </div>

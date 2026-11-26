@@ -536,7 +536,7 @@
   display: flex;
   flex: none;
   font-family: Georgia, 'Times New Roman', serif;
-  font-size: clamp(110px, 17vw, 235px);
+  font-size: clamp(90px, 13.5vw, 190px);
   font-weight: 400;
   gap: .18em;
   letter-spacing: -.065em;

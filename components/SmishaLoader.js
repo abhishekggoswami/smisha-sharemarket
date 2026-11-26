@@ -69,7 +69,7 @@ export default function SmishaLoader() {
       </div>
       <div className="smisha-intro__bottom" aria-hidden="true"><span>PREPARING YOUR EXPERIENCE</span><div className="smisha-intro__track"><span /></div><span>EST. IN PUNE</span></div>
       <button type="button" className="smisha-loader__skip" onClick={() => setPhase('done')}>
-        Skip intro <span aria-hidden="true">→</span>
+        Skip intro <span aria-hidden="true">&rarr;</span>
       </button>
     </div>
   );

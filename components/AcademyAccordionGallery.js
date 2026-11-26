@@ -79,7 +79,7 @@ export default function AcademyAccordionGallery() {
           duration: reducedMotion ? 0 : 1.15,
           ease: 'power2.inOut',
           filter: isActive ? 'grayscale(0) saturate(1)' : 'grayscale(.72) saturate(.75)',
-          opacity: isActive ? 1 : .74,
+          opacity: 1,
           xPercent: -50,
           yPercent: -50,
           x: isActive ? 0 : offset,

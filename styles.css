@@ -6350,6 +6350,20 @@ body,
 }
 .services-section > .home-courses-slot,
 .services-section > .home-courses-slot > .home-courses-carousel { position: relative; z-index: 1; }
+/* Keep the course showcase usable and its space reserved before hydration. */
+.home-courses-fallback .service-card { min-height: 360px; }
+.home-map-overlay > .home-map-external {
+  background: transparent;
+  color: #155c59;
+  display: flex;
+  font-size: .8rem;
+  justify-content: flex-start;
+  margin-top: 10px;
+  min-height: 30px;
+  padding: 0;
+  width: fit-content;
+}
+.home-map-overlay > .home-map-external:hover { background: transparent; color: #083a39; text-decoration: underline; transform: none; }
 .services-heading h2,
 .services-heading h2 strong { color: #F7F5FA; }
 .services-heading h2 span { color: #FF633D; }
@@ -6646,30 +6660,6 @@ body,
   .stories-section .story-slide[data-story="1"] .story-person em { font-size: 40px; }
   .stories-section .story-slide[data-story="2"] .story-person em,
   .stories-section .story-slide[data-story="3"] .story-person em { font-size: 34px; }
-}
-
-/* Homepage services only: layered scroll depth, no layout reflow. */
-@media (min-width: 768px) and (prefers-reduced-motion: no-preference) {
-  .landing-page #services.services-section {
-    --services-parallax-progress: 0;
-  }
-  .landing-page #services.services-section::before {
-    transform: translate3d(0, calc(var(--services-parallax-progress) * -34px), 0);
-    pointer-events: none;
-  }
-  .landing-page #services .services-heading {
-    transform: translate3d(0, calc(var(--services-parallax-progress) * -24px), 0);
-  }
-  .landing-page #services .services-carousel-viewport {
-    transform: translate3d(0, calc(var(--services-parallax-progress) * 15px), 0);
-  }
-}
-@media (prefers-reduced-motion: reduce) {
-  .landing-page #services .services-heading,
-  .landing-page #services .services-carousel-viewport,
-  .landing-page #services.services-section::before {
-    transform: none !important;
-  }
 }
 
 /* Credibility feature placed between the academy gallery and learner stories. */

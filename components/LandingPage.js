@@ -1,19 +1,25 @@
 'use client';
 
-import { useEffect, useRef } from 'react';
+import { Component, lazy, Suspense, useEffect, useRef } from 'react';
 import { createRoot } from 'react-dom/client';
-import { landingMarkup } from './landing-markup';
+import { indiaFallback, landingMarkup } from './landing-markup';
 import SiteHeader from './SiteHeader';
-import AcademyMap from './AcademyMap';
+import './AcademyMap.css';
 import HomeCourseCarousel from './HomeCourseCarousel';
-import HomeHeroVideoBackground from './HomeHeroVideoBackground';
 import HomeSplitHero from './HomeSplitHero';
 import SplitText from './SplitText';
 import AcademyAccordionGallery from './AcademyAccordionGallery';
-import IndiaMapTestimonials from './IndiaMapTestimonials';
 import FinalDemoForm from './FinalDemoForm';
 import MarketGrowthChart from './MarketGrowthChart';
-import Grainient from './Grainient';
+const IndiaMapTestimonials = lazy(() => import('./IndiaMapTestimonials'));
+const Grainient = lazy(() => import('./Grainient'));
+
+class IslandBoundary extends Component {
+  state = { failed: false };
+  static getDerivedStateFromError() { return { failed: true }; }
+  render() { return this.state.failed ? this.props.fallback : this.props.children; }
+}
+const indiaBackup = <div dangerouslySetInnerHTML={{ __html: indiaFallback }} />;
 
 export default function LandingPage() {
   const rootRef = useRef(null);
@@ -31,8 +37,8 @@ export default function LandingPage() {
     const islandObserver = 'IntersectionObserver' in window ? new IntersectionObserver(entries => {
       entries.forEach(entry => {
         if (!entry.isIntersecting) return;
-        const mount = lazyIslands.get(entry.target);
-        if (mount) { lazyIslands.delete(entry.target); islandObserver.unobserve(entry.target); mount(); }
+        const mounts = lazyIslands.get(entry.target);
+        if (mounts) { lazyIslands.delete(entry.target); islandObserver.unobserve(entry.target); mounts.forEach(mount => mount()); }
       });
     }, { rootMargin: '650px 0px' }) : null;
     cleanups.push(() => islandObserver?.disconnect());
@@ -46,18 +52,15 @@ export default function LandingPage() {
         mountedRoot.render(view);
       };
       if (immediate || !islandObserver) mount();
-      else { const anchor = observeSlot ? slot : (slot.parentElement || slot); lazyIslands.set(anchor, mount); islandObserver.observe(anchor); }
+      else { const anchor = observeSlot ? slot : (slot.parentElement || slot); const mounts = lazyIslands.get(anchor) || []; mounts.push(mount); lazyIslands.set(anchor, mounts); islandObserver.observe(anchor); }
       cleanups.push(() => mountedRoot?.unmount());
     };
-    // Start the below-the-fold map early instead of waiting for two lazy-load thresholds.
-    mountIsland('.academy-map-slot', <AcademyMap satellite loading="eager" />, true);
-    mountIsland('.home-hero-video-mount', <HomeHeroVideoBackground />, true);
     mountIsland('.home-split-hero-mount', <HomeSplitHero />, true);
-    mountIsland('.market-growth-chart', <MarketGrowthChart />, false, true);
-    mountIsland('.home-courses-slot', <HomeCourseCarousel />);
-    mountIsland('.academy-gallery-slot', <AcademyAccordionGallery />);
-    mountIsland('.india-testimonials-slot', <IndiaMapTestimonials />, false, true);
-    mountIsland('.final-demo-grainient-slot', <Grainient className="final-demo-grainient" color1="#f8f7fb" color2="#eae5f3" color3="#f6f0f0" colors={['#f8f7fb', '#f1eef8', '#eae5f3', '#f6f0f0', '#f8f7fb']} flow={0.65} speed={0.35} silk={0.12} grainAmount={0.018} contrast={1} saturation={0.8} interactive={false} clickSwirl={false} intro={false} dpr={1} />);
+    mountIsland('.market-growth-chart', <MarketGrowthChart upColor="#168758" downColor="#D84545" />, false, true);
+    mountIsland('.home-courses-slot', <HomeCourseCarousel />, true);
+    mountIsland('.academy-gallery-slot', <AcademyAccordionGallery />, true);
+    mountIsland('.india-testimonials-slot', <IslandBoundary fallback={indiaBackup}><Suspense fallback={indiaBackup}><IndiaMapTestimonials /></Suspense></IslandBoundary>, true);
+    mountIsland('.final-demo-grainient-slot', <Suspense fallback={null}><Grainient className="final-demo-grainient" color1="#f8fcfb" color2="#dcefeb" color3="#ecf7f4" colors={['#f8fcfb', '#e7f4f1', '#dcefeb', '#ecf7f4', '#f8fcfb']} flow={0.65} speed={0.35} silk={0.12} grainAmount={0.018} contrast={1} saturation={0.8} interactive={false} clickSwirl={false} intro={false} dpr={1} /></Suspense>);
     mountIsland('.final-demo-candles', <MarketGrowthChart />, false, true);
     // Mount the conversion form immediately so the visible CTA is interactive
     // even when the visitor jumps directly to this section via an anchor.
@@ -78,16 +81,35 @@ export default function LandingPage() {
     }
     mountIsland('#stories-title', <>
       <strong><SplitText text="Real students." className="stories-title-text" delay={22} duration={0.62} effect="rise" splitType="words, chars" mask={false} trigger="view" threshold={0.1} /></strong>
-      <span className="stories-title-accent"><SplitText text="Stronger market decisions." className="stories-title-text" delay={22} duration={0.62} effect="rise" splitType="words, chars" mask={false} trigger="view" threshold={0.1} /></span>
+      <span className="stories-title-accent"><SplitText text="Stronger market decisions." highlightWords="1" className="stories-title-text" delay={22} duration={0.62} effect="rise" splitType="words, chars" mask={false} trigger="view" threshold={0.1} /></span>
     </>);
     mountIsland('#faq-title', <>
       <strong><SplitText text="Your questions," className="faq-title-text" delay={22} duration={0.62} effect="rise" splitType="words, chars" mask={false} trigger="view" threshold={0.1} /></strong>
-      <span className="faq-title-accent"><SplitText text="answered with clarity." className="faq-title-text" delay={22} duration={0.62} effect="rise" splitType="words, chars" mask={false} trigger="view" threshold={0.1} /></span>
+      <span className="faq-title-accent"><SplitText text="answered with clarity." highlightWords="1,2" className="faq-title-text" delay={22} duration={0.62} effect="rise" splitType="words, chars" mask={false} trigger="view" threshold={0.1} /></span>
     </>);
     mountIsland('#credibility-title', <>
-      <span><SplitText text="Building market confidence through" className="credibility-title-text" delay={22} duration={0.62} effect="rise" splitType="words, chars" mask={false} trigger="view" threshold={0.1} /></span>
-      <strong><SplitText text="a decade of learning." className="credibility-title-text" delay={22} duration={0.62} effect="rise" splitType="words, chars" mask={false} trigger="view" threshold={0.1} /></strong>
+      <span><SplitText text="Enroll with confidence," className="credibility-title-text" delay={22} duration={0.62} effect="rise" splitType="words, chars" mask={false} trigger="view" threshold={0.1} /></span>
+      <strong><SplitText text="in five simple steps." highlightWords="1" className="credibility-title-text" delay={22} duration={0.62} effect="rise" splitType="words, chars" mask={false} trigger="view" threshold={0.1} /></strong>
     </>);
+
+    // The satellite iframe loads with the initial page. Reveal its floating
+    // invitation separately so it never delays loading the underlying map.
+    const locationCard = select('.home-location-section .home-map-overlay');
+    if (locationCard && 'IntersectionObserver' in window && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      const locationObserver = new IntersectionObserver(([entry]) => {
+        if (!entry.isIntersecting) return;
+        locationCard.classList.add('is-location-visible');
+        locationObserver.disconnect();
+      }, { threshold: 0.1 });
+      if (locationCard.getBoundingClientRect().bottom > 0) {
+        locationCard.classList.add('location-reveal-ready');
+        locationObserver.observe(locationCard);
+      }
+      cleanups.push(() => {
+        locationObserver.disconnect();
+        locationCard.classList.remove('location-reveal-ready', 'is-location-visible');
+      });
+    }
 
     // Reveal content as it enters view, including islands mounted later. Leave
     // the growth section and course cards to their existing motion systems.
@@ -97,6 +119,7 @@ export default function LandingPage() {
         ['.home-courses-carousel .services-heading .section-kicker, .home-courses-carousel .services-subheading, .home-courses-carousel .services-actions', 80],
         ['.academy-gallery-heading > div, .academy-gallery-heading > p, .academy-gallery-slot', 100],
         ['.credibility-heading, .credibility-intro, .credibility-proof', 100],
+        ['.enrollment-step', 70],
         ['.stories-header, .stories-viewport, .story-carousel-controls', 100],
         ['.india-testimonials-heading .section-kicker, .india-testimonials-heading > p:not(.section-kicker)', 100],
         ['.faq-heading, .faq-item, .faq-help-card', 75],
@@ -104,6 +127,7 @@ export default function LandingPage() {
         ['.final-demo-card, .final-demo-partners', 100],
         ['.site-footer .footer-contact-strip > p, .site-footer .footer-contact-strip > a, .site-footer .footer-brand, .site-footer .footer-links, .site-footer .footer-newsletter, .site-footer .footer-bottom', 75],
       ];
+      const revealSelector = revealGroups.map(([selector]) => selector).join(', ');
       const seen = new WeakSet();
       const revealObserver = new IntersectionObserver(entries => {
         entries.forEach(({ target, isIntersecting }) => {
@@ -113,9 +137,10 @@ export default function LandingPage() {
           revealObserver.unobserve(target);
         });
       }, { threshold: 0.08, rootMargin: '0px 0px -4% 0px' });
-      const scanReveals = () => {
+      const scanReveals = (scope = root) => {
         revealGroups.forEach(([selector, step]) => {
-          selectAll(selector).forEach((element, index) => {
+          const matches = [...(scope.matches?.(selector) ? [scope] : []), ...scope.querySelectorAll(selector)];
+          matches.forEach((element, index) => {
             if (seen.has(element)) return;
             seen.add(element);
             // Do not hide content already passed on an anchor jump or refresh.
@@ -127,8 +152,16 @@ export default function LandingPage() {
         });
       };
       let scanFrame = 0;
-      const mutations = new MutationObserver(() => {
-        if (!scanFrame) scanFrame = window.requestAnimationFrame(() => { scanFrame = 0; scanReveals(); });
+      const pendingNodes = new Set();
+      const mutations = new MutationObserver(records => {
+        records.forEach(record => record.addedNodes.forEach(node => {
+          if (node.nodeType === 1 && (node.matches(revealSelector) || node.querySelector(revealSelector))) pendingNodes.add(node);
+        }));
+        if (pendingNodes.size && !scanFrame) scanFrame = window.requestAnimationFrame(() => {
+          scanFrame = 0;
+          pendingNodes.forEach(node => { if (node.isConnected) scanReveals(node); });
+          pendingNodes.clear();
+        });
       });
       scanReveals();
       mutations.observe(root, { childList: true, subtree: true });
@@ -155,7 +188,7 @@ export default function LandingPage() {
       const cycle = galleryTitleCycle;
       academyGalleryTitleRoot.render(<>
         <SplitText key={`gallery-first-${cycle}`} text="See the work behind" className="academy-gallery-title-line" delay={22} duration={0.62} effect="rise" splitType="words, chars" staggerFrom="start" mask={false} />
-        <SplitText key={`gallery-second-${cycle}`} text="stronger market decisions." className="academy-gallery-title-line academy-gallery-title-accent" delay={22} duration={0.62} effect="rise" splitType="words, chars" staggerFrom="start" mask={false} />
+        <SplitText key={`gallery-second-${cycle}`} text="stronger market decisions." highlightWords="1" className="academy-gallery-title-line academy-gallery-title-accent" delay={22} duration={0.62} effect="rise" splitType="words, chars" staggerFrom="start" mask={false} />
       </>);
     };
     const observeAcademyGallery = () => {
@@ -197,7 +230,7 @@ export default function LandingPage() {
       growthTitleRoot = createRoot(growthTitle);
       growthTitleRoot.render(<>
         <SplitText text="Learn with confidence." className="market-growth-heading-line" delay={22} duration={0.62} effect="rise" splitType="words, chars" staggerFrom="start" mask={false} trigger="view" threshold={0.1} rootMargin="-100px" />
-        <SplitText text="Grow with discipline." className="market-growth-heading-line market-growth-heading-accent" delay={22} duration={0.62} effect="rise" splitType="words, chars" staggerFrom="start" mask={false} trigger="view" threshold={0.1} rootMargin="-100px" />
+        <SplitText text="Grow with discipline." highlightWords="1,2" className="market-growth-heading-line market-growth-heading-accent" delay={22} duration={0.62} effect="rise" splitType="words, chars" staggerFrom="start" mask={false} trigger="view" threshold={0.1} rootMargin="-100px" />
       </>);
     };
     const growthMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
@@ -291,52 +324,6 @@ export default function LandingPage() {
       cleanups.push(() => summary?.removeEventListener('click', toggleFaq));
     });
     cleanups.push(() => faqAnimations.forEach((animation) => animation.cancel()));
-
-    // A restrained, scroll-linked depth effect only for the homepage courses section.
-    // Transform the heading and viewport (not the carousel track), so navigation
-    // and card interactions retain their existing horizontal scrolling behavior.
-    const servicesSection = select('#services.services-section');
-    if (servicesSection && 'IntersectionObserver' in window) {
-      const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
-      const desktopMotion = window.matchMedia('(min-width: 768px)');
-      let inView = false;
-      let frame = 0;
-      const updateServicesParallax = () => {
-        frame = 0;
-        if (!inView || reducedMotion.matches || !desktopMotion.matches) return;
-        const rect = servicesSection.getBoundingClientRect();
-        const travel = (window.innerHeight + rect.height) / 2;
-        const distanceFromCenter = rect.top + rect.height / 2 - window.innerHeight / 2;
-        const progress = Math.max(-1, Math.min(1, -distanceFromCenter / travel));
-        servicesSection.style.setProperty('--services-parallax-progress', progress.toFixed(4));
-      };
-      const scheduleServicesParallax = () => {
-        if (inView && !frame) frame = window.requestAnimationFrame(updateServicesParallax);
-      };
-      const resetServicesParallax = () => {
-        if (reducedMotion.matches || !desktopMotion.matches) {
-          servicesSection.style.setProperty('--services-parallax-progress', '0');
-        } else scheduleServicesParallax();
-      };
-      const observer = new IntersectionObserver((entries) => {
-        inView = entries.some((entry) => entry.isIntersecting);
-        if (inView) scheduleServicesParallax();
-      }, { rootMargin: '120px 0px' });
-      observer.observe(servicesSection);
-      window.addEventListener('scroll', scheduleServicesParallax, { passive: true });
-      window.addEventListener('resize', resetServicesParallax, { passive: true });
-      reducedMotion.addEventListener('change', resetServicesParallax);
-      desktopMotion.addEventListener('change', resetServicesParallax);
-      cleanups.push(() => {
-        observer.disconnect();
-        window.removeEventListener('scroll', scheduleServicesParallax);
-        window.removeEventListener('resize', resetServicesParallax);
-        reducedMotion.removeEventListener('change', resetServicesParallax);
-        desktopMotion.removeEventListener('change', resetServicesParallax);
-        window.cancelAnimationFrame(frame);
-        servicesSection.style.removeProperty('--services-parallax-progress');
-      });
-    }
 
     const motionQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
     const storyViewport = select('.stories-viewport');

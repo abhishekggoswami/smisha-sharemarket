@@ -1,0 +1,22 @@
+/* Typography for the existing homepage headings; section layouts stay intact. */
+.landing-page :is(#home-split-title, #market-growth-title, #services-title, #academy-gallery-title, #credibility-title, #stories-title, #india-testimonials-title, #faq-title, #home-location-title, #final-demo-title) {
+  color: #0A2E2E !important;
+  font-family: 'Plus Jakarta Sans', sans-serif !important;
+  font-size: 30px !important;
+  font-weight: 700 !important;
+  line-height: 1.25 !important;
+  letter-spacing: normal !important;
+}
+.landing-page :is(#home-split-title, #market-growth-title, #services-title, #academy-gallery-title, #credibility-title, #stories-title, #india-testimonials-title, #faq-title, #home-location-title, #final-demo-title) :is(strong, span, em) {
+  color: inherit !important;
+  font-family: inherit !important;
+  font-weight: inherit !important;
+  font-style: inherit;
+  letter-spacing: inherit;
+}
+@media (min-width: 768px) {
+  .landing-page :is(#home-split-title, #market-growth-title, #services-title, #academy-gallery-title, #credibility-title, #stories-title, #india-testimonials-title, #faq-title, #home-location-title, #final-demo-title) { font-size: 36px !important; }
+}
+@media (min-width: 1024px) {
+  .landing-page :is(#home-split-title, #market-growth-title, #services-title, #academy-gallery-title, #credibility-title, #stories-title, #india-testimonials-title, #faq-title, #home-location-title, #final-demo-title) { font-size: 48px !important; }
+}
